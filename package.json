@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/Clodial/PlayDuctive/issues"
   },
-  "homepage": "https://github.com/Clodial/PlayDuctive#readme"
+  "homepage": "https://github.com/Clodial/PlayDuctive#readme",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "method-override": "^2.3.5",
+    "mongoose": "^4.4.6",
+    "mysql": "^2.10.2"
+  }
 }
