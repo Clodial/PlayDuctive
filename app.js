@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
 
 app.get('*', function(req,res){
+		console.log("yo");
 		res.sendFile(__dirname + '/public/view/index.html');
 })
 
