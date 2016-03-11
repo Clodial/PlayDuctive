@@ -17,7 +17,7 @@ app.use(express.static(__dirname + '/public'));
 console.log("lala");
 app.get('/', function(req,res){
 		console.log("yo");
-		res.render(__dirname + 'public/view/index.html');
+		res.render(__dirname + 'view/index.html');
 })
 
 app.listen(8080);
