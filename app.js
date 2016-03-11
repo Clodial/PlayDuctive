@@ -1,7 +1,7 @@
 // app.js
 
 // modules ======================================
-/*var express 		= require('express');
+var express 		= require('express');
 var app				= express();
 var bodyParser		= require('body-parser');
 var methodOverride	= require('method-override');
@@ -20,15 +20,3 @@ app.get('*', function(req,res){
 })
 
 app.listen(8080);
-//
-
-*/
-var express = require('express');
-var app = express();
-app.get ('/', function(req, res){
-	res.send('Hello');
-});
-
-app.listen(8080, function(){
-	console.log('bleeegh');
-});
