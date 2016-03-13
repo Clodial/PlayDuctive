@@ -4,7 +4,7 @@
   "description": "A Project Management System with Gamification",
   "main": "app.js",
   "scripts": {
-    "start" : "app.js"
+    "start" : "node app.js"
   },
   "engines": {
     "node" : "4.x",
