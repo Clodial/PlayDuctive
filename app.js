@@ -13,6 +13,8 @@ var fs 				= require('fs');
 
 // configuration ===============================
 
+app.set('port', (process.env.PORT || 1337));
+
 app.get('/', function(req,res){
 	res.sendFile(path.join(__dirname + '/public/view/index.html'));
 });
