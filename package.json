@@ -6,6 +6,10 @@
   "scripts": {
     "start" : "app.js"
   },
+  "engines": {
+    "node" : "4.x",
+    "npm" : "2.1.x"
+  }
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Clodial/PlayDuctive.git"
