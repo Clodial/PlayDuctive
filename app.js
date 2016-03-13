@@ -15,9 +15,12 @@ var fs 				= require('fs');
 
 app.set('port', (process.env.PORT || 1337));
 
+app.use(express.static(__dirname + '/public'));
+
+app.set('views', __dirname + '/views');
 app.get('/', function(req,res){
-	res.sendFile(path.join(__dirname + '/public/view/index.html'));
+	res.sendFile(path.join(__dirname + 'index.html'));
 });
 
-app.listen(1337);
+app.listen(app.get('port'));
 console.log('at least this hopefully works');
