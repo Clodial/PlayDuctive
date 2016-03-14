@@ -23,3 +23,5 @@ app.get('/', function(req,res){
 
 app.listen(app.get('port'));
 console.log('at least this hopefully works');
+
+module.exports = app;

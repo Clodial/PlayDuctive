@@ -4,11 +4,11 @@
   "description": "A Project Management System with Gamification",
   "main": "app.js",
   "scripts": {
-    "start" : "node app.js"
+    "start": "node app.js"
   },
   "engines": {
-    "node" : "4.x",
-    "npm" : "2.1.x"
+    "node": "4.x",
+    "npm": "2.1.x"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Clodial/PlayDuctive#readme",
   "dependencies": {
+    "angular": "^1.5.0",
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
     "method-override": "^2.3.5",
