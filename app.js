@@ -2,11 +2,10 @@
 
 // modules ======================================
 var express 		= require('express');
+var path			= require('path');
 var app				= express();
 var router 			= require('./app/routes/main-routes');
 var users 			= require('./app/routes/main-users');
-var adRouter		= express.Router();
-var path 			= require('path');
 
 // configuration ===============================
 
