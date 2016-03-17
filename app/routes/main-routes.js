@@ -1,5 +1,4 @@
 //main-routes.js
-console.log("yooo");
 var express = require('express');
 var router  = express();
 var path 	= require("path");

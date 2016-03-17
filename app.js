@@ -16,10 +16,6 @@ app.use(express.static(__dirname + '/public'));
 app.use('/', router);
 app.use('/users', users);
 
-app.get(function(req,res){
-	res.send("It Broke");
-});
-
 app.listen(app.get('port'));
 
 module.exports = app;
