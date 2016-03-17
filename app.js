@@ -12,13 +12,12 @@ app.set('port', (process.env.PORT || 1337));
 
 app.use(express.static(__dirname + '/public'));
 
+app.use('./app/routes/main-routes', routes);
+app.use('./app/routes/main-users', users);
+
 app.get(function(req,res){
 	res.send("It Broke");
 });
-app.get('/', function(req,res){
-	res.sendFile(path.join(__dirname + '/public/view/index.html'));
-});
-
 
 app.listen(app.get('port'));
 
