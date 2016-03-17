@@ -19,7 +19,9 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req,res){
 	res.sendFile(path.join(__dirname + '/public/view/index.html'));
+	res.send(process.env.JAWSDB_URL);
 });
+
 
 app.listen(app.get('port'));
 console.log('at least this hopefully works');
