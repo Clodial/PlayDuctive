@@ -3,6 +3,8 @@
 // modules ======================================
 var express 		= require('express');
 var app				= express();
+var router 			= require('./app/routes/main-routes');
+var users 			= require('./app/routes/main-users');
 var adRouter		= express.Router();
 var path 			= require('path');
 
@@ -12,8 +14,8 @@ app.set('port', (process.env.PORT || 1337));
 
 app.use(express.static(__dirname + '/public'));
 
-app.use('./app/routes/main-routes', routes);
-app.use('./app/routes/main-users', users);
+app.use('/', router);
+app.use('/users', users);
 
 app.get(function(req,res){
 	res.send("It Broke");
