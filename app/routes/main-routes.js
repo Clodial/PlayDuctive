@@ -11,11 +11,10 @@ router.get('/', function(req, res, next) {
  	con.connect();
  	con.query('SELECT 1 + 1 AS solution', function(err,row,fields){
  		if (err) throw err;
- 		//console.log('The solution is: ', rows[0].solution);
- 		//res.send(rows[0].solution);
+ 		console.log('The solution is: ', rows[0].solution);
+ 		res.send("so, this must work");
  	});
   	//res.sendFile(path.join(__dirname + '../../../public/view/index.html'));
-  	res.send('yo');
   	con.end();
 });
 
