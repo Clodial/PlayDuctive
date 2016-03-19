@@ -68,6 +68,8 @@ function runQuery(query, paramList) {
 }
 
 app.post('/create_project/posts', function (req, res) {
+    var accountName = req.body.accountName;
+    var accountPass = req.body.accountPass;
     var projType = req.body.projType;
     //var status = req.body.status; //default to incomplete
     var projName = req.body.projName;

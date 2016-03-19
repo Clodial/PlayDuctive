@@ -1,10 +1,12 @@
 $("button").click(function () {
     $.ajax({
-        url: "blah",
-        type: "PUT",
+        url: "create_project/posts",
+        type: "POST",
         dataType: "json",
         data: JSON.stringify({
-            "projType":"Waterfall",
+            "accountName": "tkt5",
+            "accountPass": "5tkt",
+            "projType": "Waterfall",
             "projName": "blah",
             "projDesc": "blah"
         }),
@@ -13,5 +15,5 @@ $("button").click(function () {
         success: function (result) {
             //maybe do something to the page
         }
-    })
+    });
 });
