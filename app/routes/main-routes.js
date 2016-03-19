@@ -8,14 +8,14 @@ var con = mysql.createConnection(process.env.JAWSDB_URL);
 
 //Index page route
 router.get('/', function(req, res, next) {
- 	con.connect();
+ 	/*con.connect();
  	con.query('SELECT 1 + 1 AS solution', function(err,row,fields){
  		if (err) throw err;
  		console.log('The solution is: ', rows[0].solution);
  		//res.render(__dirname + '../js/index.js',rows[0].solution);
- 	});
+ 	});*/
   	res.sendFile(path.join(__dirname + '/public/view/index.html'));
-  	con.end();
+  	//con.end();
 });
 
 module.exports = router;
