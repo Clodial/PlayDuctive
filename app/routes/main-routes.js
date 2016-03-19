@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
  		console.log('The solution is: ', rows[0].solution);
  		res.send(rows[0]);
  	});
-  	res.sendFile(path.join(__dirname + '../../../public/view/index.html'));
+  	//res.sendFile(path.join(__dirname + '../../../public/view/index.html'));
   	con.end();
 });
 
