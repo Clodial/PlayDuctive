@@ -1,5 +1,5 @@
 var express = require('express');
-var router 	= express.Router();
+var router 	= express();
 var path 	= require('path');
 var mysql 	= require('mysql');
 
