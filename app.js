@@ -14,7 +14,7 @@ app.set('port', (process.env.PORT || 1337));
 
 app.use('/', router);
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/'));
 
 app.listen(app.get('port'));
 
