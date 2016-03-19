@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
 });
 
 module.exports = router;
-
+/*
 var apiRouter= express.Router();
 
 module.export = function() {
