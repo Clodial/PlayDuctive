@@ -1,5 +1,5 @@
 var express = require('express');
-var router 	= express();
+var router 	= express.Router();
 var path 	= require('path');
 var mysql 	= require('mysql');
 
@@ -14,13 +14,13 @@ router.get('/', function(req, res, next) {
  		console.log('The solution is: ', rows[0].solution);
  		res.render(__dirname + '../js/index.js',rows[0].solution);
  	});
-  	res.sendFile(path.join(__dirname + 'index.html'));
+  	res.sendFile(path.join(__dirname + '/public/view/index.html'));
   	con.end();
 });
 
 module.exports = router;
-/*
-var apiRouter= express.Router;
+
+var apiRouter= express.Router();
 
 module.export = function() {
 
