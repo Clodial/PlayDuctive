@@ -17,9 +17,9 @@ router.get('/', function(req, res, next) {
   	res.sendFile(path.join(__dirname + '../../../public/view/index.html'));
   	con.end();
 });
-/*
-module.exports = router;
 
+module.exports = router;
+/*
 var apiRouter= express.Router;
 
 module.export = function() {
