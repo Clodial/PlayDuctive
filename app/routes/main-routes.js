@@ -4,7 +4,7 @@ var path 	= require('path');
 var mysql 	= require('mysql');
 
 //database connection stuff
-var con = mysql.createConnection(process.env.JAWSDB_URL);
+//var con = mysql.createConnection(process.env.JAWSDB_URL);
 
 //Index page route
 router.get('/', function(req, res, next) {
