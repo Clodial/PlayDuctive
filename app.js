@@ -10,7 +10,7 @@ var methodOverride	= require('method-override');
 var path 			= require('path');
 var http			= require('http');
 var fs 				= require('fs');
-var mysql           = require('mysql');
+//var mysql           = require('mysql');
 
 // configuration ===============================
 
