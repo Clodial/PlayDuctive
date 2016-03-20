@@ -31,14 +31,16 @@ app.get('/create_project.js', function (req, res) {
     res.sendFile(path.join(__dirname + '/app/components/create_project.js'));
 });
 
+//create a connection
+var connection = mysql.createConnection(process.env.JAWSDB_URL);
+
 function runQuery(query, paramList) {
     /**
     * @ Runs an arbitrary query with arbitrary parameters
     * @ query: A MySQL query, with ? for the parameters
     * @ paramList: A list of parameter values that line up with the query
     */
-    //create a connection
-    var connection = mysql.createConnection(process.env.JAWSDB_URL);
+    
 
     //connect to the database
     connection.connect(function (err) {
@@ -65,7 +67,7 @@ function runQuery(query, paramList) {
         }
     );
     //close the connection
-    connection.end();
+    //connection.end();
 }
 
 app.post('/create_project/posts', function (req, res) {
