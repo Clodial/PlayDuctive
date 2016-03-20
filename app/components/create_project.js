@@ -6,9 +6,9 @@ $("button").click(function () {
         data: JSON.stringify({
             "accountName": "tkt5",
             "accountPass": "5tkt",
-            "projType": "Waterfall",
-            "projName": "blah",
-            "projDesc": "blah"
+            "projType": $("[name=projType]").val(),
+            "projName": $("[name=projName]").val(),
+            "projDesc": $("[name=projDesc]").val()
         }),
         contentType: "application/json",
         mimeType: "application/json",
