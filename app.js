@@ -16,6 +16,7 @@ var fs 				= require('fs');
 app.set('port', (process.env.PORT || 1337));
 
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.json());
 
 app.get('/', function(req,res){
 	res.sendFile(path.join(__dirname + '/public/view/index.html'));
