@@ -4,10 +4,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 </head>
 <body>
-	<div>Click the button below to create a project.</div>
     <form id="projectForm">
       Project Type:<br>
-      <input type="text" name="projType"><br>
+      <select name="projType">
+          <option value="Waterfall">Waterfall</option>
+          <option value="Agile">Agile</option>
+      </select><br>
       Project Name:<br>
       <input type="text" name="projName"><br>
       Project Description:<br>
