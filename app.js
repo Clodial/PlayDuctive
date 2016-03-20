@@ -38,12 +38,7 @@ function runQuery(query, paramList) {
     * @ paramList: A list of parameter values that line up with the query
     */
     //create a connection
-    var connection = mysql.createConnection({
-        host: process.env.JAWSDB_URL,
-        user: process.env.JAWSDB_USER,
-        password: process.env.JAWSDB_PASS,
-        database: process.env.JAWSDB_SCHEMA
-    });
+    var connection = mysql.createConnection(process.env.JAWSDB_URL);
 
     //connect to the database
     connection.connect(function (err) {
