@@ -25,6 +25,10 @@ app.get('/create_project.html', function (req, res) {
     res.sendFile(path.join(__dirname + '/public/view/create_project.html'));
 });
 
+app.get('/create_project.js', function (req, res) {
+    res.sendFile(path.join(__dirname + '/app/components/create_project.js'));
+});
+
 function runQuery(query, paramList) {
     /**
     * @ Runs an arbitrary query with arbitrary parameters
@@ -33,10 +37,10 @@ function runQuery(query, paramList) {
     */
     //create a connection
     var connection = mysql.createConnection({
-        host: 'localhost',
-        user: '<INSERT MYSQL USERNAME HERE>',
-        password: '<INSERT MYSQL PASSWORD HERE>',
-        database: '<INSERT MYSQL DATABASE HERE>'
+        host: process.env.JAWSDB_URL,
+        user: process.env.JAWSDB_USER,
+        password: process.env.JAWSDB_PASS,
+        database: process.env.JAWSDB_SCHEMA
     });
 
     //connect to the database
@@ -82,6 +86,5 @@ app.post('/create_project/posts', function (req, res) {
 });
 
 app.listen(app.get('port'));
-console.log('at least this hopefully works');
 
 module.exports = app;
