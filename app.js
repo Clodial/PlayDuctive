@@ -56,13 +56,9 @@ function runQuery(query, paramList) {
             if (err) {
                 console.log('QUERY ERROR');
                 console.log(err.code);
-                res.json(
-                      {success: 'false'}
-                );
+                return false;
             } else {
-                res.json(
-                      {success: 'true'}
-                );
+                return true;
             }
         }
     );
@@ -71,7 +67,6 @@ function runQuery(query, paramList) {
 }
 
 app.post('/create_project/posts', function (req, res) {
-    console.log(req.body);
     var accountName = req.body.accountName;
     var accountPass = req.body.accountPass;
     var projType = req.body.projType;
@@ -82,7 +77,12 @@ app.post('/create_project/posts', function (req, res) {
     //insert validation of values here(types, length requirement, etc.)
 
     // call stored procedure that creates a project
-    runQuery('CALL createProject(?,?,?,?);',[projType, "INCOMPLETE", projName, projDesc]);
+    var status = runQuery('CALL createProject(?,?,?,?);', [projType, "INCOMPLETE", projName, projDesc]);
+    if (status) {
+        res.json({ success: "true" });
+    } else {
+        res.json({ success: "false" });
+    }
 });
 
 app.listen(app.get('port'));
