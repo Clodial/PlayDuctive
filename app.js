@@ -41,14 +41,14 @@ function runQuery(query, paramList) {
     * @ paramList: A list of parameter values that line up with the query
     */
     
-
-    //connect to the database
-    connection.connect(function (err) {
-        if (err) {
-            console.log('CONNECTION ERROR');
-            console.log(err.code);
-        }
-    });
+    //don't need to connect twice in node-mysql
+    ////connect to the database
+    //connection.connect(function (err) {
+    //    if (err) {
+    //        console.log('CONNECTION ERROR');
+    //        console.log(err.code);
+    //    }
+    //});
 
     //query the database
     connection.query(query, paramList,
@@ -62,6 +62,7 @@ function runQuery(query, paramList) {
             }
         }
     );
+    //don't need this either
     //close the connection
     //connection.end();
 }
