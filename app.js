@@ -72,7 +72,7 @@ function runQuery(query, paramList) {
 }
 
 app.post('/create_project/posts', function (req, res) {
-    console.log(req);
+    console.log(req.body);
     var accountName = req.body.accountName;
     var accountPass = req.body.accountPass;
     var projType = req.body.projType;
