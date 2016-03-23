@@ -29,24 +29,15 @@ function runQuery(query, paramList) {
     //close the connection
     //connection.end();
 }
+router.get('/', function(req,res,next){
+	res.sendFile(path.join(__dirname + '../../../public/view/index.html'));
+});
 
-module.export = function(){
+router.get('/login', function(req,res,next){
+	res.sendFile(path.join(__dirname + '../../../public/view/login.html'));
+});
 
-		router.get('/', function(req,res,next){
-			res.sendFile(path.join(__dirname + '../../../public/view/index.html'));
-		});
-
-		router.use('/login');
-
-		router.get('/login', function(req,res,next){
-			res.sendFile(path.join(__dirname + '../../../public/view/login.html'));
-		});
-
-	return router;
-
-}
-
-//module.exports = router;
+module.exports = router;
 /*
 var apiRouter= express.Router();
 
