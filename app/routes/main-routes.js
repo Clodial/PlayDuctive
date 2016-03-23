@@ -33,7 +33,6 @@ function runQuery(query, paramList) {
 module.export = function(){
 
 	router.get('/', function(req,res,next){
-		if
 		res.sendFile(path.join(__dirname + '../../../public/view/index.html'));
 	});
 
