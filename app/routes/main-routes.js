@@ -1,22 +1,49 @@
 var express = require('express');
-var router 	= express();
 var path 	= require('path');
 var mysql 	= require('mysql');
 
 //database connection stuff
 var con = mysql.createConnection(process.env.JAWSDB_URL);
-
+var router 	= express.Router();
 //Index page route
-router.get('/', function(req, res, next) {
- 	con.connect();
- 	con.query('SELECT 1 + 1 AS solution', function(err,row,fields){
- 		if (err) throw err;
- 		console.log('The solution is: ', rows[0].solution);
- 		res.send("so, this must work");
- 	});
-  	//res.sendFile(path.join(__dirname + '../../../public/view/index.html'));
-  	con.end();
-});
+function runQuery(query, paramList) {
+    /**
+    * @ Runs an arbitrary query with arbitrary parameters
+    * @ query: A MySQL query, with ? for the parameters
+    * @ paramList: A list of parameter values that line up with the query
+    */
+
+    //query the database
+    con.query(query, paramList,
+        function (err, result) {
+            if (err) {
+                console.log('QUERY ERROR');
+                console.log(err.code);
+                return false;
+            } else {
+                return true;
+            }
+        }
+    );
+    //don't need this either
+    //close the connection
+    //connection.end();
+}
+
+module.export = function(){
+
+	router.get('/', function(req,res,next){
+		if
+		res.sendFile(path.join(__dirname + '../../../public/view/index.html'));
+	});
+
+	router.get('/login', function(req,res,next){
+		res.sendFile(path.join(__dirname + '../../../public/view/login.html'));
+	});
+
+	return router;
+
+}
 
 module.exports = router;
 /*
