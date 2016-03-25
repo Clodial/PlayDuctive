@@ -6,29 +6,6 @@ var mysql 	= require('mysql');
 var con = mysql.createConnection(process.env.JAWSDB_URL);
 var router 	= express.Router();
 //Index page route
-function runQuery(query, paramList) {
-    /**
-    * @ Runs an arbitrary query with arbitrary parameters
-    * @ query: A MySQL query, with ? for the parameters
-    * @ paramList: A list of parameter values that line up with the query
-    */
-
-    //query the database
-    con.query(query, paramList,
-        function (err, result) {
-            if (err) {
-                console.log('QUERY ERROR');
-                console.log(err.code);
-                return false;
-            } else {
-                return true;
-            }
-        }
-    );
-    //don't need this either
-    //close the connection
-    //connection.end();
-}
 router.get('/', function(req,res,next){
 	res.sendFile(path.join(__dirname + '../../../public/view/index.html'));
 });
@@ -53,3 +30,27 @@ module.export = function() {
 		.post(function(req, res){});
 	return apiRouter; 
 }*/
+
+function runQuery(query, paramList) {
+    /**
+    * @ Runs an arbitrary query with arbitrary parameters
+    * @ query: A MySQL query, with ? for the parameters
+    * @ paramList: A list of parameter values that line up with the query
+    */
+
+    //query the database
+    con.query(query, paramList,
+        function (err, result) {
+            if (err) {
+                console.log('QUERY ERROR');
+                console.log(err.code);
+                return false;
+            } else {
+                return true;
+            }
+        }
+    );
+    //don't need this either
+    //close the connection
+    //connection.end();
+}
