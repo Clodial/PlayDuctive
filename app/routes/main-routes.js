@@ -14,6 +14,10 @@ router.get('/login', function(req,res,next){
 	res.sendFile(path.join(__dirname + '../../../public/view/login.html'));
 });
 
+router.get('/login/:page', function(req,res,next){
+    res.send("test" + req.params.page);
+});
+
 module.exports = router;
 /*
 var apiRouter= express.Router();
