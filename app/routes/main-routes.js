@@ -10,12 +10,12 @@ router.get('/', function(req,res,next){
 	res.sendFile(path.join(__dirname + '../../../public/view/index.html'));
 });
 
-router.get('/login', function(req,res,next){
-	res.sendFile(path.join(__dirname + '../../../public/view/login.html'));
+router.get('/login/:page', function(req,res,next){
+    res.send("test" + req.params.page);
 });
 
-router.get('/login/:page', function(req,res,next){
-    res.send("test" + req.query.page);
+router.get('/login', function(req,res,next){
+	res.sendFile(path.join(__dirname + '../../../public/view/login.html'));
 });
 
 module.exports = router;
