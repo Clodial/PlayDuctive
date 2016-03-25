@@ -10,7 +10,7 @@ router.get('/', function(req,res){
 	res.sendFile(path.join(__dirname + '../../../public/view/index.html'));
 });
 
-router.get('/login/:page', function(req,res){
+router.get('/login/', function(req,res){
     res.send("test " + req.param('page'));
 });
 
