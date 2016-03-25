@@ -6,15 +6,15 @@ var mysql 	= require('mysql');
 var con = mysql.createConnection(process.env.JAWSDB_URL);
 var router 	= express.Router();
 //Index page route
-router.get('/', function(req,res,next){
+router.get('/', function(req,res){
 	res.sendFile(path.join(__dirname + '../../../public/view/index.html'));
 });
 
-router.get('/login/:page', function(req,res,next){
+router.get('/login/:page', function(req,res){
     res.send("test" + req.params.page);
 });
 
-router.get('/login', function(req,res,next){
+router.get('/login', function(req,res){
 	res.sendFile(path.join(__dirname + '../../../public/view/login.html'));
 });
 
