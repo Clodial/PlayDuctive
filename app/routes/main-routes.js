@@ -11,7 +11,7 @@ router.get('/', function(req,res){
 });
 
 router.get('/login/:page', function(req,res){
-    res.send("test " + req.param('page');
+    res.send("test " + req.param('page'));
 });
 
 router.get('/login', function(req,res){
