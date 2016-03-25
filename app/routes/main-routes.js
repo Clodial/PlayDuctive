@@ -15,7 +15,7 @@ router.get('/login', function(req,res,next){
 });
 
 router.get('/login/:page', function(req,res,next){
-    res.send("test" + req.params.page);
+    res.send("test" + req.query.page);
 });
 
 module.exports = router;
