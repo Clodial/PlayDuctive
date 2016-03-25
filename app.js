@@ -12,6 +12,8 @@ var router			= require('./app/routes/main-routes');
 
 app.set('port', (process.env.PORT || 1337));
 
+app.set('view engine', 'ejs');
+
 app.use('/', router);
 
 app.use(express.static(__dirname + '/public'));
