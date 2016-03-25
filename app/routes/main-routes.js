@@ -7,7 +7,7 @@ var con = mysql.createConnection(process.env.JAWSDB_URL);
 var router 	= express.Router();
 //Index page route
 router.get('/', function(req,res){
-	res.sendFile(path.join(__dirname + '../../../public/view/index.html'));
+	res.render('../../../public/view/index', { title: 'Play yo'});
 });
 
 router.get('/login/', function(req,res){
