@@ -2,20 +2,18 @@
 <html lang="en">
 <head>
 	<!--Main front-end items-->
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-	<script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="js/index.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	<link href="css/style.css" rel="stylesheet" type="text/css">
+	<% include partials/head %>
+	<script type="text/javascript" src="../js/index.js"></script>
 	<title><%= title %> </title>
 </head>
 <body>
+	<!-- Navigation Bar -->
+	<% include partials/nav %>
 	<div class="col-md-2">
 		<form action="/login/" method="get">
 			<button type="submit" name="page" value="login">Login/Register</button>
 		</form>
-		<a href="/login">Test</a>
+		<a href="login">Test</a>
 	</div>
 </body>
 </html>

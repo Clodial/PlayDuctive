@@ -1,16 +1,30 @@
 <html>
 <head>
 	<!--Main front-end items-->
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-	<script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="js/index.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	<link href="css/style.css" rel="stylesheet" type="text/css">
-	<title>PlayDuctive</title>
+	<% include partials/head %>
+	<script type="text/javascript" src="../js/login.js"></script>
+	<title><%= title %></title>
 </head>
 <body>
-	<form >
-	</form>
+	<% include partials/nav %>
+	<div class="col-md-4">
+		<h1>Login</h1>
+		<form action="/" method="get">
+			<label>Username </label><input type="text" name="user" required/></br>
+			<label>Password </label><input type="password" name="pass" required/></br>
+			<button type="submit">Login</button>
+		</form>
+	</div>
+	<div class="col-md-4">
+		<h1>New Account</h1>
+		<form action="/" method="post">
+			<input type="hidden" name="register" value="true">
+			<label>New Username</label><input type="text" name="user" required></br>
+			<label>Email</label><input type="email" name="email" required></br>
+			<label>New Password</label><input type="password" name="pass" required></br>
+			<label>Repeat Password</label><input type="password" name="pass2"></br>
+			<button type="submit">Create Account</button>
+		</form>
+	</div>
 </body>
 </html>

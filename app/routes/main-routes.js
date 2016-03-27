@@ -1,21 +1,28 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var path 	= require('path');
 var mysql 	= require('mysql');
 
 //database connection stuff
-var con = mysql.createConnection(process.env.JAWSDB_URL);
+//var con = mysql.createConnection(process.env.JAWSDB_URL);
 var router 	= express.Router();
+
+router.use(bodyParser.urlencoded({ extended: false }));
+router.use(bodyParser.json());
+
 //Index page route
 router.get('/', function(req,res){
-	res.render('index', { title: 'Play yo'});
+    var logIn = req.session.views;
+	res.render('index', { title: 'PlayDuctive', logged: logIn, views: req.session.views});
 });
 
-router.get('/login/', function(req,res){
-    res.send("test " + req.param('page'));
+router.post('/', function(req,res){
+    res.render('index', { title: 'PlayDuctive'});
 });
 
 router.get('/login', function(req,res){
-	res.sendFile(path.join(__dirname + '../../../public/view/login.html'));
+    var logIn = req.session.loggedIn;
+	res.render('login', { title: 'PlayDuctive', logged: logIn, views: req.session.views});
 });
 
 module.exports = router;

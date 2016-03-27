@@ -61,3 +61,8 @@ BEGIN
 INSERT INTO Classes(accountId,classTitleId,classEXP) SELECT NEW.accountId, classTitleId, 0 FROM classTitles;
 END; //
 DELIMITER ;
+
+
+INSERT INTO ProjTypes(projTypeName) VALUES ("Waterfall"),("Agile");
+INSERT INTO Statuses(statusName) VALUES ("INCOMPLETE"),("COMPLETE");
+INSERT INTO ClassTitles(classTitle) VALUES ("Dungeon Master"),("Warrior"),("Magician"),("Rogue"),("Tinkerer"),("Priest");
