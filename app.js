@@ -12,7 +12,7 @@ var router			= require('./app/routes/main-routes');
 
 // configuration ===============================
 
-app.set('port', (process.env.PORT || 1337));
+app.set('port', (process.env.PORT || 80));
 
 app.set('trust proxy', 1);
 
