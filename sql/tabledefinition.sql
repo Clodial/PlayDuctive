@@ -104,5 +104,5 @@ DELIMITER ;
 
 
 INSERT INTO ProjTypes(projTypeName) VALUES ("Waterfall"),("Agile");
-INSERT INTO Statuses(statusName) VALUES ("NOT-STARTED"),("IN-PROGRESS"),("COMPLETE");
+INSERT INTO Statuses(statusName) VALUES ("NOT-STARTED"),("INPROGRESS"),("COMPLETE");
 INSERT INTO ClassTitles(classTitle) VALUES ("Dungeon Master"),("Warrior"),("Magician"),("Rogue"),("Tinkerer"),("Priest");
