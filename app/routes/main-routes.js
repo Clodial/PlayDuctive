@@ -24,6 +24,11 @@ router.get('/login', function(req,res){
     var logIn = req.session.loggedIn;
 	res.render('login', { title: 'PlayDuctive', logged: logIn, views: req.session.views});
 });
+router.post('/login', function(req, res){
+    var user = req.body.user;
+    var email = req.body.email;
+    var pass = req.body.pass;
+});
 
 module.exports = router;
 /*
