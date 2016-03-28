@@ -132,7 +132,7 @@ function selectQuery(query, paramList){
 function queryTest(){
     var sol = 0;
     console.log("yolo");
-    con.query('SELECT 1 + 1 AS SOLUTION', function(err, rows, fields){
+    con.query('SELECT 1 + 1 AS solution', function(err, rows, fields){
         if(err) throw err;
         console.log(rows[0].solution);
         sol = rows[0].solution;
