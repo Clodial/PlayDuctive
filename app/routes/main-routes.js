@@ -52,10 +52,8 @@ router.post('/login/usetest', function(req,res){
                 console.log('QUERY ERROR');
                 console.log(err.code);
             } else {
-                for(var i = 0; i < result.length; i++){
-                    resultNum = resultNum + 1;
-                }
-                console.log(resultNum);
+                if(result.length > 0)
+                    console.log(resultNum);
                 //res.send(resultNum);
             }
         }
