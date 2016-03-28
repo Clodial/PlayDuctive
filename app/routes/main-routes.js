@@ -4,7 +4,7 @@ var path 	= require('path');
 var mysql 	= require('mysql');
 
 //database connection stuff
-//var con = mysql.createConnection(process.env.JAWSDB_URL);
+var con = mysql.createConnection(process.env.JAWSDB_URL);
 var router 	= express.Router();
 
 router.use(bodyParser.urlencoded({ extended: false }));
@@ -20,6 +20,7 @@ router.post('/', function(req,res){
     res.render('index', { title: 'PlayDuctive'});
 });
 
+//Login routes
 router.get('/login', function(req,res){
     var logIn = req.session.loggedIn;
 	res.render('login', { title: 'PlayDuctive', logged: logIn, views: req.session.views});
@@ -30,6 +31,16 @@ router.post('/login', function(req, res){
     var pass = req.body.pass;
 });
 
+router.post('/login/use-test', function(req,res){
+    var user = req.body;  
+    var status = runQuery('select * from Accounts where accountUser = ?', [req.body.user]);
+    if(status){
+        res.send(status.query.accountUser);
+    }
+});
+
+
+//project creation routes
 router.get('/create_project.html', function (req, res) {
     res.sendFile(path.join(__dirname + '/public/view/create_project.html'));
 });
@@ -89,7 +100,7 @@ function runQuery(query, paramList) {
                 console.log(err.code);
                 return false;
             } else {
-                return true;
+                return result;
             }
         }
     );
