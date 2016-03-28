@@ -29,12 +29,17 @@ router.post('/login', function(req, res){
     var user = req.body.user;
     var email = req.body.email;
     var pass = req.body.pass;
-    var status = insertQuery('CALL createAccount(?,?,?)', [user, pass, email]);
-    if(status){
-        res.send("success");
-    }else{
-        res.send("failure");
-    }
+    con.query('CALL createAccount(?,?,?)', [user, pass, email],
+        function (err, result) {
+            if (err) {
+                console.log('QUERY ERROR');
+                console.log(err.code);
+            } else {
+                console.log("success: " + true);
+                res.send("success";
+            }
+        }
+    );
 });
 
 router.post('/login/usetest', function(req,res){

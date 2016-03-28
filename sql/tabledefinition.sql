@@ -58,7 +58,7 @@ DELIMITER //
 
 CREATE TRIGGER afterAccountCreate AFTER INSERT ON Accounts FOR EACH ROW
 BEGIN
-INSERT INTO Classes(accountId,classTitleId,classEXP) SELECT NEW.accountId, classTitleId, 0 FROM classTitles;
+INSERT INTO Classes(accountId,classTitleId,classEXP) SELECT NEW.accountId, classTitleId, 0 FROM ClassTitles;
 END; 
 
 CREATE PROCEDURE createProject(
