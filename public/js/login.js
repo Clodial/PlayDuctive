@@ -19,7 +19,7 @@ $("#reg-user").keyup(function(){
 	var user = document.getElementById("reg-user").value;
 	var useCheck = "";
 	$.ajax({
-		url: "/login/use-test",
+		url: "/login/usetest",
 		type: "POST",
 		datatype: "json",
 		data: JSON.stringify({
@@ -28,6 +28,7 @@ $("#reg-user").keyup(function(){
 		contentType: "application/json",
 		mimeType: "application/json",
 		success: function(result){
+			document.getElementById("user-check").innerHTML = result;
 			console.log(result);
 		}
 	});

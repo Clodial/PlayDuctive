@@ -31,12 +31,17 @@ router.post('/login', function(req, res){
     var pass = req.body.pass;
 });
 
-router.post('/login/use-test', function(req,res){
+router.post('/login/usetest', function(req,res){
     var user = req.body;  
-    var status = runQuery('select * from Accounts where accountUser = ?', [req.body.user]);
-    if(status){
+    //var status = selectQuery('select * from Accounts where accountUser = ?', [req.body.user]);
+    var status = queryTest(res);
+    console.log(status);
+    /*if(status){
+        console.log(status);
         res.send(status);
-    }
+    }else{
+        res.send(req.body.user);
+    }*/
 });
 
 
@@ -85,7 +90,7 @@ module.export = function() {
 	return apiRouter; 
 }*/
 
-function runQuery(query, paramList) {
+function insertQuery(query, paramList) {
     /**
     * @ Runs an arbitrary query with arbitrary parameters
     * @ query: A MySQL query, with ? for the parameters
@@ -100,11 +105,37 @@ function runQuery(query, paramList) {
                 console.log(err.code);
                 return false;
             } else {
-                return result;
+                return true;
             }
         }
     );
     //don't need this either
     //close the connection
     //connection.end();
+}
+function selectQuery(query, paramList){
+    var resultNum = 0;
+    con.query(query, paramList,
+        function (err, result) {
+            if (err) {
+                console.log('QUERY ERROR');
+                console.log(err.code);
+                return false;
+            } else {
+                for(var i = 0; i < result.length; i++){
+                    resultNum = resultNum + 1;
+                }
+            }
+        }
+    );
+    return resultNum;
+}
+function queryTest(res){
+    var sol = 0;
+    con.query('SELECT 1 + 1 AS solution', function(err, rows, fields){
+        if(err) throw err;
+        sol = rows[0].solution;
+        res.send(sol);
+    });
+    return sol;
 }
