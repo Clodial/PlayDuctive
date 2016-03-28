@@ -46,13 +46,13 @@ router.post('/login/usetest', function(req,res){
     var user = req.body.user;  
     //var status = selectQuery('select * from Accounts where accountUser = ?', [req.body.user]);
     //select * from Accounts where accountUser = ?
-    con.query('select 1 + 1 as solution', [user],
+    con.query('select accountId where accountUser = ?', [user],
         function (err, result) {
             resultNum = 0;
             if (err) {
                 console.log(err.code);
             } else {
-                if(result.length > 0){console.log(result[0].solution);};
+                if(result.length > 0){console.log(result[0].accountId);};
                 //res.send(resultNum);
             }
         }
