@@ -1,3 +1,5 @@
+DROP PROCEDURE IF EXISTS createProject;
+
 DROP TRIGGER IF EXISTS afterAccountCreate;
 
 DROP TABLE IF EXISTS AccountTasks, Projects, ProjTypes, Statuses, Classes, ClassTitles, Accounts;
@@ -59,12 +61,17 @@ DELIMITER //
 CREATE TRIGGER afterAccountCreate AFTER INSERT ON Accounts FOR EACH ROW
 BEGIN
 INSERT INTO Classes(accountId,classTitleId,classEXP) SELECT NEW.accountId, classTitleId, 0 FROM classTitles;
+<<<<<<< HEAD
 END; 
+=======
+END; //
+>>>>>>> master
 
 CREATE PROCEDURE createProject(
 IN newProjType VARCHAR(255),
 IN newStatus VARCHAR(255),
 IN newProjName VARCHAR(255),
+<<<<<<< HEAD
 IN newProjDesc TEXT)
 BEGIN
 INSERT INTO Projects(projTypeId,statusId,projName,projDesc) SELECT projTypeId,statusId,newProjName,newProjDesc FROM ProjTypes,Statuses WHERE projTypeName=newProjType AND statusName=newStatus;
@@ -107,3 +114,13 @@ DELIMITER ;
 INSERT INTO ProjTypes(projTypeName) VALUES ("Waterfall"),("Agile");
 INSERT INTO Statuses(statusName) VALUES ("NOT-STARTED"),("IN-PROGRESS"),("COMPLETE");
 INSERT INTO ClassTitles(classTitle) VALUES ("Dungeon Master"),("Warrior"),("Magician"),("Rogue"),("Tinkerer"),("Priest");
+=======
+IN newProjDesc TEXT) 
+BEGIN
+INSERT INTO Projects(projTypeId,statusId,projName,projDesc) SELECT projTypeId,statusId,newProjName,newProjDesc FROM ProjTypes,Statuses WHERE projTypeName=newProjType AND statusName=newStatus;
+END; //
+DELIMITER ;
+
+INSERT INTO ProjTypes(projTypeName) VALUES ("Waterfall"),("Agile");
+INSERT INTO Statuses(statusName) VALUES ("INCOMPLETE"),("COMPLETE");
+>>>>>>> master

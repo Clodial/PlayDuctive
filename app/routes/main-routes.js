@@ -30,6 +30,33 @@ router.post('/login', function(req, res){
     var pass = req.body.pass;
 });
 
+router.get('/create_project.html', function (req, res) {
+    res.sendFile(path.join(__dirname + '/public/view/create_project.html'));
+});
+
+router.get('/create_project.js', function (req, res) {
+    res.sendFile(path.join(__dirname + '/app/components/create_project.js'));
+});
+
+router.post('/create_project/posts', function (req, res) {
+    var accountName = req.body.accountName;
+    var accountPass = req.body.accountPass;
+    var projType = req.body.projType;
+    //var status = req.body.status; //default to incomplete
+    var projName = req.body.projName;
+    var projDesc = req.body.projDesc;
+
+    //insert validation of values here(types, length requirement, etc.)
+
+    // call stored procedure that creates a project
+    var status = runQuery('CALL createProject(?,?,?,?);', [projType, "INCOMPLETE", projName, projDesc]);
+    if (status) {
+        res.json({ success: "true" });
+    } else {
+        res.json({ success: "false" });
+    }
+});
+
 module.exports = router;
 /*
 var apiRouter= express.Router();
