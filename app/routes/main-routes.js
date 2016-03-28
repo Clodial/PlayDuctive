@@ -134,6 +134,7 @@ function queryTest(){
     console.log("yolo");
     con.query('SELECT 1 + 1 AS SOLUTION', function(err, rows, fields){
         if(err) throw err;
+        console.log(rows[0].solution);
         sol = rows[0].solution;
     });
     console.log(sol);
