@@ -28,7 +28,8 @@ $("#reg-user").keyup(function(){
 		contentType: "application/json",
 		mimeType: "application/json",
 		success: function(result){
-			console.log(result);
+			if(result)
+			
 		}
 	});
 });

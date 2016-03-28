@@ -33,8 +33,8 @@ router.post('/login', function(req, res){
 
 router.post('/login/usetest', function(req,res){
     var user = req.body;  
-    //var status = runQuery('select * from Accounts where accountUser = ?', [req.body.user]);
-    var status = queryTest();
+    var status = runQuery('select * from Accounts where accountUser = ?', [req.body.user]);
+    //var status = queryTest();
     if(status){
         res.send(status);
     }else{
@@ -88,7 +88,7 @@ module.export = function() {
 	return apiRouter; 
 }*/
 
-function runQuery(query, paramList) {
+function insertQuery(query, paramList) {
     /**
     * @ Runs an arbitrary query with arbitrary parameters
     * @ query: A MySQL query, with ? for the parameters
@@ -103,13 +103,30 @@ function runQuery(query, paramList) {
                 console.log(err.code);
                 return false;
             } else {
-                return result;
+                return true;
             }
         }
     );
     //don't need this either
     //close the connection
     //connection.end();
+}
+function selectQuery(query, paramList){
+    var resultNum = 0;
+    con.query(query, paramList,
+        function (err, result) {
+            if (err) {
+                console.log('QUERY ERROR');
+                console.log(err.code);
+                return false;
+            } else {
+                for(var i = 0; i < result.length; i++){
+                    resultNum = resultNum + 1;
+                }
+            }
+        }
+    );
+    return resultNum;
 }
 function queryTest(){
     var sol = 0;
