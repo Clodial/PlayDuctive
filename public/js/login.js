@@ -29,7 +29,7 @@ $("#reg-user").keyup(function(){
 		mimeType: "application/json",
 		success: function(result){
 			//document.getElementById("user-check").innerHTML = result;
-			//console.log(result);
+			console.log(result);
 		}
 	});
 });
