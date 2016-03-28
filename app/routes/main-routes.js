@@ -29,7 +29,7 @@ router.post('/login', function(req, res){
     var user = req.body.user;
     var email = req.body.email;
     var pass = req.body.pass;
-    var status = insertQuery('CALL createAccount(?,?,?)', [user,email,pass]);
+    var status = insertQuery('CALL createAccount(?,?,?)', [user, pass, email]);
     if(status){
         res.send("success");
     }else{
@@ -111,7 +111,7 @@ function insertQuery(query, paramList) {
                 console.log(err.code);
                 return false;
             } else {
-                return true;
+                console.log("success: " + true);
             }
         }
     );
