@@ -33,7 +33,7 @@ router.post('/login', function(req, res){
 
 router.post('/login/usetest', function(req,res){
     var user = req.body;  
-    var status = runQuery('select * from Accounts where accountUser = ?', [req.body.user]);
+    var status = selectQuery('select * from Accounts where accountUser = ?', [req.body.user]);
     //var status = queryTest();
     if(status){
         res.send(status);
