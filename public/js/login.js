@@ -28,8 +28,8 @@ $("#reg-user").keyup(function(){
 		contentType: "application/json",
 		mimeType: "application/json",
 		success: function(result){
-			document.getElementById("user-check").innerHTML = result;
-			console.log(result);
+			//document.getElementById("user-check").innerHTML = result;
+			//console.log(result);
 		}
 	});
 });

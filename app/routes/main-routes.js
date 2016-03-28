@@ -56,7 +56,8 @@ router.post('/login/usetest', function(req,res){
                 for(var i = 0; i < result.length; i++){
                     resultNum = resultNum + 1;
                 }
-                res.send(resultNum);
+                console.log(resultNum);
+                //res.send(resultNum);
             }
         }
     );
