@@ -36,7 +36,7 @@ router.post('/login', function(req, res){
                 console.log(err.code);
             } else {
                 console.log("success: " + true);
-                res.send("success");
+                res.render('login', {title: 'PlayDuctive', success: "success"});
             }
         }
     );
@@ -45,14 +45,21 @@ router.post('/login', function(req, res){
 router.post('/login/usetest', function(req,res){
     var user = req.body;  
     //var status = selectQuery('select * from Accounts where accountUser = ?', [req.body.user]);
-    var status = queryTest(res);
-    console.log(status);
-    /*if(status){
-        console.log(status);
-        res.send(status);
-    }else{
-        res.send(req.body.user);
-    }*/
+    con.query('select * from Accounts where accountUser = ?', [req.body.user],
+        function (err, result) {
+            resultNum = 0;
+            if (err) {
+                console.log('QUERY ERROR');
+                console.log(err.code);
+                return false;
+            } else {
+                for(var i = 0; i < result.length; i++){
+                    resultNum = resultNum + 1;
+                }
+                res.send(resultNum);
+            }
+        }
+    );
 });
 
 
@@ -100,53 +107,3 @@ module.export = function() {
 		.post(function(req, res){});
 	return apiRouter; 
 }*/
-
-function insertQuery(query, paramList) {
-    /**
-    * @ Runs an arbitrary query with arbitrary parameters
-    * @ query: A MySQL query, with ? for the parameters
-    * @ paramList: A list of parameter values that line up with the query
-    */
-
-    //query the database
-    con.query(query, paramList,
-        function (err, result) {
-            if (err) {
-                console.log('QUERY ERROR');
-                console.log(err.code);
-                return false;
-            } else {
-                console.log("success: " + true);
-            }
-        }
-    );
-    //don't need this either
-    //close the connection
-    //connection.end();
-}
-function selectQuery(query, paramList){
-    var resultNum = 0;
-    con.query(query, paramList,
-        function (err, result) {
-            if (err) {
-                console.log('QUERY ERROR');
-                console.log(err.code);
-                return false;
-            } else {
-                for(var i = 0; i < result.length; i++){
-                    resultNum = resultNum + 1;
-                }
-            }
-        }
-    );
-    return resultNum;
-}
-function queryTest(res){
-    var sol = 0;
-    con.query('SELECT 1 + 1 AS solution', function(err, rows, fields){
-        if(err) throw err;
-        sol = rows[0].solution;
-        res.send(sol);
-    });
-    return sol;
-}
