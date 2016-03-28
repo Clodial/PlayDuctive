@@ -36,7 +36,7 @@ router.post('/login', function(req, res){
                 console.log(err.code);
             } else {
                 console.log("success: " + true);
-                res.send("success";
+                res.send("success");
             }
         }
     );
