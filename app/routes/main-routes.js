@@ -131,9 +131,11 @@ function selectQuery(query, paramList){
 }
 function queryTest(){
     var sol = 0;
+    console.log("yolo");
     con.query('SELECT 1 + 1 AS SOLUTION', function(err, rows, fields){
         if(err) throw err;
         sol = rows[0].solution;
     });
+    console.log(sol);
     return sol;
 }
