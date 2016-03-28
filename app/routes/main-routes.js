@@ -33,8 +33,8 @@ router.post('/login', function(req, res){
 
 router.post('/login/usetest', function(req,res){
     var user = req.body;  
-    var status = runQuery('select * from Accounts where accountUser = ?', [req.body.user]);
-    //var status = queryTest();
+    //var status = runQuery('select * from Accounts where accountUser = ?', [req.body.user]);
+    var status = queryTest();
     if(status){
         res.send(status);
     }else{
@@ -112,8 +112,10 @@ function runQuery(query, paramList) {
     //connection.end();
 }
 function queryTest(){
+    var sol = 0;
     con.query('SELECT 1 + 1 AS SOLUTION', function(err, rows, fields){
         if(err) throw err;
-        return rows[0].solution;
-    })
+        sol = rows[0].solution;
+    });
+    return sol;
 }
