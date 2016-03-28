@@ -35,6 +35,7 @@ router.post('/login/usetest', function(req,res){
     var user = req.body;  
     //var status = selectQuery('select * from Accounts where accountUser = ?', [req.body.user]);
     var status = queryTest();
+    console.log(status);
     if(status){
         console.log(status);
         res.send(status);
@@ -131,12 +132,9 @@ function selectQuery(query, paramList){
 }
 function queryTest(){
     var sol = 0;
-    console.log("yolo");
     con.query('SELECT 1 + 1 AS solution', function(err, rows, fields){
         if(err) throw err;
-        console.log(rows[0].solution);
         sol = rows[0].solution;
     });
-    console.log(sol);
     return sol;
 }
