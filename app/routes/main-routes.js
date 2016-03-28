@@ -55,9 +55,10 @@ router.post('/login/usetest', function(req,res){
                 if(result.length > 0){
                     console.log(result[0].accountId);
                     res.end(result[0].accountId);
-                }
+                }else{
                 //res.send(result[0].accountId);
-                res.end("valid");
+                    res.end("valid");
+                }
             }
         }
     );
