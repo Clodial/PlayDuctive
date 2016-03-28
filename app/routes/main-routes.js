@@ -4,7 +4,7 @@ var path 	= require('path');
 var mysql 	= require('mysql');
 
 //database connection stuff
-//var con = mysql.createConnection(process.env.JAWSDB_URL);
+var con = mysql.createConnection(process.env.JAWSDB_URL);
 var router 	= express.Router();
 
 router.use(bodyParser.urlencoded({ extended: false }));
