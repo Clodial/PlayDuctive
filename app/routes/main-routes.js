@@ -31,7 +31,7 @@ router.post('/login', function(req, res){
     var pass = req.body.pass;
 });
 
-router.post('/usetest', function(req,res){
+router.post('/login/usetest', function(req,res){
     var user = req.body;  
     var status = runQuery('select * from Accounts where accountUser = ?', [req.body.user]);
     if(status){
