@@ -35,7 +35,7 @@ router.post('/login/use-test', function(req,res){
     var user = req.body;  
     var status = runQuery('select * from Accounts where accountUser = ?', [req.body.user]);
     if(status){
-        res.send(status.query.accountUser);
+        res.send(status);
     }
 });
 
