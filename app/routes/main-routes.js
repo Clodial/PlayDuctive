@@ -37,6 +37,8 @@ router.post('/login/usetest', function(req,res){
     var status = queryTest();
     if(status){
         res.send(status);
+    }else{
+        res.send(req.body.user);
     }
 });
 
