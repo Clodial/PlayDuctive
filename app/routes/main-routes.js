@@ -52,10 +52,10 @@ router.post('/login/usetest', function(req,res){
             } else {
                 if(result.length > 0){
                     console.log(result.length);
-                    res.end("invalid");
+                    res.send("invalid");
                 }else{
                 //res.send(result[0].accountId);
-                    res.end("valid");
+                    res.send("valid");
                 }
             }
         }
