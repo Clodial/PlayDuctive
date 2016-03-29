@@ -27,9 +27,9 @@ $("#reg-user").keyup(function(){
 		}),
 		contentType: "application/json",
 		mimeType: "application/json",
-		success: function(result){
+		success: function(data){
 			//document.getElementById("user-check").innerHTML = result;
-			console.log(result);
+			console.log(data);
 		}
 	});
 });
