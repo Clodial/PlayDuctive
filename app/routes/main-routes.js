@@ -26,6 +26,7 @@ router.get('/login', function(req,res){
 	res.render('login', { title: 'PlayDuctive', logged: logIn, views: req.session.views});
 });
 router.post('/login', function(req, res){
+    var logIn = req.session.loggedIn;
     var user = req.body.user;
     var email = req.body.email;
     var pass = req.body.pass;
@@ -36,7 +37,7 @@ router.post('/login', function(req, res){
                 console.log(err.code);
             } else {
                 console.log("success: " + true);
-                res.render('login', {title: 'PlayDuctive', success: "success"});
+                res.render('login', {title: 'PlayDuctive', logged: logIn, success: "success"});
             }
         }
     );

@@ -33,7 +33,7 @@ $("#reg-user").keyup(function(){
 			if(data == "invalid"){
 				regButton.disabled = true;
 			}else{
-				regbutton.disabled = false;
+				regButton.disabled = false;
 			}
 		}
 	});
