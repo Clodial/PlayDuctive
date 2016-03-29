@@ -52,7 +52,7 @@ router.post('/login/usetest', function(req,res){
             } else {
                 if(result.length > 0){
                     console.log(result.length);
-                    res.send(JSON.stringify("invalid");
+                    res.send(JSON.stringify("invalid"));
                 }else{
                 //res.send(result[0].accountId);
                     res.send(JSON.stringify("valid"));
