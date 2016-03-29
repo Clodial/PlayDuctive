@@ -51,7 +51,7 @@ router.post('/login/usetest', function(req,res){
             if (err) {
                 console.log(err.code);
             } else {
-                if(result.length > 0){
+                if(result.length > 0 || user = ''){
                     console.log(result.length);
                     res.send(JSON.stringify("invalid"));
                 }else{
