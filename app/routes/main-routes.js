@@ -44,8 +44,6 @@ router.post('/login', function(req, res){
 
 router.post('/login/usetest', function(req,res){
     var user = req.body.user;  
-    //var status = selectQuery('select * from Accounts where accountUser = ?', [req.body.user]);
-    //select * from Accounts where accountUser = ?
     con.query('select accountId from Accounts where accountUser = ?', [user],
         function (err, result) {
             resultNum = 0;
@@ -53,7 +51,7 @@ router.post('/login/usetest', function(req,res){
                 console.log(err.code);
             } else {
                 if(result.length > 0){
-                    //console.log(result[0].accountId);
+                    console.log(result.length);
                     res.end("invalid");
                 }else{
                 //res.send(result[0].accountId);
