@@ -17,6 +17,7 @@ var passCheck = function(){
 //Function checking if 
 $("#reg-user").keyup(function(){
 	var user = document.getElementById("reg-user").value;
+	var regButton = document.getElementById("reg-button");
 	var useCheck = "";
 	$.ajax({
 		url: "/login/usetest",
@@ -28,8 +29,12 @@ $("#reg-user").keyup(function(){
 		contentType: "application/json",
 		mimeType: "application/json",
 		success: function(data){
-			//document.getElementById("user-check").innerHTML = result;
-			console.log(data);
+			document.getElementById("user-check").innerHTML = data + " username";
+			if(data == "invalid"){
+				regButton.disabled = true;
+			}else{
+				regbutton.disabled = false;
+			}
 		}
 	});
 });
