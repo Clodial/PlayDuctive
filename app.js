@@ -26,8 +26,15 @@ app.set('view engine', 'ejs');
 
 app.use(function(req, res, next){
 
-	req.session.views = (req.session.views || 0) + 1;
-
+	req.session.views 	= (req.session.views || 0) + 1;
+	req.session.user 	= null;
+	req.session.dmExp 	= null;
+	req.session.warExp	= null;
+	req.session.magExp 	= null;
+	req.session.rogExp 	= null;
+	req.session.tinExp 	= null;
+	req.session.preExp 	= null;
+	
 	next();
 
 });

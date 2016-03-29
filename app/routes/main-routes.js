@@ -17,7 +17,10 @@ router.get('/', function(req,res){
 });
 
 router.post('/', function(req,res){
-    res.render('index', { title: 'PlayDuctive'});
+    var user = req.body.user;
+    var pass = req.body.pass;
+    con.query('select from Accounts where accountUser = ? and accountPass = ?')
+    res.render('index', { title: 'PlayDuctive', logged: logIn, views: req.session.views});
 });
 
 //Login routes
