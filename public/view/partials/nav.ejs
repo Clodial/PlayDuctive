@@ -1,9 +1,9 @@
-<% if(logged == 'null'){ %>
+<% if(!logged){ %>
 	<div class="navbar-main">
 		yoooo
 	</div>
 <% }else { %>
 	<div class="navbar-main">
-		somePlace
+		<%= user %>
 	</div>
 <% } %>
