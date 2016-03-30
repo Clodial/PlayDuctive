@@ -13,6 +13,7 @@ router.use(bodyParser.json());
 //Index page route
 router.get('/', function(req,res){
     var logIn = req.session.logIn;
+    console.log(req.session.user);
 	res.render('index', { title: 'PlayDuctive', logged: req.session.logIn , user: req.session.user});
 });
 
@@ -29,8 +30,10 @@ router.post('/', function(req,res){
                 if(result.length > 0){
                     req.session.logIn = true;
                     req.session.user = user;
+                    console.log(req.session.user);
                     res.render('index', { title: 'PlayDuctive', logged: true, user: user});
                 }else{
+                    console.log(req.session.user);
                     res.render('index', { title: 'PlayDuctive', logged: false, user: req.session.user});
                 }
             }
@@ -42,6 +45,7 @@ router.post('/', function(req,res){
 //Login routes
 router.get('/login', function(req,res){
     var logIn = req.session.logIn;
+    console.log(req.session.user);
 	res.render('login', { title: 'PlayDuctive', logged: logIn, user: req.session.user});
 });
 router.post('/login', function(req, res){
@@ -56,6 +60,7 @@ router.post('/login', function(req, res){
                 console.log(err.code);
             } else {
                 console.log("success: " + true);
+                console.log(req.session.user);
                 res.render('login', {title: 'PlayDuctive', logged: logIn, success: "success", user: req.session.user});
             }
         }
