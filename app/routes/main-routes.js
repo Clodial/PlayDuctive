@@ -17,9 +17,24 @@ router.get('/', function(req,res){
 });
 
 router.post('/', function(req,res){
+    var logIn = null;
     var user = req.body.user;
     var pass = req.body.pass;
-    con.query('select from Accounts where accountUser = ? and accountPass = ?')
+    con.query('select from Accounts where accountUser = ? and accountPass = ? and accountLog = 0', [user,pass],
+        function(err,result){
+            if(err){
+                console.log('QUERY ERROR');
+                console.log(err.code);
+            }else{
+                if(result.length > 0){
+                    res.render('index', { title: 'PlayDuctive', logged: true, user: user});
+                }else{
+                    res.render('index', { title: 'PlayDuctive', logged: false});
+                }
+            }
+
+        }
+    );
     res.render('index', { title: 'PlayDuctive', logged: logIn, views: req.session.views});
 });
 
@@ -48,7 +63,7 @@ router.post('/login', function(req, res){
 
 router.post('/login/usetest', function(req,res){
     var user = req.body.user;  
-    con.query('select accountId from Accounts where accountUser = ?', [user],
+    con.query('select accountId from Accounts where accountUser = ? and accountLog = 0', [user],
         function (err, result) {
             resultNum = 0;
             if (err) {
