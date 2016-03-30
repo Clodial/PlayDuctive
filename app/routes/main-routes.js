@@ -12,12 +12,12 @@ router.use(bodyParser.json());
 
 //Index page route
 router.get('/', function(req,res){
-    var logIn = req.session.views;
+    var logIn = req.session.logIn;
 	res.render('index', { title: 'PlayDuctive', logged: logIn, views: req.session.views});
 });
 
 router.post('/', function(req,res){
-    var logIn = null;
+    var logIn = req.session.logIn;
     var user = req.body.user;
     var pass = req.body.pass;
     con.query('select from Accounts where accountUser = ? and accountPass = ? and accountLog = 0', [user,pass],
@@ -27,24 +27,25 @@ router.post('/', function(req,res){
                 console.log(err.code);
             }else{
                 if(result.length > 0){
+                    req.session.logIn = true;
+                    req.session.user = user;
                     res.render('index', { title: 'PlayDuctive', logged: true, user: user});
                 }else{
-                    res.render('index', { title: 'PlayDuctive', logged: false});
+                    res.render('index', { title: 'PlayDuctive', logged: false, user: req.session.user});
                 }
             }
 
         }
     );
-    res.render('index', { title: 'PlayDuctive', logged: logIn, views: req.session.views});
 });
 
 //Login routes
 router.get('/login', function(req,res){
-    var logIn = req.session.loggedIn;
-	res.render('login', { title: 'PlayDuctive', logged: logIn, views: req.session.views});
+    var logIn = req.session.logIn;
+	res.render('login', { title: 'PlayDuctive', logged: logIn, user: req.session.user});
 });
 router.post('/login', function(req, res){
-    var logIn = req.session.loggedIn;
+    var logIn = req.session.logIn;
     var user = req.body.user;
     var email = req.body.email;
     var pass = req.body.pass;
@@ -55,7 +56,7 @@ router.post('/login', function(req, res){
                 console.log(err.code);
             } else {
                 console.log("success: " + true);
-                res.render('login', {title: 'PlayDuctive', logged: logIn, success: "success"});
+                res.render('login', {title: 'PlayDuctive', logged: logIn, success: "success", user: req.session.user});
             }
         }
     );
