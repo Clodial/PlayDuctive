@@ -13,7 +13,7 @@ router.use(bodyParser.json());
 //Index page route
 router.get('/', function(req,res){
     var logIn = req.session.logIn;
-	res.render('index', { title: 'PlayDuctive', logged: logIn, views: req.session.views});
+	res.render('index', { title: 'PlayDuctive', logged: req.session.logIn , user: req.session.user}});
 });
 
 router.post('/', function(req,res){
