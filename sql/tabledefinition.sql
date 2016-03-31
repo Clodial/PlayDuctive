@@ -71,15 +71,7 @@ IN newProjDesc TEXT)
 BEGIN
 INSERT INTO Projects(projTypeId,statusId,projName,projDesc) SELECT projTypeId,statusId,newProjName,newProjDesc FROM ProjTypes,Statuses WHERE projTypeName=newProjType AND statusName=newStatus;
 END; 
-
-CREATE PROCEDURE createProject(
-IN newProjType VARCHAR(255),
-IN newStatus VARCHAR(255),
-IN newProjName VARCHAR(255),
-IN newProjDesc TEXT)
-BEGIN
-INSERT INTO Projects(projTypeId,statusId,projName,projDesc) SELECT projTypeId,statusId,newProjName,newProjDesc FROM ProjTypes,Statuses WHERE projTypeName=newProjType AND statusName=newStatus;
-END; 
+ 
 
 CREATE PROCEDURE createAccount(
 IN user VARCHAR(255),
@@ -88,7 +80,15 @@ IN pass VARCHAR(255))
 BEGIN
 INSERT INTO Accounts(accountUser, accountPass, accountEmail, accountLog)
 	VALUES (user, email, pass, 0);
-END;//
+END;
+
+CREATE PROCEDURE login(user, pass)
+BEGIN
+IF EXISTS(SELECT accountId FROM Accounts WHERE accountUser = user AND accountPass = pass AND accountLog = 0)
+BEGIN
+	UPDATE Accounts SET accountLog = 1 WHERE accountUser = user;
+END;
+//
 DELIMITER ;
 
 

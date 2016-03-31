@@ -1,7 +1,8 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var path 	= require('path');
-var mysql 	= require('mysql');
+var express     = require('express');
+var bodyParser  = require('body-parser');
+var path 	    = require('path');
+var mysql 	    = require('mysql');
+var mysqlStore  = ('express-mysql-session')(session);
 
 //database connection stuff
 var con = mysql.createConnection(process.env.JAWSDB_URL);
