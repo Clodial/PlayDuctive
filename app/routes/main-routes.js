@@ -33,7 +33,7 @@ router.post('/', function(req,res){
                     req.session.logIn = true;
                     req.session.user = user;
                     console.log(req.session.user);
-                    res.render('index', { title: 'PlayDuctive', logged: true, user: user});
+                    res.render('index', { title: 'PlayDuctive', logged: true, user: req.session.user});
                 }else{
                     console.log(req.session.user);
                     res.render('index', { title: 'PlayDuctive', logged: false, user: req.session.user});
