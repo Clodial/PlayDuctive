@@ -23,7 +23,7 @@ var con = mysql.createConnection(process.env.JAWSDB_URL);
 	database: 'playDuctive'
 }
 var tryCon = mysql.createConnection(options);*/
-var sessionStore = new mysqlStore(con);
+var sessionStore = new mysqlStore({}, con);
 
 app.use(express.static(__dirname + '/public'));
 
