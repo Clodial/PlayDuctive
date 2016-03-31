@@ -1,9 +1,12 @@
-<% if(!logged){ %>
+<% if(!logged && !user){ %>
 	<div class="navbar-main">
-		yoooo
+		<div class="logo"></div>
+		<div class="nav-buttons">
+			<button onClick></button>
+		</div>
 	</div>
 <% }else { %>
 	<div class="navbar-main">
-		<%= user %>
+		<h1><%= user %></h1>
 	</div>
 <% } %>
