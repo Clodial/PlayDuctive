@@ -23,7 +23,7 @@ router.post('/', function(req,res){
     var logIn = req.session.logIn;
     var user = req.body.user;
     var pass = req.body.pass;
-    con.query('select from Accounts where accountUser = ? and accountPass = ? and accountLog = 0', [user,pass],
+    con.query('select accountId from Accounts where accountUser = ? and accountPass = ? and accountLog = 0', [user,pass],
         function(err,result){
             if(err){
                 console.log('QUERY ERROR');
