@@ -25,25 +25,29 @@ router.get('/', function(req,res){
 router.post('/', function(req,res){
     var user = req.body.user;
     var pass = req.body.pass;
-    con.query('select accountId from Accounts where accountUser = ? and accountPass = ? and accountLog = 0', [user,pass],
-        function(err,result){
-            if(err){
-                console.log('QUERY ERROR');
-                console.log(err.code);
-            }else{
-                if(result.length > 0){
-                    req.session.logIn = true;
-                    req.session.user = user;
-                    console.log(req.session.user);
-                    res.render('index', { title: 'PlayDuctive', user: req.session.user});
+    if(!req.session.user){
+        con.query('select accountId from Accounts where accountUser = ? and accountPass = ? and accountLog = 0', [user,pass],
+            function(err,result){
+                if(err){
+                    console.log('QUERY ERROR');
+                    console.log(err.code);
                 }else{
-                    console.log(req.session.user);
-                    res.render('index', { title: 'PlayDuctive', user: req.session.user});
+                    if(result.length > 0){
+                        req.session.logIn = true;
+                        req.session.user = user;
+                        console.log(req.session.user);
+                        res.render('index', { title: 'PlayDuctive', user: req.session.user});
+                    }else{
+                        console.log(req.session.user);
+                        res.render('index', { title: 'PlayDuctive', user: req.session.user});
+                    }
                 }
-            }
 
-        }
-    );
+            }
+        );
+    }else{
+        res.redirect('/');
+    }
 });
 
 //Login routes
@@ -88,7 +92,10 @@ router.post('/login/usetest', function(req,res){
         }
     );
 });
-
+// Logout button
+router.get('/login/logout', function(req,res){
+    req.session.user = null;
+});
 
 //project creation routes
 router.get('/create_project.html', function (req, res) {
