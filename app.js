@@ -52,6 +52,7 @@ app.use(function(req, res, next){
 	req.session.views 	= (req.session.views || 0) + 1;
 	//req.session.user 	= null;
 	//req.session.logIn 	= false;	
+	req.session.destroy();
 	next();
 
 });
