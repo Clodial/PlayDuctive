@@ -1,7 +1,9 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var path 	= require('path');
-var mysql 	= require('mysql');
+var express     = require('express');
+var bodyParser  = require('body-parser');
+var path 	    = require('path');
+var mysql 	    = require('mysql');
+//var session     = require('express-session');
+//var mysqlStore  = require('express-mysql-session')(session);
 
 //database connection stuff
 var con = mysql.createConnection(process.env.JAWSDB_URL);
@@ -12,33 +14,89 @@ router.use(bodyParser.json());
 
 //Index page route
 router.get('/', function(req,res){
-    var logIn = req.session.views;
-	res.render('index', { title: 'PlayDuctive', logged: logIn, views: req.session.views});
+    console.log(req.session.user);
+    if(!req.session.user){
+	   res.render('index', { title: 'PlayDuctive', user: req.session.user});
+    }else{
+        res.render('index', { title: 'PlayDuctive', user: req.session.user})
+    }
 });
 
 router.post('/', function(req,res){
-    res.render('index', { title: 'PlayDuctive'});
+    var user = req.body.user;
+    var pass = req.body.pass;
+    if(!req.session.user){
+        con.query('select accountId from Accounts where accountUser = ? and accountPass = ? and accountLog = 0', [user,pass],
+            function(err,result){
+                if(err){
+                    console.log('QUERY ERROR');
+                    console.log(err.code);
+                }else{
+                    if(result.length > 0){
+                        req.session.logIn = true;
+                        req.session.user = user;
+                        console.log(req.session.user);
+                        res.render('index', { title: 'PlayDuctive', user: req.session.user});
+                    }else{
+                        console.log(req.session.user);
+                        res.render('index', { title: 'PlayDuctive', user: req.session.user});
+                    }
+                }
+
+            }
+        );
+    }else{
+        res.redirect('/');
+    }
 });
 
 //Login routes
 router.get('/login', function(req,res){
-    var logIn = req.session.loggedIn;
-	res.render('login', { title: 'PlayDuctive', logged: logIn, views: req.session.views});
+    console.log(req.session.user);
+	res.render('login', { title: 'PlayDuctive', logged: logIn, user: req.session.user});
 });
 router.post('/login', function(req, res){
     var user = req.body.user;
     var email = req.body.email;
     var pass = req.body.pass;
+    con.query('CALL createAccount(?,?,?)', [user, pass, email],
+        function (err, result) {
+            if (err) {
+                console.log('QUERY ERROR');
+                console.log(err.code);
+            } else {
+                console.log("success: " + true);
+                console.log(req.session.user);
+                res.render('index', {title: 'PlayDuctive', success: "success", user: req.session.user});
+            }
+        }
+    );
 });
 
-router.post('/login/use-test', function(req,res){
-    var user = req.body;  
-    var status = runQuery('select * from Accounts where accountUser = ?', [req.body.user]);
-    if(status){
-        res.send(status);
-    }
+router.post('/login/usetest', function(req,res){
+    var user = req.body.user;  
+    con.query('select accountId from Accounts where accountUser = ? and accountLog = 0', [user],
+        function (err, result) {
+            resultNum = 0;
+            if (err) {
+                console.log(err.code);
+            } else {
+                if(result.length > 0 || user == ''){
+                    console.log(result.length);
+                    res.send(JSON.stringify("invalid"));
+                }else{
+                //res.send(result[0].accountId);
+                    res.send(JSON.stringify("valid"));
+                }
+            }
+        }
+    );
 });
-
+// Logout button
+router.get('/login/logout', function(req,res){
+    req.session.destroy();
+    res.redirect('/');
+});
 
 //project creation routes
 router.get('/create_project.html', function (req, res) {
@@ -84,27 +142,3 @@ module.export = function() {
 		.post(function(req, res){});
 	return apiRouter; 
 }*/
-
-function runQuery(query, paramList) {
-    /**
-    * @ Runs an arbitrary query with arbitrary parameters
-    * @ query: A MySQL query, with ? for the parameters
-    * @ paramList: A list of parameter values that line up with the query
-    */
-
-    //query the database
-    con.query(query, paramList,
-        function (err, result) {
-            if (err) {
-                console.log('QUERY ERROR');
-                console.log(err.code);
-                return false;
-            } else {
-                return result;
-            }
-        }
-    );
-    //don't need this either
-    //close the connection
-    //connection.end();
-}

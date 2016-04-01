@@ -14,12 +14,13 @@ var passCheck = function(){
 	}
 }
 
-//Function checking if 
+//Function checking if user is valid
 $("#reg-user").keyup(function(){
 	var user = document.getElementById("reg-user").value;
+	var regButton = document.getElementById("reg-button");
 	var useCheck = "";
 	$.ajax({
-		url: "/login/use-test",
+		url: "/login/usetest",
 		type: "POST",
 		datatype: "json",
 		data: JSON.stringify({
@@ -27,8 +28,30 @@ $("#reg-user").keyup(function(){
 		}),
 		contentType: "application/json",
 		mimeType: "application/json",
-		success: function(result){
-			console.log(result);
+		success: function(data){
+			document.getElementById("user-check").innerHTML = data + " username";
+			if(data == "invalid"){
+				regButton.disabled = true;
+			}else{
+				regButton.disabled = false;
+			}
 		}
 	});
 });
+
+//Function to logout user
+$("#logout-button").click(function(){
+	$.ajax({
+		url: "/login/logout",
+		type: "GET",
+		datatype: "json",
+		data: JSON.stringify({
+			"user": user
+		}),
+		contentType: "application/json",
+		mimeType: "application/json",
+		success: function(data){
+			
+		}
+	});
+})

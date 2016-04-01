@@ -2,31 +2,10 @@
 <head>
 	<!--Main front-end items-->
 	<% include partials/head %>
-	<title><%= title %></title>
+	<title>PlayDuctive</title>
 </head>
 <body>
 	<% include partials/nav %>
-	<div class="col-md-4">
-		<h1>Login</h1>
-		<form action="/" method="get">
-			<label>Username </label><input type="text" name="user" required/></br>
-			<label>Password </label><input type="password" name="pass" required/></br>
-			<button type="submit">Login</button>
-		</form>
-	</div>
-	<div class="col-md-4">
-		<h1>New Account</h1>
-		<form action="/login" method="post">
-			<input type="hidden" name="register" value="true">
-			<label>New Username</label><input id="reg-user" type="text" name="user" required></br>
-			<span id="user-check"></span></br>
-			<label>Email</label><input type="email" name="email" required></br>
-			<label>New Password</label><input id="reg-pass" type="password" name="pass" onkeyup="passCheck()" required></br>
-			<label>Repeat Password</label><input id="reg-pass2" type="password" name="pass2" onkeyup="passCheck()" required></br>
-			<span id="pass-check"></span></br>
-			<button id="reg-button" type="submit" >Create Account</button>
-		</form>
-	</div>
-	<script type="text/javascript" src="../js/login.js"></script>
+	<% include partials/bodyScript %>
 </body>
 </html>
