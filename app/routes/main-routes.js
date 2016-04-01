@@ -15,7 +15,7 @@ router.use(bodyParser.json());
 //Index page route
 router.get('/', function(req,res){
     console.log(req.session.user);
-    if(!req.session.user)
+    if(!req.session.user){
 	   res.render('index', { title: 'PlayDuctive', user: req.session.user});
     }else{
         res.render('index', { title: 'PlayDuctive', user: req.session.user})
