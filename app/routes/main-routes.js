@@ -15,6 +15,7 @@ router.use(bodyParser.json());
 //Index page route
 router.get('/', function(req,res){
     req.session.destroy();
+    req.session.logIn = false;
     var logIn = req.session.logIn;
     console.log(req.session.user);
     if(!logIn){
