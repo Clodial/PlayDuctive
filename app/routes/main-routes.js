@@ -95,6 +95,7 @@ router.post('/login/usetest', function(req,res){
 // Logout button
 router.get('/login/logout', function(req,res){
     req.session.user = null;
+    res.redirect('/');
 });
 
 //project creation routes
