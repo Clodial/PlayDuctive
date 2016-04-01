@@ -14,19 +14,15 @@ router.use(bodyParser.json());
 
 //Index page route
 router.get('/', function(req,res){
-    req.session.destroy();
-    req.session.logIn = false;
-    var logIn = req.session.logIn;
     console.log(req.session.user);
-    if(!logIn){
-	   res.render('index', { title: 'PlayDuctive', logged: req.session.logIn , user: req.session.user});
+    if(!req.session.user)
+	   res.render('index', { title: 'PlayDuctive', user: req.session.user});
     }else{
-        res.render('index', { title: 'PlayDuctive', logged: req.session.logIn , user: req.session.user})
+        res.render('index', { title: 'PlayDuctive', user: req.session.user})
     }
 });
 
 router.post('/', function(req,res){
-    var logIn = req.session.logIn;
     var user = req.body.user;
     var pass = req.body.pass;
     con.query('select accountId from Accounts where accountUser = ? and accountPass = ? and accountLog = 0', [user,pass],
@@ -39,10 +35,10 @@ router.post('/', function(req,res){
                     req.session.logIn = true;
                     req.session.user = user;
                     console.log(req.session.user);
-                    res.render('index', { title: 'PlayDuctive', logged: true, user: req.session.user});
+                    res.render('index', { title: 'PlayDuctive', user: req.session.user});
                 }else{
                     console.log(req.session.user);
-                    res.render('index', { title: 'PlayDuctive', logged: false, user: req.session.user});
+                    res.render('index', { title: 'PlayDuctive', user: req.session.user});
                 }
             }
 
@@ -52,12 +48,10 @@ router.post('/', function(req,res){
 
 //Login routes
 router.get('/login', function(req,res){
-    var logIn = req.session.logIn;
     console.log(req.session.user);
 	res.render('login', { title: 'PlayDuctive', logged: logIn, user: req.session.user});
 });
 router.post('/login', function(req, res){
-    var logIn = req.session.logIn;
     var user = req.body.user;
     var email = req.body.email;
     var pass = req.body.pass;
@@ -69,7 +63,7 @@ router.post('/login', function(req, res){
             } else {
                 console.log("success: " + true);
                 console.log(req.session.user);
-                res.render('index', {title: 'PlayDuctive', logged: logIn, success: "success", user: req.session.user});
+                res.render('index', {title: 'PlayDuctive', success: "success", user: req.session.user});
             }
         }
     );
