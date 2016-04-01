@@ -14,7 +14,7 @@ var passCheck = function(){
 	}
 }
 
-//Function checking if 
+//Function checking if user is valid
 $("#reg-user").keyup(function(){
 	var user = document.getElementById("reg-user").value;
 	var regButton = document.getElementById("reg-button");
@@ -38,3 +38,20 @@ $("#reg-user").keyup(function(){
 		}
 	});
 });
+
+//Function to logout user
+$("#logout-button").click(function(){
+	$.ajax({
+		url: "/login/logout",
+		type: "GET",
+		datatype: "json",
+		data: JSON.stringify({
+			"user": user
+		}),
+		contentType: "application/json",
+		mimeType: "application/json",
+		success: function(data){
+			
+		}
+	});
+})
