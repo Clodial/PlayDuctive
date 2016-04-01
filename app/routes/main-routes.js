@@ -19,7 +19,7 @@ router.get('/', function(req,res){
     if(!logIn){
 	   res.render('index', { title: 'PlayDuctive', logged: req.session.logIn , user: req.session.user});
     }else{
-        res.render('')
+        res.render('index', { title: 'PlayDuctive', logged: req.session.logIn , user: req.session.user})
     }
 });
 
