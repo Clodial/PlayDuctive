@@ -16,7 +16,11 @@ router.use(bodyParser.json());
 router.get('/', function(req,res){
     var logIn = req.session.logIn;
     console.log(req.session.user);
-	res.render('index', { title: 'PlayDuctive', logged: req.session.logIn , user: req.session.user});
+    if(!logIn){
+	   res.render('index', { title: 'PlayDuctive', logged: req.session.logIn , user: req.session.user});
+    }else{
+        res.render('')
+    }
 });
 
 router.post('/', function(req,res){
@@ -63,7 +67,7 @@ router.post('/login', function(req, res){
             } else {
                 console.log("success: " + true);
                 console.log(req.session.user);
-                res.render('login', {title: 'PlayDuctive', logged: logIn, success: "success", user: req.session.user});
+                res.render('index', {title: 'PlayDuctive', logged: logIn, success: "success", user: req.session.user});
             }
         }
     );
