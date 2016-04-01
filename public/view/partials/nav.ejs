@@ -28,7 +28,7 @@
 	</div>
 <% }else { //logged in%>
 	<div class="navbar-main">
-		<div><button id="logout-button">Logout</button></div>
+		<div><form action="/login/logout" method="GET"><button type="submit">Logout</button></form></div>
 		<h1><%= user %></h1>
 	</div>
 <% } %>
