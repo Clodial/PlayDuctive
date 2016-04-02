@@ -14,13 +14,13 @@ router.use(bodyParser.json());
 
 //Index page route
 router.get('/', function(req,res){
-    //var projList = [];
+    var projList = [];
     //console.log(req.session.user);
-    res.render('index', { title: 'PlayDuctive', user: req.session.user});
-    /*if(!req.session.user){
+    //res.render('index', { title: 'PlayDuctive', user: req.session.user});
+    if(!req.session.user){
 	   res.render('index', { title: 'PlayDuctive', proj: null, user: req.session.user});
     }else{
-        /*con.query('select Projects.projName as name, Statuses.statusName as stat from Projects, Classes, Statuses, Accounts, AccountTasks where Accounts.accountUser = ? and Accounts.accountId = Classes.accountId and Classes.classId = AccountTasks.classId and AccountTasks.projId = Projects.projId and Projects.statusId = Statuses.statusId;', [req.session.user],
+        con.query('select Projects.projName as name, Statuses.statusName as stat from Projects, Classes, Statuses, Accounts, AccountTasks where Accounts.accountUser = ? and Accounts.accountId = Classes.accountId and Classes.classId = AccountTasks.classId and AccountTasks.projId = Projects.projId and Projects.statusId = Statuses.statusId;', [req.session.user],
             function(err, result){
                 for(var i = 0; i < result.length; i++){
                     console.log(result.name);
@@ -28,9 +28,9 @@ router.get('/', function(req,res){
                     projList.push([result.name, result.status]);
                 }
                 res.render('login', { title: 'PlayDuctive', proj: projList, user: req.session.user});
-            });*/
-        /*res.render('login', { title: 'PlayDuctive', proj: projList, user: req.session.user});
-    }*/
+            });
+        res.render('login', { title: 'PlayDuctive', proj: projList, user: req.session.user});
+    }
 });
 
 router.post('/', function(req,res){
