@@ -17,9 +17,9 @@ router.get('*', function(req,res){
 });
 //Index page route
 router.get('/', function(req,res){
-    var projList = [];
+    //var projList = [];
     //console.log(req.session.user);
-    res.render('index', { title: 'PlayDuctive', proj: null, user: req.session.user});
+    res.render('index', { title: 'PlayDuctive', user: req.session.user});
     /*if(!req.session.user){
 	   res.render('index', { title: 'PlayDuctive', proj: null, user: req.session.user});
     }else{
