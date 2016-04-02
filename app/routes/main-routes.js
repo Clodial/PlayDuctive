@@ -12,13 +12,28 @@ var router 	= express.Router();
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
+router.get('*', function(req,res){
+    res.redirect('/');
+});
 //Index page route
 router.get('/', function(req,res){
+    var projList = [];
     console.log(req.session.user);
     if(!req.session.user){
-	   res.render('index', { title: 'PlayDuctive', user: req.session.user});
+	   res.render('index', { title: 'PlayDuctive', proj: [], user: req.session.user});
     }else{
-        res.render('index', { title: 'PlayDuctive', user: req.session.user})
+        con.query('select Projects.projName as name, Statuses.statusTitle as status
+            from Projects, Statuses, Accounts, AccountTasks
+            where Accounts.accountUser = ?
+                and Accounts.accountId = AccountTasks.accountId
+                and AccountTasks.projId = Projects.projId
+                and Projects.statusId = Statuses.statusId', [req.session.user],
+            function(err, result){
+                for(var i = 0; i < result.length; i++){
+                    projList.push([result.name, result.status]);
+                }
+                res.render('login', { title: 'PlayDuctive', proj: projList, user: req.session.user});
+            });
     }
 });
 
@@ -26,7 +41,7 @@ router.post('/', function(req,res){
     var user = req.body.user;
     var pass = req.body.pass;
     if(!req.session.user){
-        con.query('select accountId from Accounts where accountUser = ? and accountPass = ? and accountLog = 0', [user,pass],
+        con.query('select Accounts.accountId from Accounts where accountUser = ? and accountPass = ? and accountLog = 0', [user,pass],
             function(err,result){
                 if(err){
                     console.log('QUERY ERROR');
@@ -55,6 +70,8 @@ router.get('/login', function(req,res){
     console.log(req.session.user);
 	res.render('login', { title: 'PlayDuctive', logged: logIn, user: req.session.user});
 });
+
+//Login functionality
 router.post('/login', function(req, res){
     var user = req.body.user;
     var email = req.body.email;
@@ -64,10 +81,12 @@ router.post('/login', function(req, res){
             if (err) {
                 console.log('QUERY ERROR');
                 console.log(err.code);
+                res.redirect('/');
             } else {
                 console.log("success: " + true);
                 console.log(req.session.user);
-                res.render('index', {title: 'PlayDuctive', success: "success", user: req.session.user});
+                res.redirect('/');
+                //res.render('index', {title: 'PlayDuctive', success: "success", user: req.session.user});
             }
         }
     );
@@ -99,8 +118,10 @@ router.get('/login/logout', function(req,res){
 });
 
 //project creation routes
-router.get('/create_project.html', function (req, res) {
-    res.sendFile(path.join(__dirname + '/public/view/create_project.html'));
+router.get('/makeProject', function (req, res) {
+    //res.sendFile(path.join(__dirname + '/public/view/create_project.html'));
+    if(!req.session.user){res.redirect('/');}
+    res.render('create_project',{ title: 'PlayDuctive', logged: logIn, user: req.session.user});
 });
 
 router.get('/create_project.js', function (req, res) {

@@ -1,0 +1,8 @@
+<div class="col-md-3 proj-index">
+	<p><%= projName %></p>
+	<p><%= projStat %></p>
+	<form action="/proj" method="GET">
+		<input type="hidden" name="projId" value="<%= projectId %>">
+		<button type="submit">Check Project</button> 
+	</form>
+</div>

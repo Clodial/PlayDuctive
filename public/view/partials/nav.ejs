@@ -1,9 +1,14 @@
 <% if(!user){ //not logged in%>
 	<div class="navbar-main">
-		<div class="logo"></div>
-		<div class="nav-buttons">
-			<button onClick=""></button>
-			<div class="col-md-4">
+		<div class="logo-button">
+
+		</div>
+		<div class="log-buttons">
+			<button onclick="showLog">Login</button>
+			<button onclick="showReg"></button>
+		</div>
+	</div>
+	<div class="nav-login">
 		<h1>Login</h1>
 		<form action="/" method="post">
 			<label>Username </label><input type="text" name="user" required/></br>
@@ -11,7 +16,7 @@
 			<button type="submit">Login</button>
 		</form>
 	</div>
-	<div>
+	<div class="nav-register">
 		<h1>New Account</h1>
 		<form action="/login" method="post">
 			<input type="hidden" name="register" value="true">
@@ -23,8 +28,6 @@
 			<span id="user-check">asdfasdfasdf</span></br>
 			<button id="reg-button" type="submit" >Create Account</button>
 		</form>
-	</div>
-		</div>
 	</div>
 <% }else { //logged in%>
 	<div class="navbar-main">

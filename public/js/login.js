@@ -14,6 +14,8 @@ var passCheck = function(){
 	}
 }
 
+//Function for getting full user project list
+
 //Function checking if user is valid
 $("#reg-user").keyup(function(){
 	var user = document.getElementById("reg-user").value;
@@ -55,3 +57,5 @@ $("#logout-button").click(function(){
 		}
 	});
 })
+
+
