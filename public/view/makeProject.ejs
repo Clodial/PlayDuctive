@@ -1,0 +1,23 @@
+<html>
+<head>
+    <title>Create a Project</title>
+    <% include partials/head %>
+</head>
+<body>
+  <% include partials/nav %>
+    <form id="projectForm">
+      Project Type:<br>
+      <select name="projType">
+          <option value="Waterfall">Waterfall</option>
+          <option value="Agile">Agile</option>
+      </select><br>
+      Project Name:<br>
+      <input type="text" name="projName"><br>
+      Project Description:<br>
+      <input type="text" name="projDesc">
+    </form>
+    <button id="button">Submit</button>
+    <script src="create_project.js"></script>
+    <% include partials/bodyScript %>
+</body>
+</html>
