@@ -6,6 +6,7 @@
 <body>
   <% include partials/nav %>
     <form id="projectForm">
+      <%= user %>
       <submit type="hidden" name="user" value="<%= user %>">
       Project Type:<br>
       <select name="projType">
@@ -18,7 +19,7 @@
       <input type="text" name="projDesc">
     </form>
     <button id="button">Submit</button>
-    <script src="create_project.js"></script>
+    <script src="../js/create_project.js"></script>
     <% include partials/bodyScript %>
 </body>
 </html>
