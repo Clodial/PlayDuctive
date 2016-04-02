@@ -2,6 +2,8 @@ DROP TRIGGER IF EXISTS afterAccountCreate;
 DROP TRIGGER IF EXISTS afterProjectCreate;
 DROP PROCEDURE IF EXISTS createProject;
 DROP PROCEDURE IF EXISTS createAccount;
+DROP PROCEDURE IF EXISTS createTask;
+DROP PROCEDURE IF EXISTS addUser;
 DROP PROCEDURE IF EXISTS login;
 
 DROP TABLE IF EXISTS AccountTasks, AccountProjects, Projects, ProjTypes, Statuses, Classes, ClassTitles, Accounts;
@@ -122,6 +124,17 @@ BEGIN
 		and Classes.classId = AccountTasks.classId 
 		and AccountTasks.projId = Projects.projId 
 		and Projects.statusId = Statuses.statusId;
+END;
+
+CREATE PROCEDURE addUser(
+IN user VARCHAR(255),
+IN project VARCHAR(255))
+BEGIN
+	INSERT INTO AccountProjects(accountId, projId)
+		SELECT Accounts.accountId, Projects.projId
+		FROM Accounts, Projects
+		WHERE Accounts.accountName = user
+		AND Projects.projName = project; 
 END;
 
 CREATE PROCEDURE createTask(
