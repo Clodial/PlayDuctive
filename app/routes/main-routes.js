@@ -67,7 +67,7 @@ router.get('/logCheck', function(req,res){
 //Login routes
 router.get('/login', function(req,res){
     console.log(req.session.user);
-	res.render('login', { title: 'PlayDuctive', logged: logIn, user: req.session.user});
+	res.render('login', { title: 'PlayDuctive', proj: null, user: req.session.user});
 });
 
 //Login functionality
@@ -121,11 +121,7 @@ router.get('/login/logout', function(req,res){
 router.get('/makeProject', function (req, res) {
     //res.sendFile(path.join(__dirname + '/public/view/create_project.html'));
     if(!req.session.user){res.redirect('/');}
-    res.render('create_project',{ title: 'PlayDuctive', logged: logIn, user: req.session.user});
-});
-
-router.get('/create_project.js', function (req, res) {
-    res.sendFile(path.join(__dirname + '/app/components/create_project.js'));
+    res.render('makeProject',{ title: 'PlayDuctive', user: req.session.user});
 });
 
 router.post('/create_project/posts', function (req, res) {
