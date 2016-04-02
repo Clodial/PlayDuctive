@@ -13,7 +13,7 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
 router.get('*', function(req,res){
-    res.redirect('/');
+    //res.redirect('/');
 });
 //Index page route
 router.get('/', function(req,res){
