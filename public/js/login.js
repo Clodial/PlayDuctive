@@ -1,3 +1,26 @@
+$(".nav-login").slideUp();
+$(".nav-register").slideUp();
+//clicking buttons to show login and registration sections
+$(".showLog").click(function(){
+	if($(".nav-login").is(':visible')){
+		$(".nav-login").slideUp();
+	}else{
+		$(".nav-login").slideDown();
+	}
+	if($(".nav-register").is(':visible')){
+		$(".nav-register").slideUp();
+	}
+});	
+$(".showReg").click(function(){
+	if($(".nav-register").is(':visible')){
+		$(".nav-register").slideUp();
+	}else{
+		$(".nav-register").slideDown();
+	}
+	if($(".nav-login").is(':visible')){
+		$(".nav-login").slideUp();
+	}
+});	
 
 //Function checking if passwords match up
 var passCheck = function(){

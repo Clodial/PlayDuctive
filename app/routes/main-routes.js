@@ -34,11 +34,12 @@ router.get('/', function(req,res){
 });
 
 router.get('/logCheck', function(req,res){
-    var user = req.body.user;
-    var pass = req.body.pass;
+    var user = req.query.user;
+    var pass = req.query.pass;
     if(!req.session.user){
         con.query('select Accounts.accountId from Accounts where accountUser = ? and accountPass = ? and accountLog = 0', [user,pass],
             function(err,result){
+                console.log("underwent stuff yo");
                 if(err){
                     console.log('QUERY ERROR');
                     console.log(err.code);
@@ -47,12 +48,12 @@ router.get('/logCheck', function(req,res){
                         req.session.logIn = true;
                         req.session.user = user;
                         console.log(req.session.user);
-                        res.redirect('/');
-                        //res.render('index', { title: 'PlayDuctive', user: req.session.user});
+                        //res.redirect('/');
+                        res.render('login', { title: 'PlayDuctive', proj: null, user: req.session.user});
                     }else{
                         console.log(req.session.user);
-                        res.redirect('/');
-                        //res.render('index', { title: 'PlayDuctive', user: req.session.user});
+                        //res.redirect('/');
+                        res.render('index', { title: 'PlayDuctive', proj: null, user: req.session.user});
                     }
                 }
 
@@ -83,8 +84,9 @@ router.post('/login', function(req, res){
             } else {
                 console.log("success: " + true);
                 console.log(req.session.user);
-                res.redirect('/');
-                //res.render('index', {title: 'PlayDuctive', success: "success", user: req.session.user});
+                req.session.user = user;
+                //res.redirect('/');
+                res.render('login', {title: 'PlayDuctive', proj: null, success: "success", user: req.session.user});
             }
         }
     );
