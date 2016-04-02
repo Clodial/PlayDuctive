@@ -1,3 +1,5 @@
+$(".nav-login").slideUp();
+$(".nav-register").slideUp();
 
 //Function checking if passwords match up
 var passCheck = function(){
