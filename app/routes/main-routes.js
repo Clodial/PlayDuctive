@@ -139,7 +139,7 @@ router.post('/create_project/posts', function (req, res) {
     //insert validation of values here(types, length requirement, etc.)
 
     // call stored procedure that creates a project
-    var status = runQuery('CALL createProject(?,?,?,?);', [projType, "INCOMPLETE", projName, projDesc]);
+    var status = runQuery('CALL createProject(?,?,?,?,?);', [projType, "INCOMPLETE", projName, projDesc, accountName]);
     if (status) {
         res.json({ success: "true" });
     } else {
