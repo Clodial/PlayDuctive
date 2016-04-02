@@ -15,14 +15,7 @@ var router			= require('./app/routes/main-routes');
 // configuration ===============================
 
 var con = mysql.createConnection(process.env.JAWSDB_URL);
-/*var options = {
-	host: 'localhost',
-	port: 3306,
-	user: 'root',
-	password: 'root',
-	database: 'playDuctive'
-}
-var tryCon = mysql.createConnection(options);*/
+
 var sessionStore = new mysqlStore({}, con);
 
 app.use(express.static(__dirname + '/public'));
@@ -39,19 +32,12 @@ app.use(session({
 	saveUninitialized: true
 }));
 
-/*app.use(cookie({
-	name: 'session',
-	keys: ['key1', 'key2']
-}));*/
-
 app.set('views', path.join(__dirname, 'public/view'));
 app.set('view engine', 'ejs');
 
 app.use(function(req, res, next){
 
-	req.session.views 	= (req.session.views || 0) + 1;
-	//req.session.user 	= null;
-	//req.session.logIn 	= false;	
+	req.session.views 	= (req.session.views || 0) + 1;	
 	next();
 
 });
