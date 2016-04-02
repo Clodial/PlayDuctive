@@ -11,6 +11,16 @@ $(".showLog").click(function(){
 		$(".nav-register").slideUp();
 	}
 });	
+$(".showReg").click(function(){
+	if($(".nav-register").is(':visible')){
+		$(".nav-register").slideUp();
+	}else{
+		$(".nav-register").slideDown();
+	}
+	if($(".nav-login").is(':visible')){
+		$(".nav-login").slideUp();
+	}
+});	
 
 //Function checking if passwords match up
 var passCheck = function(){
