@@ -48,12 +48,12 @@ router.get('/logCheck', function(req,res){
                         req.session.logIn = true;
                         req.session.user = user;
                         console.log(req.session.user);
-                        res.redirect('/');
-                        //res.render('index', { title: 'PlayDuctive', user: req.session.user});
+                        //res.redirect('/');
+                        res.render('login', { title: 'PlayDuctive', proj: null, user: req.session.user});
                     }else{
                         console.log(req.session.user);
-                        res.redirect('/');
-                        //res.render('index', { title: 'PlayDuctive', user: req.session.user});
+                        //res.redirect('/');
+                        res.render('index', { title: 'PlayDuctive', proj: null, user: req.session.user});
                     }
                 }
 
