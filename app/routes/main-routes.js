@@ -22,12 +22,7 @@ router.get('/', function(req,res){
     if(!req.session.user){
 	   res.render('index', { title: 'PlayDuctive', proj: [], user: req.session.user});
     }else{
-        con.query('select Projects.projName as name, Statuses.statusTitle as stat
-            from Projects, Statuses, Accounts, AccountTasks
-            where Accounts.accountUser = ?
-                and Accounts.accountId = AccountTasks.accountId
-                and AccountTasks.projId = Projects.projId
-                and Projects.statusId = Statuses.statusId', [req.session.user],
+        con.query('select Projects.projName as name, Statuses.statusTitle as stat from Projects, Statuses, Accounts, AccountTasks where Accounts.accountUser = ? and Accounts.accountId = AccountTasks.accountId and AccountTasks.projId = Projects.projId and Projects.statusId = Statuses.statusId', [req.session.user],
             function(err, result){
                 for(var i = 0; i < result.length; i++){
                     projList.push([result.name, result.status]);
