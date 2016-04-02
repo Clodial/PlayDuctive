@@ -84,8 +84,9 @@ router.post('/login', function(req, res){
             } else {
                 console.log("success: " + true);
                 console.log(req.session.user);
-                res.redirect('/');
-                //res.render('index', {title: 'PlayDuctive', success: "success", user: req.session.user});
+                req.session.user = user;
+                //res.redirect('/');
+                res.render('login', {title: 'PlayDuctive', proj: null, success: "success", user: req.session.user});
             }
         }
     );
