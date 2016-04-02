@@ -20,7 +20,7 @@ router.get('/', function(req,res){
     if(!req.session.user){
 	   res.render('index', { title: 'PlayDuctive', proj: null, user: req.session.user});
     }else{
-        con.query('select Projects.projName as name, Statuses.statusName as stat from Projects, Classes, Statuses, Accounts, AccountTasks where Accounts.accountUser = ? and Accounts.accountId = Classes.accountId and Classes.classId = AccountTasks.classId and AccountTasks.projId = Projects.projId and Projects.statusId = Statuses.statusId;', [req.session.user],
+        con.query('CALL getProjects(?);', [req.session.user],
             function(err, result){
                 for(var i = 0; i < result.length; i++){
                     console.log(result.name);

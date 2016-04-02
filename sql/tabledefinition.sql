@@ -43,15 +43,16 @@ CREATE TABLE Projects(
 projId INT AUTO_INCREMENT PRIMARY KEY,
 projTypeId INT,
 statusId INT,
+accountId INT,
 projName VARCHAR(255),
 projDesc TEXT,
-creatorId INT,
 FOREIGN KEY (projTypeId) REFERENCES ProjTypes(projTypeId) ON DELETE CASCADE ON UPDATE CASCADE,
 FOREIGN KEY (statusId) REFERENCES Statuses(statusId) ON DELETE CASCADE ON UPDATE CASCADE,
-FOREIGN KEY (creatorId) REFERENCES Accounts(accountId) ON DELETE CASCADE ON UPDATE CASCADE
+FOREIGN KEY (accountId) REFERENCES Accounts(accountId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE AccountProjects(
+actProjId INT AUTO_INCREMENT PRIMARY KEY,
 accountId INT,
 projId INT,
 FOREIGN KEY (projId) REFERENCES Projects(projId) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -101,10 +102,49 @@ INSERT INTO Accounts(accountUser, accountPass, accountEmail, accountLog)
 	VALUES (user, email, pass, 0);
 END; //
 
-CREATE PROCEDURE login(user, pass)
+CREATE PROCEDURE login(
+IN user VARCHAR(255), 
+IN pass VARCHAR(255)) 
 BEGIN
-	IF EXISTS(SELECT accountId FROM Accounts WHERE accountUser = user AND accountPass = pass AND accountLog = 0) THEN
+	IF EXISTS(SELECT accountId FROM Accounts WHERE accountUser = user AND accountPass = pass) THEN
 		UPDATE Accounts SET accountLog = 1 WHERE accountUser = user;
+	END IF;
+END;
+
+CREATE PROCEDURE getProjects(
+IN user VARCHAR(255)
+)
+BEGIN
+	select Projects.projName as name, Statuses.statusName as stat 
+	from Projects, Classes, Statuses, Accounts, AccountTasks 
+	where Accounts.accountUser = user 
+		and Accounts.accountId = Classes.accountId 
+		and Classes.classId = AccountTasks.classId 
+		and AccountTasks.projId = Projects.projId 
+		and Projects.statusId = Statuses.statusId;
+END;
+
+CREATE PROCEDURE createTask(
+IN user VARCHAR(255),
+IN class VARCHAR(255),
+IN description TEXT,
+IN exp INT,
+IN project VARCHAR(255)
+)
+BEGIN
+	IF EXISTS(SELECT AccountProjects.actProjId FROM AccountProjects, Accounts 
+		WHERE Accounts.accountName = user 
+		AND Accounts.accountId = AccountProjects.accountId) THEN
+		
+		INSERT INTO AccountTasks(classId, projId, taskExp, taskDesc) 
+			SELECT Classes.classId, Projects.projId, exp, description
+			FROM Classes, Projects, AccountProjects, Accounts, ClassTitles
+			WHERE Accounts.accountName = user 
+				AND ClassTitles.classTitle = class
+				AND Classes.classTitleId = ClassTitles.classTitleId
+				AND Classes.accountId = Accounts.accountId
+				AND Projects.projName = project;
+
 	END IF;
 END;
 //
