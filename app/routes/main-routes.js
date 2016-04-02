@@ -34,8 +34,8 @@ router.get('/', function(req,res){
 });
 
 router.get('/logCheck', function(req,res){
-    var user = req.body.user;
-    var pass = req.body.pass;
+    var user = req.query.user;
+    var pass = req.query.pass;
     if(!req.session.user){
         con.query('select Accounts.accountId from Accounts where accountUser = ? and accountPass = ? and accountLog = 0', [user,pass],
             function(err,result){
