@@ -1,3 +1,1 @@
-
-
-//console.log(process.env.JAWSDB_URL);
+// index stuff
