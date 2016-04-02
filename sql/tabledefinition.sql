@@ -1,6 +1,10 @@
 DROP TRIGGER IF EXISTS afterAccountCreate;
+DROP TRIGGER IF EXISTS afterProjectCreate;
+DROP PROCEDURE IF EXISTS createProject;
+DROP PROCEDURE IF EXISTS createAccount;
+DROP PROCEDURE IF EXISTS login;
 
-DROP TABLE IF EXISTS AccountTasks, Projects, ProjTypes, Statuses, Classes, ClassTitles, Accounts;
+DROP TABLE IF EXISTS AccountTasks, AccountProjects, Projects, ProjTypes, Statuses, Classes, ClassTitles, Accounts;
 
 CREATE TABLE Accounts(
 accountId INT AUTO_INCREMENT PRIMARY KEY,
@@ -8,7 +12,7 @@ accountUser VARCHAR(20),
 accountPass VARCHAR(20),
 accountEmail VARCHAR(255),
 accountLog VARCHAR(255),
-CONSTRAINT accountId UNIQUE(accountUser);
+CONSTRAINT accountId UNIQUE(accountUser)
 );
 
 CREATE TABLE ClassTitles(
@@ -41,8 +45,17 @@ projTypeId INT,
 statusId INT,
 projName VARCHAR(255),
 projDesc TEXT,
+creatorId INT,
 FOREIGN KEY (projTypeId) REFERENCES ProjTypes(projTypeId) ON DELETE CASCADE ON UPDATE CASCADE,
-FOREIGN KEY (statusId) REFERENCES Statuses(statusId) ON DELETE CASCADE ON UPDATE CASCADE
+FOREIGN KEY (statusId) REFERENCES Statuses(statusId) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (creatorId) REFERENCES Accounts(accountId) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE AccountProjects(
+accountId INT,
+projId INT,
+FOREIGN KEY (projId) REFERENCES Projects(projId) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (accountId) REFERENCES Accounts(accountId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE AccountTasks(
@@ -61,16 +74,22 @@ DELIMITER //
 CREATE TRIGGER afterAccountCreate AFTER INSERT ON Accounts FOR EACH ROW
 BEGIN
 INSERT INTO Classes(accountId,classTitleId,classEXP) SELECT NEW.accountId, classTitleId, 0 FROM ClassTitles;
-END; 
+END; //
+
+CREATE TRIGGER afterProjectCreate AFTER INSERT ON Projects FOR EACH ROW
+BEGIN
+INSERT INTO AccountProjects(accountId,projId) VALUES(NEW.creatorId, NEW.projId);
+END; //
 
 CREATE PROCEDURE createProject(
 IN newProjType VARCHAR(255),
 IN newStatus VARCHAR(255),
 IN newProjName VARCHAR(255),
-IN newProjDesc TEXT)
+IN newProjDesc TEXT,
+IN creator TEXT)
 BEGIN
-INSERT INTO Projects(projTypeId,statusId,projName,projDesc) SELECT projTypeId,statusId,newProjName,newProjDesc FROM ProjTypes,Statuses WHERE projTypeName=newProjType AND statusName=newStatus;
-END; 
+INSERT INTO Projects(projTypeId,statusId,projName,projDesc,creatorId) SELECT projTypeId,statusId,newProjName,newProjDesc,accountId FROM ProjTypes,Statuses,Accounts WHERE projTypeName=newProjType AND statusName=newStatus AND accountUser=creator;
+END; //
  
 
 CREATE PROCEDURE createAccount(
@@ -80,13 +99,13 @@ IN pass VARCHAR(255))
 BEGIN
 INSERT INTO Accounts(accountUser, accountPass, accountEmail, accountLog)
 	VALUES (user, email, pass, 0);
-END;
+END; //
 
 CREATE PROCEDURE login(user, pass)
 BEGIN
-IF EXISTS(SELECT accountId FROM Accounts WHERE accountUser = user AND accountPass = pass AND accountLog = 0)
-BEGIN
-	UPDATE Accounts SET accountLog = 1 WHERE accountUser = user;
+	IF EXISTS(SELECT accountId FROM Accounts WHERE accountUser = user AND accountPass = pass AND accountLog = 0) THEN
+		UPDATE Accounts SET accountLog = 1 WHERE accountUser = user;
+	END IF;
 END;
 //
 DELIMITER ;
