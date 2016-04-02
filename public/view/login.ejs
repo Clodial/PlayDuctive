@@ -7,6 +7,7 @@
 <body>
 	<!--Page that shows what happens when the user's logged in-->
 	<% include partials/nav %>
+	<!--
 	<% if(proj){
 		for(var i = 0; i < proj.length; i++){ %>
 		<div class="col-md-3">
@@ -14,7 +15,7 @@
 			<p><% proj[i][1] %></p>
 		</div>
 	<%	}
-	} %>
+	} %> -->
 	<form action="/makeProject" method="get">
 		<button type="submit">Make Project</button>
 	</form>
