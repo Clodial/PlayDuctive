@@ -1,7 +1,7 @@
 $(".nav-login").slideUp();
 $(".nav-register").slideUp();
 //clicking buttons to show login and registration sections
-$(".showLog").onclick(function(){
+$(".showLog").click(function(){
 	if($(".nav-login").is(':visible')){
 		$(".nav-login").slideUp();
 	}else{
