@@ -130,9 +130,7 @@ router.post('/makeProject/posts', function (req, res) {
     //var status = req.body.status; //default to incomplete
     var projName = req.body.projName;
     var projDesc = req.body.projDesc;
-    console.log(req.body);
     var userList = req.body["addedUsers[]"];
-    console.log(userList);
     if(!userList) {
         userList=[];
     } else if(typeof userList != "object") {
