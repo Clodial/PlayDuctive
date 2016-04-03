@@ -45,7 +45,7 @@ $(function(){
                 var defaultOption=document.createElement("option");
                 defaultOption.selected="selected";
                 defaultOption.style="display:none";
-                x.add(option);
+                x.add(defaultOption);
                 for(i=0;i<possibleUsers.length;i++) {
                     var option=document.createElement("option");
                     option.text=possibleUsers[i];
