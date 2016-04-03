@@ -144,12 +144,10 @@ router.post('/makeProject/posts', function (req, res) {
 });
 
 router.post('/makeProject/search_users', function (req, res) {
-    console.log(req.body);
     var userPartial=req.body.userPartial;
-    console.log(userPartial);
     //insert validation of values here(types, length requirement, etc.)
 
-    con.query('SELECT accountName FROM Accounts WHERE SUBSTRING(accountName,0,?)=?;', 
+    con.query('SELECT accountUser FROM Accounts WHERE SUBSTRING(accountUser,0,?)=?;', 
         [userPartial.length,userPartial],
         function(err, result){
             console.log(result);
