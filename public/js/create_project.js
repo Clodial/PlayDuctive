@@ -55,9 +55,9 @@ $(function(){
         });
     });
 
-    /*#("#selectUser").change(function() {
+    $("#selectUser").change(function() {
         var addedUser=document.getElementById("selectUser").value;
         document.getElementById("userList").innerHTML+=addedUser+" ";
         //$("#selectUser option[value='"+addedUser+"']").remove();
-    });*/
+    });
 });
