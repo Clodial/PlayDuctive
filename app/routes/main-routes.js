@@ -135,13 +135,13 @@ router.post('/makeProject/posts', function (req, res) {
 
     //insert validation of values here(types, length requirement, etc.)
 
-    con.query('CALL createProject(?,?,?,?,?,@newProjId);SELECT @newProjId;', 
+    con.query('CALL createProject(?,?,?,?,?,@newProjId);SELECT @newProjId AS newProjId;', 
         [projType, "NOT-STARTED", projName, projDesc, accountName],
         function(err, result){
             console.log(result);
             for(var i = 0; i < userList.length; i++){
                 con.query('CALL addAccountProject(?,?);', 
-                [userList[i],result[0].@newProjId],
+                [userList[i],result[0].newProjId],
                 function(err, result){});  
             }
             //res.json(JSON.stringify(["A","B","C"]));
