@@ -29,7 +29,7 @@ router.get('/', function(req,res){
                 }
                 res.render('login', { title: 'PlayDuctive', proj: projList, user: req.session.user});
             });
-        res.render('login', { title: 'PlayDuctive', proj: projList, user: req.session.user});
+        //res.render('login', { title: 'PlayDuctive', proj: projList, user: req.session.user});
     }
 });
 
@@ -144,18 +144,3 @@ router.post('/create_project/posts', function (req, res) {
 });
 
 module.exports = router;
-/*
-var apiRouter= express.Router();
-
-module.export = function() {
-
-	apiRotuer.get('/,', function(req, res){})
-
-	apiRouter.use('/use')
-
-
-	apiRouter.route('/route')
-		.get(function(req, res){})
-		.post(function(req, res){});
-	return apiRouter; 
-}*/
