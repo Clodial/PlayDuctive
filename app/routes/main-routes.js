@@ -125,7 +125,6 @@ router.get('/makeProject', function (req, res) {
 });
 
 router.post('/makeProject/posts', function (req, res) {
-    console.log(req.body);
     var accountName = req.body.accountName;
     var accountPass = req.body.accountPass;
     var projType = req.body.projType;
@@ -140,6 +139,7 @@ router.post('/makeProject/posts', function (req, res) {
         [projType, "NOT-STARTED", projName, projDesc, accountName],
         function(err, result){
             console.log(result);
+            console.log(err);
             /*for(var i = 0; i < userList.length; i++){
                 con.query('CALL addAccountProject(?,?);', 
                 [userList[i],result[0].newProjId],
