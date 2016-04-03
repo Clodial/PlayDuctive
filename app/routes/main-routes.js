@@ -37,12 +37,13 @@ router.get('/logCheck', function(req,res){
     var user = req.query.user;
     var pass = req.query.pass;
     if(!req.session.user){
-        con.query('select Accounts.accountId from Accounts where accountUser = ? and accountPass = ? and accountLog = 0', [user,pass],
+        con.query('select Accounts.accountId from Accounts where accountUser = ? and accountPass = ?', [user,pass],
             function(err,result){
                 console.log("underwent stuff yo");
                 if(err){
                     console.log('QUERY ERROR');
                     console.log(err.code);
+                     res.redirect('/');
                 }else{
                     if(result.length > 0){
                         req.session.logIn = true;
@@ -92,7 +93,7 @@ router.post('/login', function(req, res){
     );
 });
 
-router.get('/logCheck', function(req,res){
+router.get('/login/usetest', function(req,res){
     var user = req.query.user;  
     con.query('select accountId from Accounts where accountUser = ?', [user],
         function (err, result) {
