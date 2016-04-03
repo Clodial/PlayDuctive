@@ -1,4 +1,4 @@
-var addedUsers=[];
+var addedUsers=[$("submit[name=user]").attr("value")];
 //attach listeners after DOM loaded
 $(function(){
     $("button").click(function () {
@@ -11,15 +11,13 @@ $(function(){
                 "accountPass": "5tkt",
                 "projType": $("[name=projType]").val(),
                 "projName": $("[name=projName]").val(),
-                "projDesc": $("[name=projDesc]").val()
+                "projDesc": $("[name=projDesc]").val(),
+                "userList": addedUsers
             }),
             contentType: "application/json",
             mimeType: "application/json",
             success: function (result) {
-                //maybe do something to the page
-
-                //add all the users
-
+                //maybe do something to the page, like reload or go to the new project page
             }
         });
     });
@@ -51,9 +49,6 @@ $(function(){
                 x.add(defaultOption);
                 for(i=0;i<possibleUsers.length;i++) {
                     if(addedUsers.indexOf(possibleUsers[i][0])==-1) {
-                        console.log(addedUsers);
-                        console.log(possibleUsers[i][0]);
-                        console.log(addedUsers.indexOf(possibleUsers[i]));
                         var option=document.createElement("option");
                         option.text=possibleUsers[i][0];
                         x.add(option);
@@ -65,10 +60,12 @@ $(function(){
 
     $("#userSelect").change(function() {
         var addedUser=document.getElementById("userSelect").value;
-        addedUsers.push(addedUser);
-        $("#userList").append(addedUser+"<br>");
-        $("#userSelect option").filter(function(){
-            return $.trim($(this).text()) ==  addedUser;
-        }).remove();
+        if(addedUser!="") {
+            addedUsers.push(addedUser);
+            $("#userList").append(addedUser+"<br>");
+            $("#userSelect option").filter(function(){
+                return $.trim($(this).text()) ==  addedUser;
+            }).remove();
+        }
     });
 });

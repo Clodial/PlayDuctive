@@ -75,19 +75,16 @@ BEGIN
 INSERT INTO Classes(accountId,classTitleId,classEXP) SELECT NEW.accountId, classTitleId, 0 FROM ClassTitles;
 END; //
 
-CREATE TRIGGER afterProjectCreate AFTER INSERT ON Projects FOR EACH ROW
-BEGIN
-INSERT INTO AccountProjects(accountId,projId) VALUES(NEW.creatorId, NEW.projId);
-END; //
-
 CREATE PROCEDURE createProject(
 IN newProjType VARCHAR(255),
 IN newStatus VARCHAR(255),
 IN newProjName VARCHAR(255),
 IN newProjDesc TEXT,
-IN creator TEXT)
+IN creator TEXT,
+OUT newProjId INT)
 BEGIN
 INSERT INTO Projects(projTypeId,statusId,projName,projDesc,creatorId) SELECT projTypeId,statusId,newProjName,newProjDesc,accountId FROM ProjTypes,Statuses,Accounts WHERE projTypeName=newProjType AND statusName=newStatus AND accountUser=creator;
+SET newProjId=LAST_INSERT_ID();
 END; //
  
 
@@ -98,6 +95,14 @@ IN pass VARCHAR(255))
 BEGIN
 INSERT INTO Accounts(accountUser, accountPass, accountEmail, accountLog)
 	VALUES (user, email, pass, 0);
+END; //
+
+CREATE PROCEDURE addAccountProject(
+IN user VARCHAR(255),
+IN proj VARCHAR(255))
+BEGIN
+INSERT INTO AccountProjects(accountId, projId)
+	SELECT accountId,proj FROM Accounts WHERE accountUser=user;
 END; //
 DELIMITER ;
 

@@ -131,16 +131,22 @@ router.post('/makeProject/posts', function (req, res) {
     //var status = req.body.status; //default to incomplete
     var projName = req.body.projName;
     var projDesc = req.body.projDesc;
+    var userList = req.body.userList;
 
     //insert validation of values here(types, length requirement, etc.)
 
-    // call stored procedure that creates a project
-    var status = runQuery('CALL createProject(?,?,?,?,?);', [projType, "INCOMPLETE", projName, projDesc, accountName]);
-    if (status) {
-        res.json({ success: "true" });
-    } else {
-        res.json({ success: "false" });
-    }
+    con.query('CALL createProject(?,?,?,?,?,@newProjId);', 
+        [projType, "NOT-STARTED", projName, projDesc, accountName],
+        function(err, result){
+            con.query('SELECT @newProjId AS newProjId;',
+                function(err, result){
+                    for(var i = 0; i < userList.length; i++){
+                        con.query('CALL addAccountProject(?,?);', 
+                        [userList[i],result[0].newProjId],
+                        function(err, result){});  
+                    }
+            });
+    });    
 });
 
 router.post('/makeProject/search_users', function (req, res) {
@@ -150,13 +156,11 @@ router.post('/makeProject/search_users', function (req, res) {
     con.query('SELECT accountUser FROM Accounts WHERE SUBSTRING(accountUser,1,?)=?;', 
         [userPartial.length,userPartial],
         function(err, result){
-            console.log(result);
             userList=[];
             for(var i = 0; i < result.length; i++){
                 userList.push([result[i].accountUser]);
             }
             res.json(JSON.stringify(userList));
-            //res.json(JSON.stringify(["A","B","C"]));
         });
 });
 
