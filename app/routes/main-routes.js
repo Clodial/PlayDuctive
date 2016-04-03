@@ -37,7 +37,7 @@ router.get('/logCheck', function(req,res){
     var user = req.query.user;
     var pass = req.query.pass;
     if(!req.session.user){
-        con.query('select Accounts.accountId from Accounts where accountUser = ? and accountPass = ? and accountLog = 0', [user,pass],
+        con.query('select Accounts.accountId from Accounts where accountUser = ? and accountPass = ?', [user,pass],
             function(err,result){
                 console.log("underwent stuff yo");
                 if(err){
@@ -125,13 +125,18 @@ router.get('/makeProject', function (req, res) {
 });
 
 router.post('/makeProject/posts', function (req, res) {
-    var accountName = req.body.accountName;
-    var accountPass = req.body.accountPass;
+    var accountName = req.session.user;
     var projType = req.body.projType;
     //var status = req.body.status; //default to incomplete
     var projName = req.body.projName;
     var projDesc = req.body.projDesc;
-    var userList = req.body.userList;
+    var userList = req.body["addedUsers[]"];
+    if(!userList) {
+        userList=[];
+    } else if(typeof userList != "object") {
+        userList=[userList];
+    }
+    userList.push(accountName);
 
     //insert validation of values here(types, length requirement, etc.)
 
@@ -146,7 +151,8 @@ router.post('/makeProject/posts', function (req, res) {
                         function(err, result){});  
                     }
             });
-    });    
+    });  
+    res.render('makeProject',{ title: 'PlayDuctive', user: req.session.user});
 });
 
 router.post('/makeProject/search_users', function (req, res) {
