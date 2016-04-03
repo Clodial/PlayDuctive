@@ -48,12 +48,12 @@ $(function(){
                 defaultOption.style="display:none";
                 x.add(defaultOption);
                 for(i=0;i<possibleUsers.length;i++) {
-                    if(addedUsers.indexOf(possibleUsers[i])==-1) {
+                    if(addedUsers.indexOf(possibleUsers[i][0])==-1) {
                         console.log(addedUsers);
-                        console.log(possibleUsers[i]);
+                        console.log(possibleUsers[i][0]);
                         console.log(addedUsers.indexOf(possibleUsers[i]));
                         var option=document.createElement("option");
-                        option.text=possibleUsers[i];
+                        option.text=possibleUsers[i][0];
                         x.add(option);
                     }
                 }
