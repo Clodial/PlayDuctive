@@ -65,9 +65,10 @@ $(function(){
 
     $("#userSelect").change(function() {
         var addedUser=document.getElementById("userSelect").value;
-        console.log("Adding: "+addedUser);
         addedUsers.push(addedUser);
-        console.log(addedUsers);
-        $("#userSelect option[value='"+addedUser+"']").remove();
+        $("#userList").innerHTML.append(addedUser+" ");
+        $("#userSelect option").filter(function(){
+            return $.trim($(this).text()) ==  addedUser;
+        }).remove();
     });
 });
