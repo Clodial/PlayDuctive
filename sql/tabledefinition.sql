@@ -104,8 +104,8 @@ IN user VARCHAR(255),
 IN email VARCHAR(255),
 IN pass VARCHAR(255))
 BEGIN
-INSERT INTO Accounts(accountUser, accountPass, accountEmail, accountLog)
-	VALUES (user, email, pass, 0);
+INSERT INTO Accounts(accountUser, accountPass, accountEmail)
+	VALUES (user, pass, email);
 END; //
 
 CREATE PROCEDURE login(

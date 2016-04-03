@@ -125,16 +125,23 @@ router.get('/makeProject', function (req, res) {
 });
 
 router.post('/makeProject/posts', function (req, res) {
-    var user = req.session.user;
+
+    var accountName = req.session.user;
     var projType = req.body.projType;
     //var status = req.body.status; //default to incomplete
     var projName = req.body.projName;
     var projDesc = req.body.projDesc;
-    var userList = req.body.userList;
+    var userList = req.body["addedUsers[]"];
+    if(!userList) {
+        userList=[];
+    } else if(typeof userList != "object") {
+        userList=[userList];
+    }
+    userList.push(accountName);
 
     //insert validation of values here(types, length requirement, etc.)
-    if(!req.session.user || user){
-
+    if(!req.session.user || accountName){
+        res.redirect('/');
     }else{
         con.query('CALL createProject(?,?,?,?,?,@newProjId);', 
             [projType, "NOT-STARTED", projName, projDesc, user],
@@ -149,6 +156,7 @@ router.post('/makeProject/posts', function (req, res) {
                         }
                 });
         });
+        res.render('makeProject',{ title: 'PlayDuctive', user: req.session.user});
     }
 });
 
