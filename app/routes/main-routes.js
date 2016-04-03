@@ -153,7 +153,7 @@ router.post('/makeProject/search_users', function (req, res) {
             console.log(result);
             userList=[];
             for(var i = 0; i < result.length; i++){
-                userList.push([result.accountName]);
+                userList.push([result[i].accountUser]);
             }
             res.json(JSON.stringify(userList));
             //res.json(JSON.stringify(["A","B","C"]));
