@@ -125,6 +125,7 @@ router.get('/makeProject', function (req, res) {
 });
 
 router.post('/makeProject/posts', function (req, res) {
+    console.log(req.body);
     var accountName = req.body.accountName;
     var accountPass = req.body.accountPass;
     var projType = req.body.projType;
