@@ -81,7 +81,7 @@ END; //
 
 CREATE TRIGGER afterProjectCreate AFTER INSERT ON Projects FOR EACH ROW
 BEGIN
-INSERT INTO AccountProjects(accountId,projId) VALUES(NEW.creatorId, NEW.projId);
+INSERT INTO AccountProjects(accountId,projId) VALUES(NEW.accountId, NEW.projId);
 END; //
 
 CREATE PROCEDURE createProject(
@@ -91,7 +91,12 @@ IN newProjName VARCHAR(255),
 IN newProjDesc TEXT,
 IN creator TEXT)
 BEGIN
-INSERT INTO Projects(projTypeId,statusId,projName,projDesc,creatorId) SELECT projTypeId,statusId,newProjName,newProjDesc,accountId FROM ProjTypes,Statuses,Accounts WHERE projTypeName=newProjType AND statusName=newStatus AND accountUser=creator;
+INSERT INTO Projects(projTypeId,statusId,projName,projDesc,creatorId) 
+	SELECT projTypeId,statusId,newProjName,newProjDesc,accountId 
+	FROM ProjTypes,Statuses,Accounts 
+	WHERE projTypeName=newProjType 
+		AND statusName=newStatus 
+		AND accountUser=creator;
 END; //
  
 
