@@ -7,8 +7,7 @@ $(function(){
             type: "POST",
             dataType: "json",
             data: JSON.stringify({
-                "accountName": "tkt5",
-                "accountPass": "5tkt",
+                "accountName": $("submit[name=user]").attr("value"),
                 "projType": $("[name=projType]").val(),
                 "projName": $("[name=projName]").val(),
                 "projDesc": $("[name=projDesc]").val(),
