@@ -135,7 +135,7 @@ router.post('/makeProject/posts', function (req, res) {
 
     //insert validation of values here(types, length requirement, etc.)
 
-    con.query('CALL createProject(?,?,?,?,?);', 
+    con.query('CALL createProject(?,?,?,?,?);SELECT newProjId;', 
         [projType, "INCOMPLETE", projName, projDesc, accountName],
         function(err, result){
             console.log(result);
