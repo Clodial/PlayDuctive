@@ -60,6 +60,7 @@ $(function(){
 
     $("#userSelect").change(function() {
         var addedUser=document.getElementById("userSelect").value;
+        console.log("Adding: "+addedUser);
         $("#userList").append(addedUser+" ");
         //document.getElementById("userList").innerHTML+=addedUser+" ";
         //addedUsers.push(addedUser);
