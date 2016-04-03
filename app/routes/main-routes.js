@@ -39,14 +39,13 @@ router.get('/logCheck', function(req,res){
     if(!req.session.user){
         con.query('select Accounts.accountId from Accounts where accountUser = ? and accountPass = ?', [user,pass],
             function(err,result){
-                console.log("underwent stuff yo");
                 if(err){
                     console.log('QUERY ERROR');
                     console.log(err.code);
                      res.redirect('/');
                 }else{
                     if(result.length > 0){
-                        req.session.logIn = true;
+                        console.log("underwent stuff yo");
                         req.session.user = user;
                         console.log(req.session.user);
                         //res.redirect('/');
