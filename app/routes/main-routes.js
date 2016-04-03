@@ -104,7 +104,7 @@ router.post('/login/usetest', function(req,res){
                 if(result.length > 0 || user == ''){
                     console.log(result.length);
                     req.session.user = user
-                    res.render('login', {title: 'PlayDuctive', proj: null, success: "success", user: req.session.user});
+                    res.send(JSON.stringify("invalid"));
                 }else{
                 //res.send(result[0].accountId);
                     res.send(JSON.stringify("valid"));
