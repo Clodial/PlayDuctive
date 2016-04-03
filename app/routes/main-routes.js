@@ -124,7 +124,7 @@ router.get('/makeProject', function (req, res) {
     res.render('makeProject',{ title: 'PlayDuctive', user: req.session.user});
 });
 
-router.post('/create_project/posts', function (req, res) {
+router.post('/makeProject/posts', function (req, res) {
     var accountName = req.body.accountName;
     var accountPass = req.body.accountPass;
     var projType = req.body.projType;
@@ -143,7 +143,7 @@ router.post('/create_project/posts', function (req, res) {
     }
 });
 
-router.post('/create_project/search_users', function (req, res) {
+router.post('/makeProject/search_users', function (req, res) {
     var userPartial=req.body.userPartial;
 
     //insert validation of values here(types, length requirement, etc.)

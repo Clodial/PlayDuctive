@@ -1,6 +1,6 @@
 $("button").click(function () {
     $.ajax({
-        url: "create_project/posts",
+        url: "makeProject/posts",
         type: "POST",
         dataType: "json",
         data: JSON.stringify({
@@ -23,7 +23,7 @@ $("#addUser").keyup(function(){
     var userPartial = document.getElementById("addUser").value;
     var useCheck = "";
     $.ajax({
-        url: "/create_project/search_users",
+        url: "/makeProject/search_users",
         type: "POST",
         datatype: "json",
         data: JSON.stringify({
