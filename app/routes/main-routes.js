@@ -150,6 +150,7 @@ router.post('/makeProject/posts', function (req, res) {
 });
 
 router.post('/makeProject/search_users', function (req, res) {
+    if(!req.session.user){res.redirect('/');}
     var userPartial=req.body.userPartial;
     //insert validation of values here(types, length requirement, etc.)
 
