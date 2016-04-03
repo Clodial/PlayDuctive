@@ -135,6 +135,8 @@ router.post('/makeProject/posts', function (req, res) {
     console.log(userList);
     if(!userList) {
         userList=[];
+    } else if(typeof userList != "object") {
+        userList=[userList];
     }
     userList.push(accountName);
 
