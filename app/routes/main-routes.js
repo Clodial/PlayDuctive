@@ -93,7 +93,7 @@ router.post('/login', function(req, res){
     );
 });
 
-router.get('/login/usetest', function(req,res){
+router.post('/login/usetest', function(req,res){
     var user = req.query.user;  
     con.query('select accountId from Accounts where accountUser = ?', [user],
         function (err, result) {
