@@ -75,11 +75,6 @@ BEGIN
 INSERT INTO Classes(accountId,classTitleId,classEXP) SELECT NEW.accountId, classTitleId, 0 FROM ClassTitles;
 END; //
 
-CREATE TRIGGER afterProjectCreate AFTER INSERT ON Projects FOR EACH ROW
-BEGIN
-INSERT INTO AccountProjects(accountId,projId) VALUES(NEW.creatorId, NEW.projId);
-END; //
-
 CREATE PROCEDURE createProject(
 IN newProjType VARCHAR(255),
 IN newStatus VARCHAR(255),

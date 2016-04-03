@@ -17,7 +17,7 @@ $(function(){
             contentType: "application/json",
             mimeType: "application/json",
             success: function (result) {
-                //maybe do something to the page
+                //maybe do something to the page, like reload or go to the new project page
             }
         });
     });
