@@ -154,7 +154,8 @@ router.post('/makeProject/search_users', function (req, res) {
             for(var i = 0; i < result.length; i++){
                 projList.push([result.accountName]);
             }
-            res.json(JSON.stringify(userList));
+            //res.json(JSON.stringify(userList));
+            res.json(JSON.stringify(["A","B","C"]));
         });
 });
 
