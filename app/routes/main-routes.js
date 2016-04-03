@@ -125,14 +125,13 @@ router.get('/makeProject', function (req, res) {
 });
 
 router.post('/makeProject/posts', function (req, res) {
-    console.log("User: "+req.session.user);
-    console.log(req.body);
-    /*var accountName = req.session.user;
+    var accountName = req.session.user;
     var projType = req.body.projType;
     //var status = req.body.status; //default to incomplete
     var projName = req.body.projName;
     var projDesc = req.body.projDesc;
-    var userList = req.body.userList;
+    var userList = req.body.addedUsers[];
+    userList.append(accountName);
 
     //insert validation of values here(types, length requirement, etc.)
 
@@ -147,7 +146,7 @@ router.post('/makeProject/posts', function (req, res) {
                         function(err, result){});  
                     }
             });
-    });   */ 
+    });  
 });
 
 router.post('/makeProject/search_users', function (req, res) {
