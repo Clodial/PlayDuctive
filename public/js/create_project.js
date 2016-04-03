@@ -62,6 +62,7 @@ $(function(){
         var addedUser=document.getElementById("userSelect").value;
         console.log("Adding: "+addedUser);
         addedUsers.push(addedUser);
+        console.log(addedUsers);
         $("#selectUser option[value='"+addedUser+"']").remove();
     });
 });
