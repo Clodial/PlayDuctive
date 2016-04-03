@@ -165,6 +165,16 @@ BEGIN
 
 	END IF;
 END;
+
+CREATE PROCEDURE getStats(
+IN user VARCHAR(255)
+)
+BEGIN
+	select ClassTitles.classTitle as class, Classes.classExp as exp from ClassTitles, Classes, Accounts 
+	where Accounts.accountUser = user
+		and Accounts.accountId = Classes.accountId
+        and Classes.classTitleId = ClassTitles.classTitleId;
+END;
 //
 DELIMITER ;
 
