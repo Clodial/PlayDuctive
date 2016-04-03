@@ -139,11 +139,11 @@ router.post('/makeProject/posts', function (req, res) {
         [projType, "NOT-STARTED", projName, projDesc, accountName],
         function(err, result){
             console.log(result);
-            for(var i = 0; i < userList.length; i++){
+            /*for(var i = 0; i < userList.length; i++){
                 con.query('CALL addAccountProject(?,?);', 
                 [userList[i],result[0].newProjId],
                 function(err, result){});  
-            }
+            }*/
             //res.json(JSON.stringify(["A","B","C"]));
         });    
 });
