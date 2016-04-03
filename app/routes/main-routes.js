@@ -125,7 +125,9 @@ router.get('/makeProject', function (req, res) {
 });
 
 router.post('/makeProject/posts', function (req, res) {
-    var accountName = req.session.user;
+    console.log("User: "+req.session.user);
+    console.log(req.body);
+    /*var accountName = req.session.user;
     var projType = req.body.projType;
     //var status = req.body.status; //default to incomplete
     var projName = req.body.projName;
@@ -145,7 +147,7 @@ router.post('/makeProject/posts', function (req, res) {
                         function(err, result){});  
                     }
             });
-    });    
+    });   */ 
 });
 
 router.post('/makeProject/search_users', function (req, res) {
