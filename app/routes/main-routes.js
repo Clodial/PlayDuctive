@@ -6,7 +6,7 @@ var mysql 	    = require('mysql');
 //var mysqlStore  = require('express-mysql-session')(session);
 
 //database connection stuff
-var con = mysql.createConnection(process.env.JAWSDB_URL);
+var con = mysql.createConnection({multipleStatements: true,host:process.env.JAWSDB_URL});
 var router 	= express.Router();
 
 router.use(bodyParser.urlencoded({ extended: false }));
