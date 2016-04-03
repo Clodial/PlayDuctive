@@ -84,9 +84,7 @@ $("#logout-button").click(function(){
 
 $("nav-log-true").hover(function(){
 	$(".user-stats").slideDown();
-})){
-	$(".user-stats").slideDown();
-}else{
+}),function(){
 	$(".user-stats").slideUp();
 }
 
