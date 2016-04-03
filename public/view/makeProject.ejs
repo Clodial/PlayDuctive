@@ -5,7 +5,7 @@
 </head>
 <body>
   <% include partials/nav %>
-    <form action="makeProject/post">
+    <form action="makeProject/post" method="post">
       <submit type="hidden" name="user" value="<%= user %>"></submit>
       Project Type:<br>
       <select name="projType">
@@ -23,7 +23,7 @@
       Users Added to Project:<br>
       <div id='userList'></div>
     </form>
-    <button id="button">Submit</button>
+    <button type="submit">Make Project</button>
     
     <script src="../js/create_project.js"></script>
     <% include partials/bodyScript %>
