@@ -17,3 +17,32 @@ $("button").click(function () {
         }
     });
 });
+
+//Function checking for users
+$("#addUser").keyup(function(){
+    var userPartial = document.getElementById("addUser").value;
+    var useCheck = "";
+    $.ajax({
+        url: "/create_project/search_users",
+        type: "POST",
+        datatype: "json",
+        data: JSON.stringify({
+            "userPartial": userPartial
+        }),
+        contentType: "application/json",
+        mimeType: "application/json",
+        success: function(data){
+            //clear the current list
+            var x = document.getElementById("userSelect");
+            while (x.length > 0) {
+                x.remove(0);
+            }
+            //add the new elements
+            for(i=0;i<data.length;i++) {
+                var option=document.createElement("option");
+                option.text=data[i];
+                x.add(option);
+            }
+        }
+    });
+});

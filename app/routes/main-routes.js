@@ -143,6 +143,21 @@ router.post('/create_project/posts', function (req, res) {
     }
 });
 
+router.post('/create_project/search_users', function (req, res) {
+    var userPartial=req.body.userPartial;
+
+    //insert validation of values here(types, length requirement, etc.)
+
+    con.query('SELECT accountName FROM Accounts WHERE SUBSTRING(accountName,0,?)=?;', [userPartial.length,userPartial],
+        function(err, result){
+            userList=[];
+            for(var i = 0; i < result.length; i++){
+                projList.push([result.accountName]);
+            }
+            res.json(JSON.stringify(userList));
+        });
+});
+
 module.exports = router;
 /*
 var apiRouter= express.Router();
