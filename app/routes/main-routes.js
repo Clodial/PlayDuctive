@@ -126,7 +126,7 @@ router.get('/makeProject', function (req, res) {
 
 router.post('/makeProject/posts', function (req, res) {
     if(!req.session.user){res.redirect('/');}
-    var accountName = req.body.accountName;
+    var accountName = req.session.user;
     var projType = req.body.projType;
     //var status = req.body.status; //default to incomplete
     var projName = req.body.projName;

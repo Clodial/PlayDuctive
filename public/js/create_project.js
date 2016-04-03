@@ -7,7 +7,6 @@ $(function(){
             type: "POST",
             dataType: "json",
             data: JSON.stringify({
-                "accountName": $("submit[name=user]").attr("value"),
                 "projType": $("[name=projType]").val(),
                 "projName": $("[name=projName]").val(),
                 "projDesc": $("[name=projDesc]").val(),
@@ -61,7 +60,12 @@ $(function(){
         var addedUser=document.getElementById("userSelect").value;
         if(addedUser!="") {
             addedUsers.push(addedUser);
-            $("#userList").append(addedUser+"<br>");
+            //$("#userList").append(addedUser+"<br>");
+            var userElement=document.createElement("input");
+            userElement.value=addedUser;
+            userElement.name="addedUsers[]";
+            //userElement.style="display:none";
+            document.getElementById("projectForm").appendChild(userElement);
             $("#userSelect option").filter(function(){
                 return $.trim($(this).text()) ==  addedUser;
             }).remove();
