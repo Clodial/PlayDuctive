@@ -130,7 +130,7 @@ router.post('/makeProject/posts', function (req, res) {
     //var status = req.body.status; //default to incomplete
     var projName = req.body.projName;
     var projDesc = req.body.projDesc;
-    var userList = req.body.addedUsers[];
+    var userList = req.body.addedUsers;
     userList.append(accountName);
 
     //insert validation of values here(types, length requirement, etc.)
