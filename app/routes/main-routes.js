@@ -6,7 +6,7 @@ var mysql 	    = require('mysql');
 //var mysqlStore  = require('express-mysql-session')(session);
 
 //database connection stuff
-var con = mysql.createConnection({multipleStatements: true,host:process.env.JAWSDB_URL});
+var con = mysql.createConnection(process.env.JAWSDB_URL);
 var router 	= express.Router();
 
 router.use(bodyParser.urlencoded({ extended: false }));
@@ -135,18 +135,23 @@ router.post('/makeProject/posts', function (req, res) {
 
     //insert validation of values here(types, length requirement, etc.)
 
-    con.query('CALL createProject(?,?,?,?,?,@newProjId);SELECT @newProjId AS newProjId;', 
+    con.query('CALL createProject(?,?,?,?,?,@newProjId);', 
         [projType, "NOT-STARTED", projName, projDesc, accountName],
         function(err, result){
             console.log(result);
             console.log(err);
-            /*for(var i = 0; i < userList.length; i++){
-                con.query('CALL addAccountProject(?,?);', 
-                [userList[i],result[0].newProjId],
-                function(err, result){});  
-            }*/
-            //res.json(JSON.stringify(["A","B","C"]));
-        });    
+            con.query('SELECT @newProjId AS newProjId;',
+                function(err, result){
+                    console.log(result);
+                    console.log(err);
+                    /*for(var i = 0; i < userList.length; i++){
+                        con.query('CALL addAccountProject(?,?);', 
+                        [userList[i],result[0].newProjId],
+                        function(err, result){});  
+                    }*/
+                    //res.json(JSON.stringify(["A","B","C"]));
+            });
+    });    
 });
 
 router.post('/makeProject/search_users', function (req, res) {
