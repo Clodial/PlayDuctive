@@ -147,16 +147,15 @@ router.post('/makeProject/search_users', function (req, res) {
     var userPartial=req.body.userPartial;
     //insert validation of values here(types, length requirement, etc.)
 
-    con.query('SELECT accountUser FROM Accounts WHERE SUBSTRING(accountUser,0,?)=?;', 
+    con.query('SELECT accountUser FROM Accounts WHERE SUBSTRING(accountUser,1,?)=?;', 
         [userPartial.length,userPartial],
         function(err, result){
-            console.log(result);
-            /*userList=[];
+            userList=[];
             for(var i = 0; i < result.length; i++){
                 userList.push([result.accountName]);
             }
-            //res.json(JSON.stringify(userList));*/
-            res.json(JSON.stringify(["A","B","C"]));
+            res.json(JSON.stringify(userList));
+            //res.json(JSON.stringify(["A","B","C"]));
         });
 });
 
