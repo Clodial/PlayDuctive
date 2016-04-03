@@ -144,6 +144,7 @@ router.post('/makeProject/posts', function (req, res) {
 });
 
 router.post('/makeProject/search_users', function (req, res) {
+    console.log(req.body);
     var userPartial=req.body.userPartial;
     console.log(userPartial);
     //insert validation of values here(types, length requirement, etc.)
@@ -151,11 +152,11 @@ router.post('/makeProject/search_users', function (req, res) {
     con.query('SELECT accountName FROM Accounts WHERE SUBSTRING(accountName,0,?)=?;', 
         [userPartial.length,userPartial],
         function(err, result){
-            userList=[];
+            /*userList=[];
             for(var i = 0; i < result.length; i++){
                 userList.push([result.accountName]);
             }
-            //res.json(JSON.stringify(userList));
+            //res.json(JSON.stringify(userList));*/
             res.json(JSON.stringify(["A","B","C"]));
         });
 });
