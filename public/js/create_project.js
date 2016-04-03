@@ -48,7 +48,7 @@ $(function(){
                 defaultOption.style="display:none";
                 x.add(defaultOption);
                 for(i=0;i<possibleUsers.length;i++) {
-                    if(addedUsers.findIndex(possibleUsers[i])==-1) {
+                    if(addedUsers.indexOf(possibleUsers[i])==-1) {
                         var option=document.createElement("option");
                         option.text=possibleUsers[i];
                         x.add(option);
