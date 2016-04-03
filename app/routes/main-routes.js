@@ -48,12 +48,12 @@ router.get('/logCheck', function(req,res){
                         req.session.logIn = true;
                         req.session.user = user;
                         console.log(req.session.user);
-                        //res.redirect('/');
-                        res.render('login', { title: 'PlayDuctive', proj: null, user: req.session.user});
+                        res.redirect('/');
+                        //res.render('login', { title: 'PlayDuctive', proj: null, user: req.session.user});
                     }else{
                         console.log(req.session.user);
-                        //res.redirect('/');
-                        res.render('index', { title: 'PlayDuctive', proj: null, user: req.session.user});
+                        res.redirect('/');
+                        //res.render('index', { title: 'PlayDuctive', proj: null, user: req.session.user});
                     }
                 }
 
@@ -140,6 +140,7 @@ router.post('/makeProject/posts', function (req, res) {
         function(err, result){
             con.query('SELECT @newProjId AS newProjId;',
                 function(err, result){
+
                     for(var i = 0; i < userList.length; i++){
                         con.query('CALL addAccountProject(?,?);', 
                         [userList[i],result[0].newProjId],
