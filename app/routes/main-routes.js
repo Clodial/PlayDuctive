@@ -136,7 +136,7 @@ router.post('/makeProject/posts', function (req, res) {
     if(!userList) {
         userList=[];
     }
-    userList.append(accountName);
+    userList.push(accountName);
 
     //insert validation of values here(types, length requirement, etc.)
 
