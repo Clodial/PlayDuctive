@@ -175,6 +175,18 @@ BEGIN
 		and Accounts.accountId = Classes.accountId
         and Classes.classTitleId = ClassTitles.classTitleId;
 END;
+
+CREATE PROCEDURE addStat(
+IN user VARCHAR(255),
+IN exp INT,
+IN class VARCHAR(255))
+BEGIN
+	update Classes, Accounts, ClassTitles set classExp = exp 
+	where Accounts.accountUser = user
+		and Accounts.accountId = Classes.accountId 
+	    and ClassTitles.classTitle = class
+	    and Classes.classTitleId = ClassTitles.classTitleId;
+END;
 //
 DELIMITER ;
 
