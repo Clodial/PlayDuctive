@@ -6,7 +6,6 @@
 <body>
   <% include partials/nav %>
     <form id="projectForm" action="/makeProject/posts" method="post">
-      <input type="submit" value="Submit">
       <submit type="hidden" name="user" value="<%= user %>"></submit>
       Project Type:<br>
       <select name="projType">
@@ -21,6 +20,7 @@
       Add User<br>
       <input id="addUser" type="text" name="addUser"><br>
       <select id="userSelect" name="userSelect"></select><br>
+      <input type="submit" value="Submit">
       Users Added to Project:<br>
     </form>
     
