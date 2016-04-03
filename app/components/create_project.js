@@ -19,7 +19,7 @@ $("button").click(function () {
 });
 
 //Function checking for users
-$("addUser").keyup(function(){
+$("#addUser").keyup(function(){
     console.log("keyup");/*
     var userPartial = document.getElementById("addUser").value;
     var useCheck = "";
