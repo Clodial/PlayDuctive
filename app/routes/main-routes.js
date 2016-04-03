@@ -152,6 +152,7 @@ router.post('/makeProject/search_users', function (req, res) {
     con.query('SELECT accountName FROM Accounts WHERE SUBSTRING(accountName,0,?)=?;', 
         [userPartial.length,userPartial],
         function(err, result){
+            console.log(result);
             /*userList=[];
             for(var i = 0; i < result.length; i++){
                 userList.push([result.accountName]);

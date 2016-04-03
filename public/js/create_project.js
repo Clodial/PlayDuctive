@@ -44,7 +44,7 @@ $(function(){
                 possibleUsers=JSON.parse(data);
                 for(i=0;i<possibleUsers.length;i++) {
                     var option=document.createElement("option");
-                    option.text=data[i];
+                    option.text=possibleUsers[i];
                     x.add(option);
                 }
             }
