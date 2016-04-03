@@ -1,7 +1,9 @@
 <% if(!user){ //not logged in%>
 	<div class="navbar-main">
 		<div class="logo-button">
-
+			<form action="/" method="get">
+				<button type="submit">Home</button>
+			</form>
 		</div>
 		<div class="log-buttons">
 			<button class="showLog">Login</button>
@@ -30,8 +32,33 @@
 		</form>
 	</div>
 <% }else { //logged in%>
-	<div class="navbar-main">
-		<div><form action="/login/logout" method="GET"><button type="submit">Logout</button></form></div>
+	<div class="navbar-main nav-log-true">
+		<div class="logo-button">
+			<form action="/" method="get">
+				<button type="submit">Home</button>
+			</form>
+		</div>
 		<h1><%= user %></h1>
+		<div class="log-buttons"><form action="/login/logout" method="GET"><button type="submit">Logout</button></form></div>
+	</div>
+	<div class="user-stats">
+		<div class="col-md-2 stat-spot">
+			<p>Dungeon Master</p>
+		</div>
+		<div class="col-md-2 stat-spot">
+			<p>Warrior</p>
+		</div>
+		<div class="col-md-2 stat-spot">
+			<p>Magician</p>
+		</div>
+		<div class="col-md-2 stat-spot">
+			<p>Rogue</p>
+		</div>
+		<div class="col-md-2 stat-spot">
+			<p>Tinkerer</p>
+		</div>
+		<div class="col-md-2 stat-spot">
+			<p>Priest</p>
+		</div>
 	</div>
 <% } %>
