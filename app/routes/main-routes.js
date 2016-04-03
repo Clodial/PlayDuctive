@@ -138,8 +138,6 @@ router.post('/makeProject/posts', function (req, res) {
     con.query('CALL createProject(?,?,?,?,?,@newProjId);', 
         [projType, "NOT-STARTED", projName, projDesc, accountName],
         function(err, result){
-            console.log(result);
-            console.log(err);
             con.query('SELECT @newProjId AS newProjId;',
                 function(err, result){
                     console.log(result);
