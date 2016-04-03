@@ -66,7 +66,7 @@ $(function(){
     $("#userSelect").change(function() {
         var addedUser=document.getElementById("userSelect").value;
         addedUsers.push(addedUser);
-        $("#userList").innerHTML.append(addedUser+" ");
+        $("#userList").append(addedUser+"<br>");
         $("#userSelect option").filter(function(){
             return $.trim($(this).text()) ==  addedUser;
         }).remove();
