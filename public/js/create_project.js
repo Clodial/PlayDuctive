@@ -64,7 +64,7 @@ $(function(){
             var userElement=document.createElement("input");
             userElement.value=addedUser;
             userElement.name="addedUsers[]";
-            //userElement.style="display:none";
+            userElement.disabled="disabled";
             document.getElementById("projectForm").appendChild(userElement);
             document.getElementById("projectForm").appendChild(document.createElement("br"));
             $("#userSelect option").filter(function(){
