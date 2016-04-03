@@ -1,5 +1,6 @@
 $(".nav-login").slideUp();
 $(".nav-register").slideUp();
+$(".user-stats").slideUp();
 //clicking buttons to show login and registration sections
 $(".showLog").click(function(){
 	if($(".nav-login").is(':visible')){
@@ -80,5 +81,11 @@ $("#logout-button").click(function(){
 		}
 	});
 })
+
+$(".nav-log-true").hover(function(){
+	$(".user-stats").slideDown();
+}),(function(){
+	$(".user-stats").slideUp();
+});
 
 

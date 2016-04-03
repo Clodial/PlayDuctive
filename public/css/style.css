@@ -10,3 +10,13 @@
 	height:		50px;
 	background-color: #444444;
 }
+
+.user-stats{
+	background-color: #111111;
+}
+.log-buttons{
+	float: right;
+}
+.logo-button{
+	float: left;
+}

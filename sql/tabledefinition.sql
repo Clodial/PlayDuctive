@@ -2,6 +2,8 @@ DROP TRIGGER IF EXISTS afterAccountCreate;
 DROP TRIGGER IF EXISTS afterProjectCreate;
 DROP PROCEDURE IF EXISTS createProject;
 DROP PROCEDURE IF EXISTS createAccount;
+DROP PROCEDURE IF EXISTS createTask;
+DROP PROCEDURE IF EXISTS addUser;
 DROP PROCEDURE IF EXISTS login;
 
 DROP TABLE IF EXISTS AccountTasks, AccountProjects, Projects, ProjTypes, Statuses, Classes, ClassTitles, Accounts;
@@ -42,15 +44,16 @@ CREATE TABLE Projects(
 projId INT AUTO_INCREMENT PRIMARY KEY,
 projTypeId INT,
 statusId INT,
+accountId INT,
 projName VARCHAR(255),
 projDesc TEXT,
-creatorId INT,
 FOREIGN KEY (projTypeId) REFERENCES ProjTypes(projTypeId) ON DELETE CASCADE ON UPDATE CASCADE,
 FOREIGN KEY (statusId) REFERENCES Statuses(statusId) ON DELETE CASCADE ON UPDATE CASCADE,
-FOREIGN KEY (creatorId) REFERENCES Accounts(accountId) ON DELETE CASCADE ON UPDATE CASCADE
+FOREIGN KEY (accountId) REFERENCES Accounts(accountId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE AccountProjects(
+actProjId INT AUTO_INCREMENT PRIMARY KEY,
 accountId INT,
 projId INT,
 FOREIGN KEY (projId) REFERENCES Projects(projId) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -61,10 +64,12 @@ CREATE TABLE AccountTasks(
 taskId INT AUTO_INCREMENT PRIMARY KEY,
 classId INT,
 projId INT,
+statusId INT,
 taskExp INT,
 taskDesc TEXT,
 FOREIGN KEY (classId) REFERENCES Classes(classId) ON DELETE CASCADE ON UPDATE CASCADE,
-FOREIGN KEY (projId) REFERENCES Projects(projId) ON DELETE CASCADE ON UPDATE CASCADE
+FOREIGN KEY (projId) REFERENCES Projects(projId) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (statusId) REFERENCES Projects(projId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -83,6 +88,12 @@ IN newProjDesc TEXT,
 IN creator TEXT,
 OUT newProjId INT)
 BEGIN
+INSERT INTO Projects(projTypeId,statusId,projName,projDesc,creatorId) 
+	SELECT projTypeId,statusId,newProjName,newProjDesc,accountId 
+	FROM ProjTypes,Statuses,Accounts 
+	WHERE projTypeName=newProjType 
+		AND statusName=newStatus 
+		AND accountUser=creator;
 INSERT INTO Projects(projTypeId,statusId,projName,projDesc,creatorId) SELECT projTypeId,statusId,newProjName,newProjDesc,accountId FROM ProjTypes,Statuses,Accounts WHERE projTypeName=newProjType AND statusName=newStatus AND accountUser=creator;
 SET newProjId=LAST_INSERT_ID();
 END; //
@@ -96,6 +107,87 @@ BEGIN
 INSERT INTO Accounts(accountUser, accountPass, accountEmail)
 	VALUES (user, pass, email);
 END; //
+
+CREATE PROCEDURE login(
+IN user VARCHAR(255), 
+IN pass VARCHAR(255)) 
+BEGIN
+	IF EXISTS(SELECT accountId FROM Accounts WHERE accountUser = user AND accountPass = pass) THEN
+		UPDATE Accounts SET accountLog = 1 WHERE accountUser = user;
+	END IF;
+END;
+
+CREATE PROCEDURE getProjects(
+IN user VARCHAR(255)
+)
+BEGIN
+	select Projects.projName as name, Statuses.statusName as stat 
+	from Projects, Classes, Statuses, Accounts, AccountTasks 
+	where Accounts.accountUser = user 
+		and Accounts.accountId = Classes.accountId 
+		and Classes.classId = AccountTasks.classId 
+		and AccountTasks.projId = Projects.projId 
+		and Projects.statusId = Statuses.statusId;
+END;
+
+CREATE PROCEDURE addUser(
+IN user VARCHAR(255),
+IN project VARCHAR(255))
+BEGIN
+	INSERT INTO AccountProjects(accountId, projId)
+		SELECT Accounts.accountId, Projects.projId
+		FROM Accounts, Projects
+		WHERE Accounts.accountName = user
+		AND Projects.projName = project; 
+END;
+
+CREATE PROCEDURE createTask(
+IN user VARCHAR(255),
+IN class VARCHAR(255),
+IN description TEXT,
+IN exp INT,
+IN project VARCHAR(255)
+)
+BEGIN
+	IF EXISTS(SELECT AccountProjects.actProjId FROM AccountProjects, Accounts 
+		WHERE Accounts.accountName = user 
+		AND Accounts.accountId = AccountProjects.accountId) THEN
+		
+		INSERT INTO AccountTasks(classId, projId, statusId, taskExp, taskDesc) 
+			SELECT Classes.classId, Projects.projId, Statuses.statusId, exp, description
+			FROM Classes, Projects, AccountProjects, Accounts, ClassTitles, Statuses
+			WHERE Accounts.accountName = user 
+				AND ClassTitles.classTitle = class
+				AND Classes.classTitleId = ClassTitles.classTitleId
+				AND Classes.accountId = Accounts.accountId
+				AND Projects.projName = project;
+				AND Statuses.statusName = "NOT-STARTED";
+
+	END IF;
+END;
+
+CREATE PROCEDURE getStats(
+IN user VARCHAR(255)
+)
+BEGIN
+	select ClassTitles.classTitle as class, Classes.classExp as exp from ClassTitles, Classes, Accounts 
+	where Accounts.accountUser = user
+		and Accounts.accountId = Classes.accountId
+        and Classes.classTitleId = ClassTitles.classTitleId;
+END;
+
+CREATE PROCEDURE addStat(
+IN user VARCHAR(255),
+IN exp INT,
+IN class VARCHAR(255))
+BEGIN
+	update Classes, Accounts, ClassTitles set classExp = exp 
+	where Accounts.accountUser = user
+		and Accounts.accountId = Classes.accountId 
+	    and ClassTitles.classTitle = class
+	    and Classes.classTitleId = ClassTitles.classTitleId;
+END;
+//
 
 CREATE PROCEDURE addAccountProject(
 IN user VARCHAR(255),
