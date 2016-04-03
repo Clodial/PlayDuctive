@@ -1,3 +1,4 @@
+var addedUsers=[];
 //attach listeners after DOM loaded
 $(function(){
     $("button").click(function () {
@@ -47,9 +48,11 @@ $(function(){
                 defaultOption.style="display:none";
                 x.add(defaultOption);
                 for(i=0;i<possibleUsers.length;i++) {
-                    var option=document.createElement("option");
-                    option.text=possibleUsers[i];
-                    x.add(option);
+                    //if(addedUsers.findIndex(possibleUsers[i])==-1) {
+                        var option=document.createElement("option");
+                        option.text=possibleUsers[i];
+                        x.add(option);
+                    //}
                 }
             }
         });
@@ -57,7 +60,9 @@ $(function(){
 
     $("#userSelect").change(function() {
         var addedUser=document.getElementById("userSelect").value;
-        document.getElementById("userList").innerHTML+=addedUser+" ";
+        $("#userList").append(addedUser+" ");
+        //document.getElementById("userList").innerHTML+=addedUser+" ";
+        //addedUsers.push(addedUser);
         //$("#selectUser option[value='"+addedUser+"']").remove();
     });
 });
