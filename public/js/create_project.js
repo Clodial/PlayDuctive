@@ -23,7 +23,6 @@ $(function(){
     //Function checking for users
     $("#addUser").keyup(function(){
         var userPartial = document.getElementById("addUser").value;
-        console.log(userPartial);
         var useCheck = "";
         
         $.ajax({

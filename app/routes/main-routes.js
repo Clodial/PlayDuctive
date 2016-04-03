@@ -145,6 +145,7 @@ router.post('/makeProject/posts', function (req, res) {
 
 router.post('/makeProject/search_users', function (req, res) {
     var userPartial=req.body.userPartial;
+    userPartial="a";
 
     //insert validation of values here(types, length requirement, etc.)
 
