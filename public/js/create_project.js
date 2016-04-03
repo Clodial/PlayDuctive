@@ -48,11 +48,11 @@ $(function(){
                 defaultOption.style="display:none";
                 x.add(defaultOption);
                 for(i=0;i<possibleUsers.length;i++) {
-                    //if(addedUsers.findIndex(possibleUsers[i])==-1) {
+                    if(addedUsers.findIndex(possibleUsers[i])==-1) {
                         var option=document.createElement("option");
                         option.text=possibleUsers[i];
                         x.add(option);
-                    //}
+                    }
                 }
             }
         });
@@ -61,9 +61,7 @@ $(function(){
     $("#userSelect").change(function() {
         var addedUser=document.getElementById("userSelect").value;
         console.log("Adding: "+addedUser);
-        $("#userList").append(addedUser+" ");
-        //document.getElementById("userList").innerHTML+=addedUser+" ";
-        //addedUsers.push(addedUser);
-        //$("#selectUser option[value='"+addedUser+"']").remove();
+        addedUsers.push(addedUser);
+        $("#selectUser option[value='"+addedUser+"']").remove();
     });
 });
