@@ -41,7 +41,8 @@ $(function(){
                     x.remove(0);
                 }
                 //add the new elements
-                for(i=0;i<data.length;i++) {
+                possibleUsers=JSON.parse(data);
+                for(i=0;i<possibleUsers.length;i++) {
                     var option=document.createElement("option");
                     option.text=data[i];
                     x.add(option);
