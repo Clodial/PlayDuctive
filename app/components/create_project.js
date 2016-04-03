@@ -19,9 +19,10 @@ $("button").click(function () {
 });
 
 //Function checking for users
-$("#addUser").keyup(function(){
+$("addUser").keyup(function(){
     var userPartial = document.getElementById("addUser").value;
     var useCheck = "";
+    console.log("keyup");
     $.ajax({
         url: "/makeProject/search_users",
         type: "POST",
