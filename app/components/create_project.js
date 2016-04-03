@@ -21,7 +21,7 @@ $(function(){
     });
 
     //Function checking for users
-    $("body").keyup("addUser",function(){
+    $("addUser").keyup(function(){
         console.log("keyup");/*
         var userPartial = document.getElementById("addUser").value;
         var useCheck = "";
