@@ -42,7 +42,7 @@ router.get('/logCheck', function(req,res){
                 if(err){
                     console.log('QUERY ERROR');
                     console.log(err.code);
-                     res.redirect('/');
+                    res.redirect('/');
                 }else{
                     if(result.length > 0){
                         console.log("underwent stuff yo");
@@ -67,6 +67,7 @@ router.get('/logCheck', function(req,res){
 //Login routes
 router.get('/login', function(req,res){
     console.log(req.session.user);
+    con.query('select Projects')
 	res.render('login', { title: 'PlayDuctive', proj: null, user: req.session.user});
 });
 
@@ -144,7 +145,7 @@ router.post('/makeProject/posts', function (req, res) {
         res.redirect('/');
     }else{
         con.query('CALL createProject(?,?,?,?,?,@newProjId);', 
-            [projType, "NOT-STARTED", projName, projDesc, user],
+            [projType, "NOT-STARTED", projName, projDesc, accountName],
             function(err, result){
                 con.query('SELECT @newProjId AS newProjId;',
                     function(err, result){
