@@ -42,6 +42,10 @@ $(function(){
                 }
                 //add the new elements
                 possibleUsers=JSON.parse(data);
+                var defaultOption=document.createElement("option");
+                defaultOption.selected="selected";
+                defaultOption.style="display:none";
+                x.add(option);
                 for(i=0;i<possibleUsers.length;i++) {
                     var option=document.createElement("option");
                     option.text=possibleUsers[i];
@@ -50,4 +54,9 @@ $(function(){
             }
         });
     });
+
+    #("#selectUser").change(function() {
+        var addedUser=document.getElementById("selectUser").value;
+        document.getElementById("userList").innerHTML+=addedUser+" ";
+    })
 });
