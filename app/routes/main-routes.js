@@ -85,13 +85,12 @@ router.post('/login', function(req, res){
                 console.log("success: " + true);
                 console.log(req.session.user);
                 req.session.user = user;
-                //res.redirect('/');
                 res.render('login', {title: 'PlayDuctive', proj: null, success: "success", user: req.session.user});
             }
         }
     );
 });
-
+//ajax call to check valid users
 router.post('/login/usetest', function(req,res){
     var user = req.query.user;  
     con.query('select accountId from Accounts where accountUser = ?', [user],
