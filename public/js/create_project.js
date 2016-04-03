@@ -55,8 +55,8 @@ $(function(){
         });
     });
 
-    $("#selectUser").change(function() {
-        var addedUser=document.getElementById("selectUser").value;
+    $("#userSelect").change(function() {
+        var addedUser=document.getElementById("userSelect").value;
         document.getElementById("userList").innerHTML+=addedUser+" ";
         //$("#selectUser option[value='"+addedUser+"']").remove();
     });
