@@ -82,7 +82,9 @@ $("#logout-button").click(function(){
 	});
 })
 
-if($("nav-log-true").is(":hover")){
+$("nav-log-true").hover(function(){
+	$(".user-stats").slideDown();
+})){
 	$(".user-stats").slideDown();
 }else{
 	$(".user-stats").slideUp();
