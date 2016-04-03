@@ -17,6 +17,9 @@ $(function(){
             mimeType: "application/json",
             success: function (result) {
                 //maybe do something to the page
+
+                //add all the users
+
             }
         });
     });
@@ -24,7 +27,6 @@ $(function(){
     //Function checking for users
     $("#addUser").keyup(function(){
         var userPartial = document.getElementById("addUser").value;
-        var useCheck = "";
         
         $.ajax({
             url: "/makeProject/search_users",
@@ -66,6 +68,6 @@ $(function(){
         console.log("Adding: "+addedUser);
         addedUsers.push(addedUser);
         console.log(addedUsers);
-        $("#selectUser option[value='"+addedUser+"']").remove();
+        $("#userSelect option[value='"+addedUser+"']").remove();
     });
 });
