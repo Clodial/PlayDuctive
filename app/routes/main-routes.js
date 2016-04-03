@@ -147,6 +147,7 @@ router.post('/makeProject/posts', function (req, res) {
                     }
             });
     });  
+    res.render('makeProject',{ title: 'PlayDuctive', user: req.session.user});
 });
 
 router.post('/makeProject/search_users', function (req, res) {
