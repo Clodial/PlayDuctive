@@ -31,8 +31,8 @@
 	</div>
 <% }else { //logged in%>
 	<div class="navbar-main nav-log-true">
-		<div><form action="/login/logout" method="GET"><button type="submit">Logout</button></form></div>
 		<h1><%= user %></h1>
+		<div class="log-buttons"><form action="/login/logout" method="GET"><button type="submit">Logout</button></form></div>
 	</div>
 	<div class="user-stats">
 		<div class="col-md-2 stat-spot">
