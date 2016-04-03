@@ -1,4 +1,4 @@
-var addedUsers=[];
+var addedUsers=[$("submit[name=user]").attr("value")];
 //attach listeners after DOM loaded
 $(function(){
     $("button").click(function () {
