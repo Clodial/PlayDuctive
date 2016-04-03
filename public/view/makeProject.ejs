@@ -5,7 +5,7 @@
 </head>
 <body>
   <% include partials/nav %>
-    <form id="projectForm">
+    <form action="makeProject/post">
       <submit type="hidden" name="user" value="<%= user %>"></submit>
       Project Type:<br>
       <select name="projType">

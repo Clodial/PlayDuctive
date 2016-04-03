@@ -64,10 +64,12 @@ CREATE TABLE AccountTasks(
 taskId INT AUTO_INCREMENT PRIMARY KEY,
 classId INT,
 projId INT,
+statusId INT,
 taskExp INT,
 taskDesc TEXT,
 FOREIGN KEY (classId) REFERENCES Classes(classId) ON DELETE CASCADE ON UPDATE CASCADE,
-FOREIGN KEY (projId) REFERENCES Projects(projId) ON DELETE CASCADE ON UPDATE CASCADE
+FOREIGN KEY (projId) REFERENCES Projects(projId) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (statusId) REFERENCES Projects(projId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -151,14 +153,15 @@ BEGIN
 		WHERE Accounts.accountName = user 
 		AND Accounts.accountId = AccountProjects.accountId) THEN
 		
-		INSERT INTO AccountTasks(classId, projId, taskExp, taskDesc) 
-			SELECT Classes.classId, Projects.projId, exp, description
-			FROM Classes, Projects, AccountProjects, Accounts, ClassTitles
+		INSERT INTO AccountTasks(classId, projId, statusId, taskExp, taskDesc) 
+			SELECT Classes.classId, Projects.projId, Statuses.statusId, exp, description
+			FROM Classes, Projects, AccountProjects, Accounts, ClassTitles, Statuses
 			WHERE Accounts.accountName = user 
 				AND ClassTitles.classTitle = class
 				AND Classes.classTitleId = ClassTitles.classTitleId
 				AND Classes.accountId = Accounts.accountId
 				AND Projects.projName = project;
+				AND Statuses.statusName = "NOT-STARTED";
 
 	END IF;
 END;

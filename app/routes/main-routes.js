@@ -92,9 +92,9 @@ router.post('/login', function(req, res){
     );
 });
 
-router.post('/login/usetest', function(req,res){
-    var user = req.body.user;  
-    con.query('select accountId from Accounts where accountUser = ? and accountLog = 0', [user],
+router.get('/logCheck', function(req,res){
+    var user = req.query.user;  
+    con.query('select accountId from Accounts where accountUser = ?', [user],
         function (err, result) {
             resultNum = 0;
             if (err) {
@@ -102,7 +102,8 @@ router.post('/login/usetest', function(req,res){
             } else {
                 if(result.length > 0 || user == ''){
                     console.log(result.length);
-                    res.send(JSON.stringify("invalid"));
+                    req.session.user = user
+                    res.render('login', {title: 'PlayDuctive', proj: null, success: "success", user: req.session.user});
                 }else{
                 //res.send(result[0].accountId);
                     res.send(JSON.stringify("valid"));
@@ -125,8 +126,7 @@ router.get('/makeProject', function (req, res) {
 });
 
 router.post('/makeProject/posts', function (req, res) {
-    var accountName = req.body.accountName;
-    var accountPass = req.body.accountPass;
+    var user = req.session.user;
     var projType = req.body.projType;
     //var status = req.body.status; //default to incomplete
     var projName = req.body.projName;
@@ -134,20 +134,23 @@ router.post('/makeProject/posts', function (req, res) {
     var userList = req.body.userList;
 
     //insert validation of values here(types, length requirement, etc.)
+    if(!req.session.user || user){
 
-    con.query('CALL createProject(?,?,?,?,?,@newProjId);', 
-        [projType, "NOT-STARTED", projName, projDesc, accountName],
-        function(err, result){
-            con.query('SELECT @newProjId AS newProjId;',
-                function(err, result){
+    }else{
+        con.query('CALL createProject(?,?,?,?,?,@newProjId);', 
+            [projType, "NOT-STARTED", projName, projDesc, user],
+            function(err, result){
+                con.query('SELECT @newProjId AS newProjId;',
+                    function(err, result){
 
-                    for(var i = 0; i < userList.length; i++){
-                        con.query('CALL addAccountProject(?,?);', 
-                        [userList[i],result[0].newProjId],
-                        function(err, result){});  
-                    }
-            });
-    });    
+                        for(var i = 0; i < userList.length; i++){
+                            con.query('CALL addAccountProject(?,?);', 
+                            [userList[i],result[0].newProjId],
+                            function(err, result){});  
+                        }
+                });
+        });
+    }
 });
 
 router.post('/makeProject/search_users', function (req, res) {
