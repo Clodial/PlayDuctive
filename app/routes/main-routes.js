@@ -140,14 +140,11 @@ router.post('/makeProject/posts', function (req, res) {
         function(err, result){
             con.query('SELECT @newProjId AS newProjId;',
                 function(err, result){
-                    console.log(result);
-                    console.log(err);
-                    /*for(var i = 0; i < userList.length; i++){
+                    for(var i = 0; i < userList.length; i++){
                         con.query('CALL addAccountProject(?,?);', 
                         [userList[i],result[0].newProjId],
                         function(err, result){});  
-                    }*/
-                    //res.json(JSON.stringify(["A","B","C"]));
+                    }
             });
     });    
 });
@@ -164,7 +161,6 @@ router.post('/makeProject/search_users', function (req, res) {
                 userList.push([result[i].accountUser]);
             }
             res.json(JSON.stringify(userList));
-            //res.json(JSON.stringify(["A","B","C"]));
         });
 });
 
