@@ -10,8 +10,7 @@ CREATE TABLE Accounts(
 accountId INT AUTO_INCREMENT PRIMARY KEY,
 accountUser VARCHAR(20),
 accountPass VARCHAR(20),
-accountEmail VARCHAR(255),
-accountLog VARCHAR(255),
+accountEmail VARCHAR(255)
 CONSTRAINT accountId UNIQUE(accountUser)
 );
 
@@ -100,14 +99,6 @@ BEGIN
 INSERT INTO Accounts(accountUser, accountPass, accountEmail, accountLog)
 	VALUES (user, email, pass, 0);
 END; //
-
-CREATE PROCEDURE login(user, pass)
-BEGIN
-	IF EXISTS(SELECT accountId FROM Accounts WHERE accountUser = user AND accountPass = pass AND accountLog = 0) THEN
-		UPDATE Accounts SET accountLog = 1 WHERE accountUser = user;
-	END IF;
-END;
-//
 DELIMITER ;
 
 
