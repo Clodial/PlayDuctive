@@ -9,7 +9,8 @@
 	<% include partials/nav %>
 	<% if(proj){
 		console.log(proj);
-		for(var i = 0; i < proj.length; i++){ %>
+		for(var i = 0; i < proj.length; i++){ 
+			var projData = JSON.parse(proj[i]);%>
 		<div class="col-md-3">
 			<p><% proj[i].name %></p>
 			<p><% proj[i].stat %></p>
