@@ -22,7 +22,7 @@ router.get('/', function(req,res){
     }else{
         con.query('CALL getProjects(?);', [req.session.user],
             function(err, result){
-                projList = result[0];
+                projList = JSON.stringify(result[0]);
                 res.render('login', { title: 'PlayDuctive', proj: projList, user: req.session.user});
             });
         //res.render('login', { title: 'PlayDuctive', proj: projList, user: req.session.user});
