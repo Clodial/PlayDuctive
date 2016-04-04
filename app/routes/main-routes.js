@@ -22,10 +22,7 @@ router.get('/', function(req,res){
     }else{
         con.query('CALL getProjects(?);', [req.session.user],
             function(err, result){
-                for(var i = 0; i < result.length; i++){
-                    projList.push([result[0].name, result[0].stat]);
-                    console.log(JSON.stringify(projList));
-                }
+                console.log(JSON.stringify(result[0]));
                 res.render('login', { title: 'PlayDuctive', proj: projList, user: req.session.user});
             });
         //res.render('login', { title: 'PlayDuctive', proj: projList, user: req.session.user});
