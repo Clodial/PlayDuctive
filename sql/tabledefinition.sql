@@ -2,9 +2,13 @@ DROP TRIGGER IF EXISTS afterAccountCreate;
 DROP TRIGGER IF EXISTS afterProjectCreate;
 DROP PROCEDURE IF EXISTS createProject;
 DROP PROCEDURE IF EXISTS createAccount;
-DROP PROCEDURE IF EXISTS createTask;
-DROP PROCEDURE IF EXISTS addUser;
 DROP PROCEDURE IF EXISTS login;
+DROP PROCEDURE IF EXISTS getProjects;
+DROP PROCEDURE IF EXISTS addUser;
+DROP PROCEDURE IF EXISTS createTask;
+DROP PROCEDURE IF EXISTS getStats;
+DROP PROCEDURE IF EXISTS addStat;
+DROP PROCEDURE IF EXISTS addAccountProject;
 
 DROP TABLE IF EXISTS AccountTasks, AccountProjects, Projects, ProjTypes, Statuses, Classes, ClassTitles, Accounts;
 
@@ -12,7 +16,7 @@ CREATE TABLE Accounts(
 accountId INT AUTO_INCREMENT PRIMARY KEY,
 accountUser VARCHAR(20),
 accountPass VARCHAR(20),
-accountEmail VARCHAR(255)
+accountEmail VARCHAR(255),
 CONSTRAINT accountId UNIQUE(accountUser)
 );
 
@@ -44,12 +48,12 @@ CREATE TABLE Projects(
 projId INT AUTO_INCREMENT PRIMARY KEY,
 projTypeId INT,
 statusId INT,
-accountId INT,
 projName VARCHAR(255),
 projDesc TEXT,
+creatorId INT,
 FOREIGN KEY (projTypeId) REFERENCES ProjTypes(projTypeId) ON DELETE CASCADE ON UPDATE CASCADE,
 FOREIGN KEY (statusId) REFERENCES Statuses(statusId) ON DELETE CASCADE ON UPDATE CASCADE,
-FOREIGN KEY (accountId) REFERENCES Accounts(accountId) ON DELETE CASCADE ON UPDATE CASCADE
+FOREIGN KEY (creatorId) REFERENCES Accounts(accountId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE AccountProjects(
@@ -94,7 +98,6 @@ INSERT INTO Projects(projTypeId,statusId,projName,projDesc,creatorId)
 	WHERE projTypeName=newProjType 
 		AND statusName=newStatus 
 		AND accountUser=creator;
-INSERT INTO Projects(projTypeId,statusId,projName,projDesc,creatorId) SELECT projTypeId,statusId,newProjName,newProjDesc,accountId FROM ProjTypes,Statuses,Accounts WHERE projTypeName=newProjType AND statusName=newStatus AND accountUser=creator;
 SET newProjId=LAST_INSERT_ID();
 END; //
  
@@ -115,20 +118,19 @@ BEGIN
 	IF EXISTS(SELECT accountId FROM Accounts WHERE accountUser = user AND accountPass = pass) THEN
 		UPDATE Accounts SET accountLog = 1 WHERE accountUser = user;
 	END IF;
-END;
+END; //
 
 CREATE PROCEDURE getProjects(
 IN user VARCHAR(255)
 )
 BEGIN
-	select Projects.projName as name, Statuses.statusName as stat 
-	from Projects, Classes, Statuses, Accounts, AccountTasks 
+	select Projects.projId as id, Projects.projName as name, Statuses.statusName as stat 
+	from Projects, Statuses, Accounts, AccountProjects 
 	where Accounts.accountUser = user 
-		and Accounts.accountId = Classes.accountId 
-		and Classes.classId = AccountTasks.classId 
-		and AccountTasks.projId = Projects.projId 
+		and AccountProjects.accountId = Accounts.accountId 
+		and AccountProjects.projId = Projects.projId 
 		and Projects.statusId = Statuses.statusId;
-END;
+END; //
 
 CREATE PROCEDURE addUser(
 IN user VARCHAR(255),
@@ -139,7 +141,7 @@ BEGIN
 		FROM Accounts, Projects
 		WHERE Accounts.accountName = user
 		AND Projects.projName = project; 
-END;
+END; //
 
 CREATE PROCEDURE createTask(
 IN user VARCHAR(255),
@@ -160,11 +162,10 @@ BEGIN
 				AND ClassTitles.classTitle = class
 				AND Classes.classTitleId = ClassTitles.classTitleId
 				AND Classes.accountId = Accounts.accountId
-				AND Projects.projName = project;
+				AND Projects.projName = project
 				AND Statuses.statusName = "NOT-STARTED";
-
 	END IF;
-END;
+END; //
 
 CREATE PROCEDURE getStats(
 IN user VARCHAR(255)
@@ -174,7 +175,7 @@ BEGIN
 	where Accounts.accountUser = user
 		and Accounts.accountId = Classes.accountId
         and Classes.classTitleId = ClassTitles.classTitleId;
-END;
+END; //
 
 CREATE PROCEDURE addStat(
 IN user VARCHAR(255),
@@ -186,8 +187,7 @@ BEGIN
 		and Accounts.accountId = Classes.accountId 
 	    and ClassTitles.classTitle = class
 	    and Classes.classTitleId = ClassTitles.classTitleId;
-END;
-//
+END; //
 
 CREATE PROCEDURE addAccountProject(
 IN user VARCHAR(255),

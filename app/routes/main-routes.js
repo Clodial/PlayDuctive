@@ -22,11 +22,7 @@ router.get('/', function(req,res){
     }else{
         con.query('CALL getProjects(?);', [req.session.user],
             function(err, result){
-                for(var i = 0; i < result.length; i++){
-                    console.log(result.name);
-                    console.log(result.status);
-                    projList.push([result.name, result.status]);
-                }
+                projList = JSON.stringify(result[0]);
                 res.render('login', { title: 'PlayDuctive', proj: projList, user: req.session.user});
             });
         //res.render('login', { title: 'PlayDuctive', proj: projList, user: req.session.user});
@@ -42,7 +38,7 @@ router.get('/logCheck', function(req,res){
                 if(err){
                     console.log('QUERY ERROR');
                     console.log(err.code);
-                     res.redirect('/');
+                    res.redirect('/');
                 }else{
                     if(result.length > 0){
                         console.log("underwent stuff yo");
@@ -67,6 +63,18 @@ router.get('/logCheck', function(req,res){
 //Login routes
 router.get('/login', function(req,res){
     console.log(req.session.user);
+    con.query('select Projects.* from Projects, Accounts, AccountProjects where Accounts.accountUser = ? and AccountProjects.accountId = Accounts.accountId and Projects.projId = AccountProjects.projId'
+        , [req.session.user], function(err, result){
+            if(err){
+                console.log('QUERY ERROR');
+                console.log(err.code);
+                res.redirect('/');
+            }else{
+                for(var i = 0; i < result.length; i++){
+                    console.log(result[0]);
+                }  
+            }   
+        });
 	res.render('login', { title: 'PlayDuctive', proj: null, user: req.session.user});
 });
 
@@ -125,7 +133,7 @@ router.get('/makeProject', function (req, res) {
 });
 
 router.post('/makeProject/posts', function (req, res) {
-
+    console.log(req.body);
     var accountName = req.session.user;
     var projType = req.body.projType;
     //var status = req.body.status; //default to incomplete
@@ -140,15 +148,18 @@ router.post('/makeProject/posts', function (req, res) {
     userList.push(accountName);
 
     //insert validation of values here(types, length requirement, etc.)
-    if(!req.session.user || accountName){
+    if(!accountName){
+        console.log(req.session.user);
+        console.log(accountName);
         res.redirect('/');
-    }else{
-        con.query('CALL createProject(?,?,?,?,?,@newProjId);', 
-            [projType, "NOT-STARTED", projName, projDesc, user],
+    } else{
+        var status = con.query('CALL createProject(?,?,?,?,?,@newProjId);', 
+            [projType, "NOT-STARTED", projName, projDesc, accountName],
             function(err, result){
+                console.log("yo1");
                 con.query('SELECT @newProjId AS newProjId;',
                     function(err, result){
-
+                        console.log("yo2");
                         for(var i = 0; i < userList.length; i++){
                             con.query('CALL addAccountProject(?,?);', 
                             [userList[i],result[0].newProjId],
@@ -156,7 +167,7 @@ router.post('/makeProject/posts', function (req, res) {
                         }
                 });
         });
-        res.render('makeProject',{ title: 'PlayDuctive', user: req.session.user});
+        res.render('makeProject',{ title: 'PlayDuctive', succes: status, user: req.session.user});
     }
 });
 
@@ -174,5 +185,23 @@ router.post('/makeProject/search_users', function (req, res) {
             res.json(JSON.stringify(userList));
         });
 });
+
+//Project stuff
+router.post('/project', function(req,res){
+    var projId = req.body.projectId;
+    if(!req.session.user){
+        redirect('/');
+    }else{
+        con.query('select ProjTypes.projTypeName as type from Projects, ProjTypes where Projects.projId = ? and ProjTypes.projTypeId = Projects.projTypeId', 
+        [projId],
+        function (err, result){
+            if(result[0].type = "AGILE"){
+                res.send("agile");
+            }else{
+                res.send("waterfall");
+            }
+        });
+    }
+})
 
 module.exports = router;
