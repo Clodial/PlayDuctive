@@ -1,4 +1,4 @@
-var addedUsers=[$("submit[name=user]").attr("value")];
+var addedUsers=[$("#loggedInUser").text()];
 //attach listeners after DOM loaded
 $(function(){
     /*$("button").click(function () {
