@@ -67,7 +67,18 @@ router.get('/logCheck', function(req,res){
 //Login routes
 router.get('/login', function(req,res){
     console.log(req.session.user);
-    con.query('select Projects')
+    con.query('select Projects.* from Projects, Accounts, AccountProjects where Accounts.accountUser = ? and AccountProjects.accountId = Accounts.accountId and Projects.projId = AccountProjects.projId'
+        , [req.session.user], function(err, result){
+            if(err){
+                console.log('QUERY ERROR');
+                console.log(err.code);
+                res.redirect('/');
+            }else{
+                for(var i = 0; i < result.length; i++){
+                    console.log(result[0]);
+                }  
+            }   
+        });
 	res.render('login', { title: 'PlayDuctive', proj: null, user: req.session.user});
 });
 
@@ -132,7 +143,6 @@ router.post('/makeProject/posts', function (req, res) {
     //var status = req.body.status; //default to incomplete
     var projName = req.body.projName;
     var projDesc = req.body.projDesc;
-    console.log("yo");
     var userList = req.body["addedUsers[]"];
     if(!userList) {
         userList=[];
@@ -148,9 +158,10 @@ router.post('/makeProject/posts', function (req, res) {
         con.query('CALL createProject(?,?,?,?,?,@newProjId);', 
             [projType, "NOT-STARTED", projName, projDesc, accountName],
             function(err, result){
+                console.log("yo1");
                 con.query('SELECT @newProjId AS newProjId;',
                     function(err, result){
-
+                        console.log("yo2");
                         for(var i = 0; i < userList.length; i++){
                             con.query('CALL addAccountProject(?,?);', 
                             [userList[i],result[0].newProjId],
