@@ -125,11 +125,10 @@ IN user VARCHAR(255)
 )
 BEGIN
 	select Projects.projName as name, Statuses.statusName as stat 
-	from Projects, Classes, Statuses, Accounts, AccountTasks 
+	from Projects, Statuses, Accounts, AccountProjects 
 	where Accounts.accountUser = user 
-		and Accounts.accountId = Classes.accountId 
-		and Classes.classId = AccountTasks.classId 
-		and AccountTasks.projId = Projects.projId 
+		and AccountProjects.accountId = Accounts.accountId 
+		and AccountProjects.projId = Projects.projId 
 		and Projects.statusId = Statuses.statusId;
 END; //
 
