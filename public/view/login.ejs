@@ -20,12 +20,11 @@
 				</form>
 			</div>
 	<% } %>
-		<%= proj %>
 	<% } else{ %>
 		Oh no!
 	<% } %>
 	<form action="/makeProject" method="get">
-		<button type="submit">Make Project</button>
+		<button class="col-md-3" type="submit">Make Project</button>
 	</form>
 	<% include partials/bodyScript %>
 </body>
