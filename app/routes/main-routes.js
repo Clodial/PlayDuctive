@@ -152,7 +152,7 @@ router.post('/makeProject/posts', function (req, res) {
     userList.push(accountName);
 
     //insert validation of values here(types, length requirement, etc.)
-    if(!(req.session.user || accountName)){
+    if(!accountName){
         console.log(req.session.user);
         console.log(accountName);
         res.redirect('/');
