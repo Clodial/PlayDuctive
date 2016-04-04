@@ -10,14 +10,11 @@
 	<% if(proj){ 
 		var chProj = eval(proj)
 		for(var i = 0; i < chProj.length; i++){ 
-			var piece = chProj[i];
-			for( var part in piece){ %>
-				<div class="col-md-3">
-					<p><%= piece.name %></p>
-					<p><%= piece.stat %></p>
-				</div>
-	<%		} 
-		} %>
+			var piece = chProj[i] %>
+
+			<p><%= piece.name %></p>
+			
+	<% } %>
 		<%= proj %>
 	<% } else{ %>
 		Oh no!
