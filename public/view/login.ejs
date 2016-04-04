@@ -8,7 +8,7 @@
 	<!--Page that shows what happens when the user's logged in-->
 	<% include partials/nav %>
 	<% if(proj){ 
-		var chProj = $.parseJson(proj)
+		var chProj = eval(proj)
 		for(var i = 0; i < chProj.length; i++){ %>
 		<div class="col-md-3">
 			<p><%= chProj[i] %></p>
