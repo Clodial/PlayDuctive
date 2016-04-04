@@ -137,7 +137,7 @@ router.get('/makeProject', function (req, res) {
 });
 
 router.post('/makeProject/posts', function (req, res) {
-
+    console.log(req.body);
     var accountName = req.session.user;
     var projType = req.body.projType;
     //var status = req.body.status; //default to incomplete
@@ -153,6 +153,8 @@ router.post('/makeProject/posts', function (req, res) {
 
     //insert validation of values here(types, length requirement, etc.)
     if(!req.session.user || accountName){
+        console.log(req.session.user);
+        console.log(accountName);
         res.redirect('/');
     }else{
         con.query('CALL createProject(?,?,?,?,?,@newProjId);', 
