@@ -137,7 +137,7 @@ router.get('/makeProject', function (req, res) {
 });
 
 router.post('/makeProject/posts', function (req, res) {
-
+    console.log(req.body);
     var accountName = req.session.user;
     var projType = req.body.projType;
     //var status = req.body.status; //default to incomplete
@@ -152,9 +152,11 @@ router.post('/makeProject/posts', function (req, res) {
     userList.push(accountName);
 
     //insert validation of values here(types, length requirement, etc.)
-    if(!req.session.user || accountName){
+    if(!accountName){
+        console.log(req.session.user);
+        console.log(accountName);
         res.redirect('/');
-    }else{
+    } else{
         con.query('CALL createProject(?,?,?,?,?,@newProjId);', 
             [projType, "NOT-STARTED", projName, projDesc, accountName],
             function(err, result){
