@@ -11,9 +11,14 @@
 		var chProj = eval(proj)
 		for(var i = 0; i < chProj.length; i++){ 
 			var piece = chProj[i] %>
-
-			<p><%= piece.name %></p>
-			
+			<div class="col-md-3">
+				<p><%= piece.name %></p>
+				<p><%= piece.stat %></p>
+				<form action="/project" method="POST">
+					<input type="hidden" name="projectId" value="<%= piece.id %>">
+					<button type="submit">View Project</button> 
+				</form>
+			</div>
 	<% } %>
 		<%= proj %>
 	<% } else{ %>

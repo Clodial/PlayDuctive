@@ -124,7 +124,7 @@ CREATE PROCEDURE getProjects(
 IN user VARCHAR(255)
 )
 BEGIN
-	select Projects.projName as name, Statuses.statusName as stat 
+	select Projects.projId as id, Projects.projName as name, Statuses.statusName as stat 
 	from Projects, Statuses, Accounts, AccountProjects 
 	where Accounts.accountUser = user 
 		and AccountProjects.accountId = Accounts.accountId 
