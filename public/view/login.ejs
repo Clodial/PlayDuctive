@@ -7,15 +7,15 @@
 <body>
 	<!--Page that shows what happens when the user's logged in-->
 	<% include partials/nav %>
-	<% if(proj){
-		console.log(proj);
+	<% if(proj){ 
 		for(var i = 0; i < proj.length; i++){ %>
 		<div class="col-md-3">
 			<p><%= proj[i].name %></p>
 			<p><%= proj[i] %></p>
 		</div>
-	<%	}
-	} else{ %>
+	<%	} %>
+		<%= proj %>
+	<% } else{ %>
 		Oh no!
 	<% } %>
 	<form action="/makeProject" method="get">
