@@ -12,8 +12,8 @@
 		for(var i = 0; i < proj.length; i++){ 
 			var projData = JSON.parse(proj[i]);%>
 		<div class="col-md-3">
-			<p><% proj[i].name %></p>
-			<p><% proj[i].stat %></p>
+			<p><% projData.name %></p>
+			<p><% projData.stat %></p>
 		</div>
 	<%	}
 	} else{ %>
