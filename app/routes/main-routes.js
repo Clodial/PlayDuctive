@@ -24,7 +24,7 @@ router.get('/', function(req,res){
             function(err, result){
                 for(var i = 0; i < result.length; i++){
                     projList.push([result[0]]);
-                    console.log(JSON.stringify(projList);
+                    console.log(JSON.stringify(projList));
                 }
                 res.render('login', { title: 'PlayDuctive', proj: projList, user: req.session.user});
             });
