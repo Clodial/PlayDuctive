@@ -170,7 +170,7 @@ router.post('/makeProject/posts', function (req, res) {
                         }
                 });
         });
-        res.render('makeProject',{ title: 'PlayDuctive', user: req.session.user});
+        res.render('login',{ title: 'PlayDuctive', user: req.session.user});
     }
 });
 
