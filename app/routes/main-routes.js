@@ -189,7 +189,20 @@ router.post('/makeProject/search_users', function (req, res) {
 //Project stuff
 router.post('/project', function(req,res){
     var projId = req.body.projectId;
-    res.send(projId);
+    if(!req.session.user){
+        redirect('/');
+    }else{
+        con.query('select ProjTypes.projTypeName as type from Projects, ProjTypes 
+            where Projects.projId = ?
+            and ProjTypes.projTypeId = Projects.projTypeId', [projId],
+        function err, result){
+            if(result[0].type = "AGILE"){
+                res.send("agile");
+            }else{
+                res.send("waterfall");
+            }
+        });
+    }
 })
 
 module.exports = router;
