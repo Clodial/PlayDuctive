@@ -23,9 +23,9 @@ router.get('/', function(req,res){
         con.query('CALL getProjects(?);', [req.session.user],
             function(err, result){
                 for(var i = 0; i < result.length; i++){
-                    console.log(result.name);
-                    console.log(result.status);
-                    projList.push([result.name, result.status]);
+                    console.log(result[0].name);
+                    console.log(result[0].status);
+                    projList.push([result[0].name, result[0].status]);
                 }
                 res.render('login', { title: 'PlayDuctive', proj: projList, user: req.session.user});
             });
