@@ -9,13 +9,12 @@
 	<% include partials/nav %>
 	<% if(proj){ 
 		var chProj = eval(proj)
-		for(var i = 0; i < chProj.length; i++){ 
-			for( var part in chProj){ %>
-				<div class="col-md-3">
-					<p><%= chProj.name %></p>
-					<p><%= chProj.stat %></p>
-				</div>
-	<%		} 
+		for( var part in chProj){ %>
+			<div class="col-md-3">
+				<p><%= part.name %></p>
+				<p><%= part.stat %></p>
+			</div>
+	<%	} 
 		} %>
 		<%= proj %>
 	<% } else{ %>
