@@ -194,7 +194,7 @@ router.post('/project', function(req,res){
     }else{
         con.query('select ProjTypes.projTypeName as type from Projects, ProjTypes where Projects.projId = ? and ProjTypes.projTypeId = Projects.projTypeId', 
         [projId],
-        function err, result){
+        function (err, result){
             if(result[0].type = "AGILE"){
                 res.send("agile");
             }else{
