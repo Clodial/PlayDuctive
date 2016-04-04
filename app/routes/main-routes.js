@@ -152,11 +152,11 @@ router.post('/makeProject/posts', function (req, res) {
     userList.push(accountName);
 
     //insert validation of values here(types, length requirement, etc.)
-    if(!req.session.user || accountName){
+    if(!(req.session.user || accountName)){
         console.log(req.session.user);
         console.log(accountName);
         res.redirect('/');
-    }else{
+    } else{
         con.query('CALL createProject(?,?,?,?,?,@newProjId);', 
             [projType, "NOT-STARTED", projName, projDesc, accountName],
             function(err, result){
