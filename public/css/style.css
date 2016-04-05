@@ -38,6 +38,7 @@ form{
 	float: right;
 }
 .log-buttons button{
+	background-color: #FF8878;
 	position: relative;
 	height: 50px;
 	border-style: none;
