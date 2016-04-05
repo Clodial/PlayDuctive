@@ -17,7 +17,7 @@ router.get('/', function(req,res){
     var projList = [];
     //console.log(req.session.user);
     //res.render('index', { title: 'PlayDuctive', user: req.session.user});
-    if(!req.session.user || !req.session.stats){
+    if(!req.session.user){
 	   res.render('index', { title: 'PlayDuctive', proj: null, user: req.session.user});
     }else{
         con.query('CALL getProjects(?);', [req.session.user],
