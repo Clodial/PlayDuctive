@@ -49,9 +49,9 @@ router.get('/logCheck', function(req,res){
                                     console.log(err.code);
                                     res.redirect('/');
                                 }else{
-                                    req.session.stats = JSON.stringify(result[0]);
+                                    req.session.stats = JSON.stringify(result);
                                     console.log(req.session.stats);
-                                    redirect('/');
+                                    res.redirect('/');
                                 }
                             });
                         //res.redirect('/');
