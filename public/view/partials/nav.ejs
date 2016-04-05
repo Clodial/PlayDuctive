@@ -41,7 +41,6 @@
 		<div class="log-buttons button-check">
 			<form action="/login/logout" method="GET"><button type="submit">Logout</button></form>
 		</div>
-		<div class="clearfix"></div>
 		<div id=loggedInUser><%= user %></div>
 	</div>
 	<div class="clearfix"></div>
@@ -63,6 +62,11 @@
 		</div>
 		<div class="col-md-2 col-lg-2 stat-spot">
 			<p>Priest</p>
+		</div>
+	</div>
+	<div class="user-welcome">
+		<div id="loggedInUser">
+			<h1 id="logged-welcome">Welcome <%= user %>!</h1>
 		</div>
 	</div>
 <% } %>

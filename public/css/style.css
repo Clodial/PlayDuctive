@@ -4,7 +4,11 @@
 	height:				50px;
 	margin:				20px;
 }
-
+/*****
+*
+*	NAVBAR STUFF
+*
+*****/
 .navbar-main{
 	width: 		100%;
 	height:		50px;
@@ -46,10 +50,25 @@
 	border-style: none;
 	color: white;
 }
-.logo-buttons button:hover{
+.logo-button button:hover{
 	background-color: #4C7FCC;
 }
 .button-check{
 	display: inline-block;
 	position:relative;
+}
+
+/*****
+*
+*	LOGIN STUFF
+*
+*****/
+#loggedInUser{
+	width: 100%;
+	height: 60px;
+	background-color: #4C7FCC;
+	color: white;
+}
+#logged-welcome{
+	margin-left: 30px;
 }
