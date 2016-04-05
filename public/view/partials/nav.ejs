@@ -16,7 +16,7 @@
 		<form action="/logCheck" method="get">
 			<label>Username </label><input type="text" name="user" required/></br>
 			<label>Password </label><input type="password" name="pass" required/></br>
-			<button type="submit">Login</button>
+			<button class="sign-button" type="submit">Login</button>
 		</form>
 	</div>
 	<div class="nav-register nav-drop">
@@ -33,7 +33,7 @@
 			<input id="reg-pass2" type="password" name="pass2" onkeyup="passCheck()" required></br>
 			<span id="pass-check"></span></br>
 			<span id="user-check"></span></br>
-			<button id="reg-button" type="submit" >Create Account</button>
+			<button class="sign-button" id="reg-button" type="submit" >Create Account</button>
 		</form>
 	</div>
 <% }else { //logged in%>
