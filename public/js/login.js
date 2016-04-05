@@ -81,11 +81,13 @@ $("#logout-button").click(function(){
 		}
 	});
 })
-
-$(".nav-log-true").hover(function(){
+if($(".nav-log-true").is(":hover") && !$(".user-stats").is(':visible')){
 	$(".user-stats").slideDown();
-}),(function(){
-	$(".user-stats").slideUp();
-});
+}else{
+	if($(".user-stats").is(':visible')){
+		$(".user-stats").slideUp();
+	}
+}
+
 
 
