@@ -19,7 +19,7 @@
 				<div class="proj-show">
 					<h3><%= piece.name %></h3>
 					<p><%= piece.stat %></p>
-					<form action="/project" method="POST">
+					<form action="/project" method="GET">
 						<input type="hidden" name="projectId" value="<%= piece.id %>">
 						<button class="proj-view-button" type="submit">View Project</button> 
 						<div class="clearfix"></div>

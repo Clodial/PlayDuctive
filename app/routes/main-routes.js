@@ -197,8 +197,8 @@ router.post('/makeProject/search_users', function (req, res) {
 });
 
 //Project stuff
-router.post('/project', function(req,res){
-    var projId = req.body.projectId;
+router.get('/project', function(req,res){
+    var projId = req.query.projectId;
     if(!req.session.user){
         res.redirect('/');
     }else{
