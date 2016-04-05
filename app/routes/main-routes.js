@@ -200,18 +200,49 @@ router.post('/makeProject/search_users', function (req, res) {
 router.post('/project', function(req,res){
     var projId = req.body.projectId;
     if(!req.session.user){
-        redirect('/');
+        res.redirect('/');
     }else{
-        con.query('select ProjTypes.projTypeName as type from Projects, ProjTypes where Projects.projId = ? and ProjTypes.projTypeId = Projects.projTypeId', 
+        con.query('select ProjTypes.projTypeName as type, Projects.projName as project from Projects, ProjTypes where Projects.projId = ? and ProjTypes.projTypeId = Projects.projTypeId', 
         [projId],
         function (err, result){
             if(result[0].type = "AGILE"){
-                res.send("agile");
+                res.render('agile', {title: 'PlayDuctive',stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
             }else{
                 res.send("waterfall");
             }
         });
     }
-})
+});
+
+router.get('/makeTask', function(req,res){
+    var projId = req.query.projId;
+    console.log(projId);
+    if(!req.session.user){
+        redirect('/');
+    }else{
+        con.query('select Accounts.accountUser as name, Projects.projName as project from AccountProjects, Accounts, Projects where Projects.projId = ? and AccountProjects.projId = ? and Accounts.accountId = AccountProjects.accountId',
+            [projId, projId], 
+            function(err, result){
+                console.log(result[0]);
+                if(err){
+                    res.redirect('/');
+                }
+                if(result.length > 0){
+                    var userList = [];
+                    var projName = result[0].project;
+                    for(var i = 0; i < result.length; i++){
+                        console.log(result[i].name);
+                        userList.push(result[i].name);
+                    }
+                    console.log(userList);
+                    res.render('makeTask',{title: 'PlayDuctive', users: userList, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project})
+                }else{
+                    //there has to be an account user
+                    console.log(err);
+                    res.redirect('/');
+                }
+            });
+    }
+});
 
 module.exports = router;

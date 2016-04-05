@@ -1,6 +1,7 @@
 <html>
 <head>
 	<!--Main front-end items-->
+	<% include partials/head %>
 	<% include partials/columnsystem %>
 	<title>PlayDuctive</title>
 </head>
@@ -31,8 +32,11 @@
 			</div>
 		</div>
 	</div>
+	<% include partials/bodyScript %>
 	<form action="/makeTask" method="get">
+		<input type="hidden" name="projId" value="<%= projId %>">
 		<button class="col-md-12 col-lg-12 make-project" type="submit">Make Task</button>
 	</form>
+	<% include partials/bodyScript %>
 </body>
 </html>

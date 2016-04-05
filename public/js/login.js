@@ -1,6 +1,5 @@
-$(".nav-login").slideUp();
-$(".nav-register").slideUp();
-$(".user-stats").slideUp();
+$(".nav-login").hide();
+$(".nav-register").hide();
 //clicking buttons to show login and registration sections
 $(".showLog").click(function(){
 	if($(".nav-login").is(':visible')){
@@ -81,16 +80,6 @@ $("#logout-button").click(function(){
 		}
 	});
 })
-
-$(".nav-log-true").hover(function(){
-	if(!$(".user-stats").is(':visible')){
-		$(".user-stats").show();
-	}
-},function(){
-	if($(".user-stats").is(':visible')){
-		$(".user-stats").hide();
-	}
-});
 
 
 

@@ -5,6 +5,9 @@
 </head>
 <body>
   <% include partials/nav %>
+  <div class="user-welcome">
+    <h1 id="logged-welcome">Making a project for: <%= user %></h1>
+  </div>
     <form id="projectForm" action="/makeProject/posts" method="post">
       Project Type:<br>
       <select name="projType">
