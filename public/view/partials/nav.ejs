@@ -14,8 +14,8 @@
 	<div class="nav-login nav-drop">
 		<h1>Login</h1>
 		<form action="/logCheck" method="get">
-			<label>Username </label><br><input type="text" name="user" required/></br>
-			<label>Password </label><br><input type="password" name="pass" required/></br>
+			<label>Username </label><br><input class="log-input" type="text" name="user" required/></br>
+			<label>Password </label><br><input class="log-input" type="password" name="pass" required/></br>
 			<button class="sign-button" type="submit">Login</button>
 		</form>
 	</div>
@@ -24,13 +24,13 @@
 		<form action="/login" method="post">
 			<input type="hidden" name="register" value="true">
 			<label>New Username</label><br>
-			<input id="reg-user" type="text" name="user" required></br>
+			<input id="reg-user" class="log-input" type="text" name="user" required></br>
 			<label>Email</label><br>
-			<input type="email" name="email" required></br>
+			<input class="log-input" type="email" name="email" required></br>
 			<label>New Password</label><br>
-			<input id="reg-pass" type="password" name="pass" onkeyup="passCheck()" required></br>
+			<input class="log-input" id="reg-pass" type="password" name="pass" onkeyup="passCheck()" required></br>
 			<label>Repeat Password</label><br>
-			<input id="reg-pass2" type="password" name="pass2" onkeyup="passCheck()" required></br>
+			<input class="log-input" id="reg-pass2" type="password" name="pass2" onkeyup="passCheck()" required></br>
 			<span id="pass-check"></span></br>
 			<span id="user-check"></span></br>
 			<button class="sign-button" id="reg-button" type="submit" >Create Account</button>
