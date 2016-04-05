@@ -200,7 +200,7 @@ router.post('/makeProject/search_users', function (req, res) {
 router.post('/project', function(req,res){
     var projId = req.body.projectId;
     if(!req.session.user){
-        redirect('/');
+        res.redirect('/');
     }else{
         con.query('select ProjTypes.projTypeName as type, Projects.projName as project from Projects, ProjTypes where Projects.projId = ? and ProjTypes.projTypeId = Projects.projTypeId', 
         [projId],
