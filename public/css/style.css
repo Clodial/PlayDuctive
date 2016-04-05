@@ -109,6 +109,11 @@ form{
 	border-right-style: none;
 	border-bottom-style: solid;
 }
+.sign-button{
+	background-color: #4C7FCC;
+	border-radius: 3px;
+	border-style: none;
+}
 /*****
 * show projects
 *****/
