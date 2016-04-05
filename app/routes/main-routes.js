@@ -214,7 +214,6 @@ router.post('/project', function(req,res){
                         }
                         if(result.length > 0){
                             var statids     = [];
-                            var currStatus  = result2[0].statid;
                             for(var s = 0; s < result2.length; s++){
                                 console.log(result2[s].statid);
                                 statids.push(result2[s].statid);
