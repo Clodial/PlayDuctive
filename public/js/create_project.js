@@ -1,4 +1,4 @@
-var addedUsers=[$("#loggedInUser").text()];
+var addedUsers=[$("#logged-welcome").text()];
 //attach listeners after DOM loaded
 $(function(){
     /*$("button").click(function () {
