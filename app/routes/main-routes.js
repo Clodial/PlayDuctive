@@ -17,13 +17,13 @@ router.get('/', function(req,res){
     var projList = [];
     //console.log(req.session.user);
     //res.render('index', { title: 'PlayDuctive', user: req.session.user});
-    if(!req.session.user){
+    if(!req.session.user || !req.session.stats){
 	   res.render('index', { title: 'PlayDuctive', proj: null, user: req.session.user});
     }else{
         con.query('CALL getProjects(?);', [req.session.user],
             function(err, result){
                 projList = JSON.stringify(result[0]);
-                res.render('login', { title: 'PlayDuctive', proj: projList, user: req.session.user});
+                res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
             });
         //res.render('login', { title: 'PlayDuctive', proj: projList, user: req.session.user});
     }
@@ -41,11 +41,20 @@ router.get('/logCheck', function(req,res){
                     res.redirect('/');
                 }else{
                     if(result.length > 0){
-                        console.log("underwent stuff yo");
                         req.session.user = user;
-                        console.log(req.session.user);
+                        con.query('select classTitleId, classExp from Classes, Accounts where Accounts.accountUser and Accounts.accountId = Classes.accountId',
+                            [user],function(err, result){
+                                if(err){
+                                    console.log('QUERY ERROR');
+                                    console.log(err.code);
+                                    res.redirect('/');
+                                }else{
+                                    req.session.stats = JSON.stringify(result[0]);
+                                    redirect('/');
+                                }
+                            });
                         //res.redirect('/');
-                        res.render('login', { title: 'PlayDuctive', proj: null, user: req.session.user});
+                        //res.render('login', { title: 'PlayDuctive', proj: null, user: req.session.user});
                     }else{
                         console.log(req.session.user);
                         //res.redirect('/');
