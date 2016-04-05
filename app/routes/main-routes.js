@@ -202,11 +202,11 @@ router.post('/project', function(req,res){
     if(!req.session.user){
         redirect('/');
     }else{
-        con.query('select ProjTypes.projTypeName as type from Projects, ProjTypes where Projects.projId = ? and ProjTypes.projTypeId = Projects.projTypeId', 
+        con.query('select ProjTypes.projTypeName as type, Projects.projName as project from Projects, ProjTypes where Projects.projId = ? and ProjTypes.projTypeId = Projects.projTypeId', 
         [projId],
         function (err, result){
             if(result[0].type = "AGILE"){
-                res.send("agile");
+                res.render('agile', title: 'PlayDuctive',stats: req.session.stats, succes: status, user: req.session.user, projId: projId, projName: result[0].project);
             }else{
                 res.send("waterfall");
             }
