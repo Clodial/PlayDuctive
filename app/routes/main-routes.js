@@ -236,7 +236,7 @@ router.get('/makeTask', function(req,res){
                     }
 					//alan's agile status query work in progress
 					con.query('SELECT AccountTasks.statusId as statid, AccountTasks.taskExp as exp, AccountTasks.taskDesc as desc from AccountTasks where AccountTasks.projId = ?',
-                        [projId] ,function(err, result){
+                        [projId] , function(err, result){
 						console.log(result[0]);
 						if(err){
 							res.redirect('/');
