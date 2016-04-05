@@ -59,7 +59,7 @@ router.get('/logCheck', function(req,res){
                     }else{
                         console.log(req.session.user);
                         //res.redirect('/');
-                        res.render('index', { title: 'PlayDuctive', proj: null, stats:null, user: req.session.user});
+                        res.render('index', { title: 'PlayDuctive', proj: null, stats: null, user: req.session.user});
                     }
                 }
 
