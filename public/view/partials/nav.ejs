@@ -33,13 +33,13 @@
 	</div>
 <% }else { //logged in%>
 	<div class="navbar-main nav-log-true">
-		<div class="logo-button">
+		<div class="logo-button button-check">
 			<form action="/" method="get">
 				<button type="submit">Home</button>
 			</form>
 		</div>
 		<div id=loggedInUser><%= user %></div>
-			<div class="log-buttons">
+			<div class="log-buttons button-check">
 				<form action="/login/logout" method="GET"><button type="submit">Logout</button></form>
 			</div>
 		</div>
