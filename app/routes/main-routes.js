@@ -103,7 +103,7 @@ router.post('/login', function(req, res){
                 console.log("success: " + true);
                 console.log(req.session.user);
                 req.session.user = user;
-                res.render('login', {title: 'PlayDuctive', proj: null, success: "success", user: req.session.user});
+                res.render('login', {title: 'PlayDuctive', proj: null, stats: req.session.stats, success: "success", user: req.session.user});
             }
         }
     );
