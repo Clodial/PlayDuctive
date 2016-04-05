@@ -222,6 +222,9 @@ router.get('/makeTask', function(req,res){
         con.query('select Accounts.accountUser as name, Projects.projName as project from AccountProjects, Accounts, Projects where Projects.projId = ? and AccountProjects.projId = ? and Accounts.accountId = AccountProjects.accountId',
             [projId, projId], 
             function(err, result){
+                if(err){
+                    res.redirect('/');
+                }
                 if(result.length > 1){
                     var userList = [];
                     var projName = result[0].project;
