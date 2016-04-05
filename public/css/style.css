@@ -95,6 +95,12 @@ form{
 /*****
 * show projects
 *****/
+.proj-show{
+	height: 150px;
+	border-radius: 5px;
+	color: white;
+	background-color: #4C7FCC;
+}
 .make-project{
 	border-style:none;
 	font-size: 30px;
