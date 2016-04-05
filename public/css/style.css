@@ -51,6 +51,7 @@ form{
 	float: left;
 }
 .logo-button button{
+	background-color: #FF8878;
 	position: relative;
 	height: 50px;
 	border-style: none;
@@ -60,6 +61,7 @@ form{
 	background-color: #4C7FCC;
 }
 .button-check{
+	height: 50px;
 	display: inline-block;
 	position:relative;
 }
