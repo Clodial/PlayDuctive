@@ -11,7 +11,7 @@
 		</div>
 	</div>
 	<div class="clearfix"></div>
-	<div class="nav-login">
+	<div class="nav-login nav-drop">
 		<h1>Login</h1>
 		<form action="/logCheck" method="get">
 			<label>Username </label><input type="text" name="user" required/></br>
@@ -19,16 +19,20 @@
 			<button type="submit">Login</button>
 		</form>
 	</div>
-	<div class="nav-register">
+	<div class="nav-register nav-drop">
 		<h1>New Account</h1>
 		<form action="/login" method="post">
 			<input type="hidden" name="register" value="true">
-			<label>New Username</label><input id="reg-user" type="text" name="user" required></br>
-			<label>Email</label><input type="email" name="email" required></br>
-			<label>New Password</label><input id="reg-pass" type="password" name="pass" onkeyup="passCheck()" required></br>
-			<label>Repeat Password</label><input id="reg-pass2" type="password" name="pass2" onkeyup="passCheck()" required></br>
+			<label>New Username</label><br>
+			<input id="reg-user" type="text" name="user" required></br>
+			<label>Email</label><br>
+			<input type="email" name="email" required></br>
+			<label>New Password</label><br>
+			<input id="reg-pass" type="password" name="pass" onkeyup="passCheck()" required></br>
+			<label>Repeat Password</label><br>
+			<input id="reg-pass2" type="password" name="pass2" onkeyup="passCheck()" required></br>
 			<span id="pass-check"></span></br>
-			<span id="user-check">asdfasdfasdf</span></br>
+			<span id="user-check"></span></br>
 			<button id="reg-button" type="submit" >Create Account</button>
 		</form>
 	</div>
