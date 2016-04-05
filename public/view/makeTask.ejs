@@ -1,0 +1,34 @@
+<html>
+<head>
+    <% include partials/head %>
+    <title><%= title %></title>
+</head>
+<body>
+  <% include partials/nav %>
+    <form id="taskForm" action="/makeTask/posts" method="post">
+	//need to hiddenly grab project id  and class id as well as auto increment task id
+      Task Id:<br>
+	  <input type="text" name="taskID"><br>
+      Status:<br>
+      <select name="statusinfo">
+          <option value="NOT-STARTED">NOT-STARTED</option>
+          <option value="INPROGRESS">INPROGRESS</option>
+          <option value="COMPLETE">COMPLETE</option>
+      </select><br>
+	  Task Reward(Min:10 Exp | Max:100 Exp):<br>
+	  <input type="number" name="taskexp" min="10" max="100">
+      Task Description:<br>
+      <input type="text" name="taskDesc"><br>
+      <!-- form for adding users-->
+      Add User to Task:<br>
+      <input id="addUser" type="text" name="addUser"><br>
+      <select id="userSelect" name="userSelect"></select><br>
+      <button type="submit">Make Task</button>
+      Users Added to Task:<br>
+    </form>
+
+    
+    <script src="../js/create_task.js"></script>
+    <% include partials/bodyScript %>
+</body>
+</html>
