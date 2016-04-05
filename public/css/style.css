@@ -114,6 +114,7 @@ form{
 	border-radius: 3px;
 	border-style: none;
 	float: right;
+	margin-right: 10px;
 }
 .sign-button:hover{
 	background-color: #444444;
