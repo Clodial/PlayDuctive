@@ -22,9 +22,12 @@ router.get('/', function(req,res){
     }else{
         con.query('select Projects.projId as id, Projects.projName as name, Statuses.statusName as stat from Projects, Statuses, Accounts, AccountProjects  where Accounts.accountUser = ? and AccountProjects.accountId = Accounts.accountId  and AccountProjects.projId = Projects.projId and Projects.statusId = Statuses.statusId;', [req.session.user],
             function(err, result){
-                console.log(result);
-                projList = JSON.stringify(result[0]);
-                res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
+                console.log(err);
+                if(result) {
+                    console.log(result);
+                    projList = JSON.stringify(result[0]);
+                    res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
+                }
             });
         //res.render('login', { title: 'PlayDuctive', proj: projList, user: req.session.user});
     }
