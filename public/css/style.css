@@ -12,6 +12,7 @@
 }
 
 .user-stats{
+	position:relative;
 	width:			100%;
 	background-color: #111111;
 }

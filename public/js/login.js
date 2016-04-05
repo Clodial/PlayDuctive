@@ -84,11 +84,11 @@ $("#logout-button").click(function(){
 
 $(".nav-log-true").hover(function(){
 	if(!$(".user-stats").is(':visible')){
-		$(".user-stats").slideDown();
+		$(".user-stats").show();
 	}
 },function(){
 	if($(".user-stats").is(':visible')){
-		$(".user-stats").slideUp();
+		$(".user-stats").hide();
 	}
 });
 
