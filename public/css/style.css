@@ -31,5 +31,6 @@
 	float: left;
 }
 .button-check{
+	display: inline-block;
 	position:relative;
 }
