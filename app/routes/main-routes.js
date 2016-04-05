@@ -207,7 +207,7 @@ router.post('/project', function(req,res){
         function (err, result){
             if(result[0].type = "AGILE"){
                 con.query('SELECT AccountTasks.statusId as statid, AccountTasks.taskExp as exp, AccountTasks.taskDesc as desc from AccountTasks where AccountTasks.projId = ?',
-                        [projId] , function(err, result){
+                        [projId] , function(err, result2){
                         console.log(result[0]);
                         if(err){
                             res.redirect('/');
@@ -215,9 +215,9 @@ router.post('/project', function(req,res){
                         if(result.length > 0){
                             var statids     = [];
                             var currStatus  = result[0].statid;
-                            for(var s = 0; s < result.length; s++){
-                                console.log(result[s].statid);
-                                statids.push(result[s].statid);
+                            for(var s = 0; s < result2.length; s++){
+                                console.log(result2[s].statid);
+                                statids.push(result2[s].statid);
                             }
                             var stStatIds = JSON.stringify(statids);
                             console.log(stStatids);
