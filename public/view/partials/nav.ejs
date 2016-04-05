@@ -44,8 +44,10 @@
 	</div>
 	<div class="clearfix"></div>
 	<div class="user-stats">
+		<% var clStat = eval(stats) %>
 		<div class="col-md-2 col-lg-2 stat-spot">
 			<p>Dungeon Master</p>
+			<p><%= clStat[0].exp %>
 		</div>
 		<div class="col-md-2 col-lg-2 stat-spot">
 			<p>Warrior</p>
