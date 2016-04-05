@@ -248,7 +248,7 @@ router.get('/makeTask', function(req,res){
 								console.log(result[s].statid);
 								statids.push(result[s].statid);
 							}
-                            var stStatIds = JSON.stringify(statsids);
+                            var stStatIds = JSON.stringify(statids);
 							console.log(stStatids);
                             res.render('makeTask',{title: 'PlayDuctive', users: userList, statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project})
 						}
