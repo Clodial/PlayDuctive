@@ -85,7 +85,7 @@ router.get('/login', function(req,res){
                 }  
             }   
         });
-	res.render('login', { title: 'PlayDuctive', proj: null, user: req.session.user});
+	res.render('login', { title: 'PlayDuctive', proj: null, stats: req.session.stats, user: req.session.user});
 });
 
 //Login functionality
@@ -139,7 +139,7 @@ router.get('/login/logout', function(req,res){
 router.get('/makeProject', function (req, res) {
     //res.sendFile(path.join(__dirname + '/public/view/create_project.html'));
     if(!req.session.user){res.redirect('/');}
-    res.render('makeProject',{ title: 'PlayDuctive', user: req.session.user});
+    res.render('makeProject',{ title: 'PlayDuctive',stats: req.session.stats, user: req.session.user});
 });
 
 router.post('/makeProject/posts', function (req, res) {
@@ -177,7 +177,7 @@ router.post('/makeProject/posts', function (req, res) {
                         }
                 });
         });
-        res.render('makeProject',{ title: 'PlayDuctive', succes: status, user: req.session.user});
+        res.render('makeProject',{ title: 'PlayDuctive',stats: req.session.stats, succes: status, user: req.session.user});
     }
 });
 

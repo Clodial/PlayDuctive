@@ -96,10 +96,19 @@ form{
 * show projects
 *****/
 .proj-show{
-	height: 75px;
+	height: 100px;
 	border-radius: 5px;
 	color: white;
 	background-color: #4C7FCC;
+}
+.proj-view-button{
+	float:right;
+	border-radius: 2px;
+	border-style: none;
+	background-color: #FF8878;
+}
+.proj-view-button:hover{
+	background-color: #E5FF92;
 }
 .make-project{
 	margin-top: 10px;

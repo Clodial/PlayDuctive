@@ -20,7 +20,8 @@
 				<p><%= piece.stat %></p>
 				<form action="/project" method="POST">
 					<input type="hidden" name="projectId" value="<%= piece.id %>">
-					<button type="submit">View Project</button> 
+					<button class="proj-view-button" type="submit">View Project</button> 
+					<div class="clearfix"></div>
 				</form>
 			</div>
 	<% } %>
