@@ -206,7 +206,7 @@ router.post('/project', function(req,res){
         [projId],
         function (err, result){
             if(result[0].type = "AGILE"){
-                res.render('agile', {title: 'PlayDuctive',stats: req.session.stats, succes: status, user: req.session.user, projId: projId, projName: result[0].project});
+                res.render('agile', {title: 'PlayDuctive',stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project);
             }else{
                 res.send("waterfall");
             }
