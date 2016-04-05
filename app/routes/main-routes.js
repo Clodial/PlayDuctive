@@ -18,7 +18,7 @@ router.get('/', function(req,res){
     //console.log(req.session.user);
     //res.render('index', { title: 'PlayDuctive', user: req.session.user});
     if(!req.session.user || !req.session.stats){
-	   res.render('index', { title: 'PlayDuctive', proj: null, user: req.session.user});
+	   res.render('index', { title: 'PlayDuctive', proj: null, stats: req.session.stat, user: req.session.user});
     }else{
         con.query('CALL getProjects(?);', [req.session.user],
             function(err, result){
@@ -59,7 +59,7 @@ router.get('/logCheck', function(req,res){
                     }else{
                         console.log(req.session.user);
                         //res.redirect('/');
-                        res.render('index', { title: 'PlayDuctive', proj: null, user: req.session.user});
+                        res.render('index', { title: 'PlayDuctive', proj: null, stats:null, user: req.session.user});
                     }
                 }
 
