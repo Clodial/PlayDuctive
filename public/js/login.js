@@ -81,13 +81,9 @@ $("#logout-button").click(function(){
 		}
 	});
 })
-if($(".nav-log-true").is(":hover") && !$(".user-stats").is(':visible')){
-	$(".user-stats").slideDown();
-}else{
-	if($(".user-stats").is(':visible')){
-		$(".user-stats").slideUp();
-	}
-}
+
+$(".nav-log-true").hover(function(){$(".user-stats").slideDown();},
+						 function(){$(".user-stats").slideUp();});
 
 
 
