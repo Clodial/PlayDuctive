@@ -115,6 +115,7 @@ form{
 	margin-left: 10px;
 }
 .proj-view-button{
+	margin-right: 10px;
 	float:right;
 	border-radius: 2px;
 	border-style: none;
