@@ -212,8 +212,9 @@ router.post('/project', function(req,res){
                         if(err){
                             res.redirect('/');
                         }
-                        if(result.length > 0){
+                        if(result2.length > 0){
                             var statids     = [];
+                            console.log(result2);
                             for(var s = 0; s < result2.length; s++){
                                 console.log(result2[s].statid);
                                 statids.push(result2[s].statid);
