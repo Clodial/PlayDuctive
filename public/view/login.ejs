@@ -15,14 +15,16 @@
 		var chProj = eval(proj)
 		for(var i = 0; i < chProj.length; i++){ 
 			var piece = chProj[i] %>
-			<div class="col-md-3 proj-show">
-				<p><%= piece.name %></p>
-				<p><%= piece.stat %></p>
-				<form action="/project" method="POST">
-					<input type="hidden" name="projectId" value="<%= piece.id %>">
-					<button class="proj-view-button" type="submit">View Project</button> 
-					<div class="clearfix"></div>
-				</form>
+			<div class="col-md-3">
+				<div class="proj-show">
+					<h3><%= piece.name %></h3>
+					<p><%= piece.stat %></p>
+					<form action="/project" method="POST">
+						<input type="hidden" name="projectId" value="<%= piece.id %>">
+						<button class="proj-view-button" type="submit">View Project</button> 
+						<div class="clearfix"></div>
+					</form>
+				</div>
 			</div>
 	<% } %>
 	<% } else{ %>

@@ -103,6 +103,9 @@ form{
 	color: white;
 	background-color: #4C7FCC;
 }
+.proj-show h3{
+	padding-top:4px;
+}
 .proj-view-button{
 	float:right;
 	border-radius: 2px;
@@ -111,6 +114,7 @@ form{
 }
 .proj-view-button:hover{
 	background-color: #E5FF92;
+	color: #444444;
 }
 .make-project{
 	margin-top: 10px;
