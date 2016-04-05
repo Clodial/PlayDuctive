@@ -42,7 +42,7 @@ router.get('/logCheck', function(req,res){
                 }else{
                     if(result.length > 0){
                         req.session.user = user;
-                        con.query('select classTitleId, classExp from Classes, Accounts where Accounts.accountUser and Accounts.accountId = Classes.accountId',
+                        con.query('select classTitleId, classExp from Classes, Accounts where Accounts.accountUser = ? and Accounts.accountId = Classes.accountId',
                             [user],function(err, result){
                                 if(err){
                                     console.log('QUERY ERROR');
