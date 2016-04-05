@@ -212,14 +212,12 @@ router.post('/project', function(req,res){
                         if(err){
                             res.redirect('/');
                         }
-                        if(result2.length > 0){
-                            var statids     = [];
-                            console.log(result2);
-                            statids.push(results2);
-                            var stStatIds = JSON.stringify(statids);
-                            console.log(stStatids);
-                            res.render('agile',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
-                        }
+                        var statids     = [];
+                        console.log(result2);
+                        statids.push(results2);
+                        var stStatIds = JSON.stringify(statids);
+                        console.log(stStatids);
+                        res.render('agile',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
                     });
                 //res.render('agile', {title: 'PlayDuctive',stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
             }else{
