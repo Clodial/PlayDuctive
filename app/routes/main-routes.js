@@ -235,7 +235,8 @@ router.get('/makeTask', function(req,res){
                         userList.push(result[i].name);
                     }
 					//alan's agile status query work in progress
-					con.query('SELECT Statuses.statusId as statid'),function(err, result){
+					con.query('SELECT AccountTasks.statusId as statid, AccountTasks.taskExp as exp, AccountTasks.taskDesc as desc from AccountTasks where AccountTasks.projId = ?',
+                        [projId] ,function(err, result){
 						console.log(result[0]);
 						if(err){
 							res.redirect('/');
@@ -247,11 +248,13 @@ router.get('/makeTask', function(req,res){
 								console.log(result[s].statid);
 								statids.push(result[s].statid);
 							}
-							console.log(statids);
+                            var stStatIds = JSON.stringify(statsids);
+							console.log(stStatids);
+                            res.render('makeTask',{title: 'PlayDuctive', users: userList, statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project})
 						}
 					}
                     console.log(userList);
-                    res.render('makeTask',{title: 'PlayDuctive', users: userList, statusinfo: statids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project})
+                    //res.render('makeTask',{title: 'PlayDuctive', users: userList, statusinfo: statids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project})
                 }else{
                     //there has to be an account user
                     console.log(err);

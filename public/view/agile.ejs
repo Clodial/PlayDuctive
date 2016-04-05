@@ -23,9 +23,10 @@
 						   <tr>
 								<th>To-Do</th>
 						   </tr>
-						   <%  if(statusinfo[s] = 1) { %>
+						   <%  if(statusinfo) { 
+						   		%>
 							<tr>
-								<td><%= //should show task by id %></td>
+								<td><%= statusinfo %></td>
 							</tr>    
 						   <% } %>
 						</table>
