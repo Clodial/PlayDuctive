@@ -102,9 +102,13 @@ form{
 	background-color: #4C7FCC;
 }
 .make-project{
+	margin-top: 10px;
 	border-style:none;
 	font-size: 30px;
 	height: 50px;
 	color: white;
-	background: #FF8878;
+	background-color: #FF8878;
+}
+.make-project:hover{
+	background-color: #4C7FCC;
 }
