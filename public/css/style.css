@@ -16,11 +16,15 @@
 	min-height: 	50px;
 	background-color: #111111;
 }
+.clearfix{
+	float:clear;
+}
 .stat-spot{
 	background-color: #111111;
 	color: white;
 	width:	100px;
 	height:	50px;
+	border-style: solid;
 	border-color: white;
 }
 .log-buttons{
