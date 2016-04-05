@@ -225,7 +225,7 @@ router.get('/makeTask', function(req,res){
                 if(err){
                     res.redirect('/');
                 }
-                if(result.length > 1){
+                if(result.length > 0){
                     var userList = [];
                     var projName = result[0].project;
                     for(var i = 0; i < result.length; i++){
