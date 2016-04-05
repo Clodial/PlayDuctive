@@ -206,7 +206,25 @@ router.post('/project', function(req,res){
         [projId],
         function (err, result){
             if(result[0].type = "AGILE"){
-                res.render('agile', {title: 'PlayDuctive',stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
+                con.query('SELECT AccountTasks.statusId as statid, AccountTasks.taskExp as exp, AccountTasks.taskDesc as desc from AccountTasks where AccountTasks.projId = ?',
+                        [projId] , function(err, result){
+                        console.log(result[0]);
+                        if(err){
+                            res.redirect('/');
+                        }
+                        if(result.length > 0){
+                            var statids     = [];
+                            var currStatus  = result[0].statid;
+                            for(var s = 0; s < result.length; s++){
+                                console.log(result[s].statid);
+                                statids.push(result[s].statid);
+                            }
+                            var stStatIds = JSON.stringify(statids);
+                            console.log(stStatids);
+                            res.render('agile',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
+                        }
+                    });
+                //res.render('agile', {title: 'PlayDuctive',stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
             }else{
                 res.send("waterfall");
             }
