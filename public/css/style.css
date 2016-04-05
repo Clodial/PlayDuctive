@@ -30,3 +30,6 @@
 .logo-button{
 	float: left;
 }
+.button-check{
+	position:relative;
+}
