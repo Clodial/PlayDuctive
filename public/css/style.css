@@ -102,6 +102,11 @@ form{
 	background-color: #444444;
 	color: white;
 }
+.log-input{
+	background-color: #444444;
+	border-style: none;
+	border-bottom-style: solid;
+}
 /*****
 * show projects
 *****/
