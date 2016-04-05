@@ -206,16 +206,20 @@ router.post('/project', function(req,res){
         [projId],
         function (err, result){
             if(result[0].type = "AGILE"){
-                con.query('SELECT AccountTasks.statusId as statid, AccountTasks.taskExp as exp, AccountTasks.taskDesc as desc from AccountTasks where AccountTasks.projId = ?',
+                var status = con.query('SELECT AccountTasks.statusId as statid, AccountTasks.taskExp as exp, AccountTasks.taskDesc as desc from AccountTasks where AccountTasks.projId = ?',
                         [projId] , 
                     function (err, result2){    
                         if(err){
                             res.redirect('/');
                         }
-                        console.log(result2);
-                        var stStatids = JSON.stringify(result2);
-                        console.log(stStatids);
-                        res.render('agile',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
+                        if(result2.length > 0){
+                            console.log(result2);
+                            var stStatids = JSON.stringify(result2);
+                            console.log(stStatids);
+                            res.render('agile',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
+                        }else{
+                            res.redirect('/');
+                        }
                     });
                 //res.render('agile', {title: 'PlayDuctive',stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
             }else{
