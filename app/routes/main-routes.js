@@ -212,11 +212,9 @@ router.post('/project', function(req,res){
                         if(err){
                             res.redirect('/');
                         }
-                        var stStatids = []
                         var statids     = [];
                         console.log(result2[0]);
-                        statids.push(result2[0]);
-                        stStatids = JSON.stringify(statids);
+                        var stStatids = JSON.stringify(result2[0]);
                         console.log(stStatids);
                         res.render('agile',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
                     });
