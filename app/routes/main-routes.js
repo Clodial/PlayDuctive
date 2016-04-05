@@ -250,7 +250,7 @@ router.get('/makeTask', function(req,res){
 							}
                             var stStatIds = JSON.stringify(statids);
 							console.log(stStatids);
-                            res.render('makeTask',{title: 'PlayDuctive', users: userList, statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project})
+                            res.render('makeTask',{title: 'PlayDuctive', users: userList, statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
 						}
 					});
                     console.log(userList);
