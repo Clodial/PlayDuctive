@@ -102,6 +102,23 @@ form{
 	background-color: #444444;
 	color: white;
 }
+.log-input{
+	background-color: #444444;
+	border-top-style: none;
+	border-left-style: none;
+	border-right-style: none;
+	border-bottom-style: solid;
+}
+.sign-button{
+	background-color: #4C7FCC;
+	border-radius: 3px;
+	border-style: none;
+	float: right;
+	margin-right: 10px;
+}
+.sign-button:hover{
+	background-color: #444444;
+}
 /*****
 * show projects
 *****/
