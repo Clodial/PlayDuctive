@@ -104,7 +104,9 @@ form{
 }
 .log-input{
 	background-color: #444444;
-	border-style: none;
+	border-top-style: none;
+	border-left-style: none;
+	border-right-style: none;
 	border-bottom-style: solid;
 }
 /*****
