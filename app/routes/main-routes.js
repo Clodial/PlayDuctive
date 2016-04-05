@@ -212,7 +212,7 @@ router.post('/project', function(req,res){
                         if(err){
                             res.redirect('/');
                         }
-                        if(result2.length > 0){
+                        if(result2){
                             console.log(result2);
                             var stStatids = JSON.stringify(result2);
                             console.log(stStatids);
