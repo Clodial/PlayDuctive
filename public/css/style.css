@@ -92,3 +92,13 @@ form{
 	padding-top:10px;
 	margin-left: 30px;
 }
+/*****
+* show projects
+*****/
+.make-project{
+	border-style:none;
+	font-size: 30px;
+	height: 50px;
+	color: white;
+	background: #FF8878;
+}
