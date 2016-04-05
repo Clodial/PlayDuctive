@@ -1,4 +1,4 @@
-<% if(!user && !stats){ //not logged in%>
+<% if(!user && !stats){ %>
 	<div class="navbar-main">
 		<div class="logo-button button-check">
 			<form action="/" method="get">
@@ -40,7 +40,7 @@
 			<div class="clearfix"></div>
 		</form>
 	</div>
-<% }else { //logged in%>
+<% } else { //logged in%>
 	<div class="navbar-main nav-log-true">
 		<div class="logo-button button-check">
 			<form action="/" method="get">
@@ -53,7 +53,7 @@
 	</div>
 	<div class="clearfix"></div>
 	<div class="user-stats">
-	<% if(stats){ var clStat = eval(stats) %>
+	<% var clStat = eval(stats) %>
 		<div class="col-md-2 col-lg-2 stat-spot">
 			<p>Dungeon Master</p>
 			<p>Total EXP: <%= clStat[0].classExp %></p>
@@ -79,5 +79,4 @@
 			<p>Total EXP: <%= clStat[5].classExp %></p>
 		</div>
 	</div>
-	<% } %>
 <% } %>
