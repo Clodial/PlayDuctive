@@ -24,6 +24,7 @@
 	height:	50px;
 }
 .log-buttons{
+	position: relative;
 	float: right;
 }
 .log-buttons button{
@@ -36,12 +37,14 @@
 	background-color: #4C7FCC;
 }
 .logo-button{
+	position: relative;
 	float: left;
 }
 .logo-button button{
 	position: relative;
 	height: 50px;
 	border-style: none;
+	color: white;
 }
 .logo-buttons button:hover{
 	background-color: #4C7FCC;
