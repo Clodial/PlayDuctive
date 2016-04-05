@@ -208,13 +208,13 @@ router.post('/project', function(req,res){
             if(result[0].type = "AGILE"){
                 con.query('SELECT AccountTasks.statusId as statid, AccountTasks.taskExp as exp, AccountTasks.taskDesc as desc from AccountTasks where AccountTasks.projId = ?',
                         [projId] , function(err, result2){
-                        console.log(result[0]);
+                        console.log(results[0]);
                         if(err){
                             res.redirect('/');
                         }
                         if(result.length > 0){
                             var statids     = [];
-                            var currStatus  = result[0].statid;
+                            var currStatus  = result2[0].statid;
                             for(var s = 0; s < result2.length; s++){
                                 console.log(result2[s].statid);
                                 statids.push(result2[s].statid);
