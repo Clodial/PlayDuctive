@@ -53,7 +53,7 @@
 	</div>
 	<div class="clearfix"></div>
 	<div class="user-stats">
-		<% var clStat = eval(stats) %>
+		<% if(stats) {var clStat = eval(stats) %>
 		<div class="col-md-2 col-lg-2 stat-spot">
 			<p>Dungeon Master</p>
 			<p>Total EXP: <%= clStat[0].classExp %></p>
@@ -79,4 +79,5 @@
 			<p>Total EXP: <%= clStat[5].classExp %></p>
 		</div>
 	</div>
+	<% } %>
 <% } %>
