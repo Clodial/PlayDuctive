@@ -10,8 +10,8 @@ $(function(){
                 "accountPass": "lollmao",
                 "taskId": $("[name=taskID]").val(),
                 "classId": $("[name=classID]").val(),
-				"projId": $("[name=projID]").val(),
-                "statusId": $("[name=statusinfo]").val(),
+				"projId": $("[name=projId]").val(),
+                "statusId": $("[name=statusin]").val(),
 				"taskExp": $("[name=taskexp]").val(),
 				"taskDesc": $("[name=taskDesc]").val()
             }),
