@@ -236,7 +236,7 @@ router.get('/makeTask', function(req,res){
                 }else{
                     //there has to be an account user
                     console.log(err);
-                    redirect('/');
+                    res.redirect('/');
                 }
             });
     }
