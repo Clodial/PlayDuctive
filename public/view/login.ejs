@@ -7,6 +7,7 @@
 <body>
 	<!--Page that shows what happens when the user's logged in-->
 	<% include partials/nav %>
+	<div class="body-part">
 	<% if(proj){ 
 		var chProj = eval(proj)
 		for(var i = 0; i < chProj.length; i++){ 
@@ -26,6 +27,7 @@
 	<form action="/makeProject" method="get">
 		<button class="col-md-3" type="submit">Make Project</button>
 	</form>
+	</div>
 	<% include partials/bodyScript %>
 </body>
 </html>
