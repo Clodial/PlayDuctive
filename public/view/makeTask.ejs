@@ -6,14 +6,13 @@
 <body>
   <% include partials/nav %>
     <form id="taskForm" action="/makeTask/posts" method="post">
-	//need to hiddenly grab project id  and class id as well as auto increment task id
       Task Id:<br>
 	  <input type="text" name="taskID"><br>
       Status:<br>
-      <select name="statusinfo">
-          <option value="NOT-STARTED">NOT-STARTED</option>
-          <option value="INPROGRESS">INPROGRESS</option>
-          <option value="COMPLETE">COMPLETE</option>
+      <select name="statusin">
+          <option value="1">NOT-STARTED</option>
+          <option value="2">INPROGRESS</option>
+          <option value="3">COMPLETE</option>
       </select><br>
 	  Class:<br>
       <select name="classID">
@@ -24,15 +23,15 @@
 		  <option value="5">Priest</option>
       </select><br>
 	  Task Reward(Min:10 Exp | Max:100 Exp):<br>
-	  <input type="number" name="taskexp" min="10" max="100">
+	  <input type="number" name="taskexp" min="10" max="100"><br>
       Task Description:<br>
       <input type="text" name="taskDesc"><br>
       <!-- form for adding users-->
       Add User to Task:<br>
       <input id="addUser" type="text" name="addUser"><br>
       <select id="userSelect" name="userSelect"></select><br>
-      <button type="submit">Make Task</button>
-      Users Added to Task:<br>
+	  Users Added to Task:<br>
+      <button type="submit">Make Task</button><br>
     </form>
 
     

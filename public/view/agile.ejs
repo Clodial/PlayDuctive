@@ -12,7 +12,6 @@
 		<div class="header">
 			Agile
 		</div>
-
 		<div class="colmid">
 			<div class="colin">
 				<div class="colleft">
@@ -20,7 +19,16 @@
 						Information
 					</div>
 					<div class="col2">
-						To-Do
+						<table>
+						   <tr>
+								<th>To-Do</th>
+						   </tr>
+						   <%  if(statusinfo[s] = 1) { %>
+							<tr>
+								<td><%= //should show task by id %></td>
+							</tr>    
+						   <% } %>
+						</table>
 					</div>
 					<div class="col3">
 						In-Progress

@@ -234,8 +234,24 @@ router.get('/makeTask', function(req,res){
                         console.log(result[i].name);
                         userList.push(result[i].name);
                     }
+					//alan's agile status query work in progress
+					con.query('SELECT Statuses.statusId as statid'),function(err, result){
+						console.log(result[0]);
+						if(err){
+							res.redirect('/');
+						}
+						if(result.length > 0){
+							var statids 	= [];
+							var currStatus	= result[0].statid;
+							for(var s = 0; s < result.length; s++){
+								console.log(result[s].statid);
+								statids.push(result[s].statid);
+							}
+							console.log(statids);
+						}
+					}
                     console.log(userList);
-                    res.render('makeTask',{title: 'PlayDuctive', users: userList, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project})
+                    res.render('makeTask',{title: 'PlayDuctive', users: userList, statusinfo: statids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project})
                 }else{
                     //there has to be an account user
                     console.log(err);
