@@ -216,6 +216,7 @@ router.post('/project', function(req,res){
 
 router.get('/makeTask', function(req,res){
     var projId = req.body.projId;
+    console.log(projId);
     if(!req.session.user){
         redirect('/');
     }else{
