@@ -207,8 +207,8 @@ router.post('/project', function(req,res){
         function (err, result){
             if(result[0].type = "AGILE"){
                 con.query('SELECT AccountTasks.statusId as statid, AccountTasks.taskExp as exp, AccountTasks.taskDesc as desc from AccountTasks where AccountTasks.projId = ?',
-                        [projId] , function(err, result2){
-                        
+                        [projId] , 
+                    function (err, result2){    
                         if(err){
                             res.redirect('/');
                         }
