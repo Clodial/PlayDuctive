@@ -12,12 +12,12 @@
 }
 
 .user-stats{
-	position:		relative;
 	width:			100%;
 	height: 		auto;
 	background-color: #111111;
 }
 .stat-spot{
+	background-color: #111111;
 	color: white;
 	width:	100px;
 	height:	50px;
