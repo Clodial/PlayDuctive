@@ -229,6 +229,7 @@ router.get('/makeTask', function(req,res){
                     var userList = [];
                     var projName = result[0].project;
                     for(var i = 0; i < result.length; i++){
+                        console.log(result[i].name);
                         userList.push(result[i].name);
                     }
                     console.log(userList);
