@@ -38,11 +38,11 @@
 				<button type="submit">Home</button>
 			</form>
 		</div>
-		<div id=loggedInUser><%= user %></div>
-			<div class="log-buttons button-check">
-				<form action="/login/logout" method="GET"><button type="submit">Logout</button></form>
-			</div>
+		<div class="log-buttons button-check">
+			<form action="/login/logout" method="GET"><button type="submit">Logout</button></form>
 		</div>
+		<div id=loggedInUser><%= user %></div>
+		<div class="clearfix"></div>
 	</div>
 	<div class="clearfix"></div>
 	<div class="user-stats">
