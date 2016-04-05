@@ -113,6 +113,10 @@ form{
 	background-color: #4C7FCC;
 	border-radius: 3px;
 	border-style: none;
+	float: right;
+}
+.sign-button:hover{
+	background-color: #444444;
 }
 /*****
 * show projects
