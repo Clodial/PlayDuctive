@@ -7,25 +7,33 @@
 <body>
 	<!--Page that shows what happens when the user's logged in-->
 	<% include partials/nav %>
+	<div class="user-welcome">
+		<h1 id="logged-welcome">Welcome <%= user %>!</h1>
+	</div>
+	<div class="body-part">
 	<% if(proj){ 
 		var chProj = eval(proj)
 		for(var i = 0; i < chProj.length; i++){ 
 			var piece = chProj[i] %>
-			<div class="col-md-3">
-				<p><%= piece.name %></p>
-				<p><%= piece.stat %></p>
-				<form action="/project" method="POST">
-					<input type="hidden" name="projectId" value="<%= piece.id %>">
-					<button type="submit">View Project</button> 
-				</form>
+			<div class="col-md-3 proj-padding-edit">
+				<div class="proj-show">
+					<h3><%= piece.name %></h3>
+					<p><%= piece.stat %></p>
+					<form action="/project" method="POST">
+						<input type="hidden" name="projectId" value="<%= piece.id %>">
+						<button class="proj-view-button" type="submit">View Project</button> 
+						<div class="clearfix"></div>
+					</form>
+				</div>
 			</div>
 	<% } %>
 	<% } else{ %>
 		Oh no!
 	<% } %>
 	<form action="/makeProject" method="get">
-		<button class="col-md-3" type="submit">Make Project</button>
+		<button class="col-md-12 col-lg-12 make-project" type="submit">Make Project</button>
 	</form>
+	</div>
 	<% include partials/bodyScript %>
 </body>
 </html>

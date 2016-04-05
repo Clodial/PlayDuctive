@@ -17,13 +17,13 @@ router.get('/', function(req,res){
     var projList = [];
     //console.log(req.session.user);
     //res.render('index', { title: 'PlayDuctive', user: req.session.user});
-    if(!req.session.user){
+    if(!req.session.user || !req.session.stats){
 	   res.render('index', { title: 'PlayDuctive', proj: null, user: req.session.user});
     }else{
         con.query('CALL getProjects(?);', [req.session.user],
             function(err, result){
                 projList = JSON.stringify(result[0]);
-                res.render('login', { title: 'PlayDuctive', proj: projList, user: req.session.user});
+                res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
             });
         //res.render('login', { title: 'PlayDuctive', proj: projList, user: req.session.user});
     }
@@ -41,11 +41,21 @@ router.get('/logCheck', function(req,res){
                     res.redirect('/');
                 }else{
                     if(result.length > 0){
-                        console.log("underwent stuff yo");
                         req.session.user = user;
-                        console.log(req.session.user);
+                        con.query('select classTitleId, classExp from Classes, Accounts where Accounts.accountUser = ? and Accounts.accountId = Classes.accountId',
+                            [user],function(err, result){
+                                if(err){
+                                    console.log('QUERY ERROR');
+                                    console.log(err.code);
+                                    res.redirect('/');
+                                }else{
+                                    req.session.stats = JSON.stringify(result);
+                                    console.log(req.session.stats);
+                                    res.redirect('/');
+                                }
+                            });
                         //res.redirect('/');
-                        res.render('login', { title: 'PlayDuctive', proj: null, user: req.session.user});
+                        //res.render('login', { title: 'PlayDuctive', proj: null, user: req.session.user});
                     }else{
                         console.log(req.session.user);
                         //res.redirect('/');
@@ -75,7 +85,7 @@ router.get('/login', function(req,res){
                 }  
             }   
         });
-	res.render('login', { title: 'PlayDuctive', proj: null, user: req.session.user});
+	res.render('login', { title: 'PlayDuctive', proj: null, stats: req.session.stats, user: req.session.user});
 });
 
 //Login functionality
@@ -129,7 +139,7 @@ router.get('/login/logout', function(req,res){
 router.get('/makeProject', function (req, res) {
     //res.sendFile(path.join(__dirname + '/public/view/create_project.html'));
     if(!req.session.user){res.redirect('/');}
-    res.render('makeProject',{ title: 'PlayDuctive', user: req.session.user});
+    res.render('makeProject',{ title: 'PlayDuctive',stats: req.session.stats, user: req.session.user});
 });
 
 router.post('/makeProject/posts', function (req, res) {
@@ -167,7 +177,7 @@ router.post('/makeProject/posts', function (req, res) {
                         }
                 });
         });
-        res.render('makeProject',{ title: 'PlayDuctive', succes: status, user: req.session.user});
+        res.render('makeProject',{ title: 'PlayDuctive',stats: req.session.stats, succes: status, user: req.session.user});
     }
 });
 

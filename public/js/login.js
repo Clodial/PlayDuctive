@@ -83,9 +83,14 @@ $("#logout-button").click(function(){
 })
 
 $(".nav-log-true").hover(function(){
-	$(".user-stats").slideDown();
-}),(function(){
-	$(".user-stats").slideUp();
+	if(!$(".user-stats").is(':visible')){
+		$(".user-stats").show();
+	}
+},function(){
+	if($(".user-stats").is(':visible')){
+		$(".user-stats").hide();
+	}
 });
+
 
 
