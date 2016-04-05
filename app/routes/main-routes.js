@@ -215,7 +215,28 @@ router.post('/project', function(req,res){
 });
 
 router.get('/makeTask', function(req,res){
-    
+    var projId = req.body.projId;
+    if(!req.session.user){
+        redirect('/');
+    }else{
+        con.query('select Accounts.accountUser as name, Projects.projName as project from AccountProjects, Accounts, Projects where Projects.projId = ? and AccountProjects.projId = ? and Accounts.accountId = AccountProjects.accountId',
+            [projId, projId], 
+            function(err, result){
+                if(result.length > 1){
+                    var userList = [];
+                    var projName = result[0].project;
+                    for(var i = 0; i < result.length; i++){
+                        userList.push(result[i].name);
+                    }
+                    console.log(userList);
+                    res.render('makeTask',{title: 'PlayDuctive', users: userList, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project})
+                }else{
+                    //there has to be an account user
+                    console.log(err);
+                    redirect('/');
+                }
+            });
+    }
 });
 
 module.exports = router;
