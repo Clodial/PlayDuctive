@@ -7,6 +7,9 @@
 <body>
 	<!--Page that shows what happens when the user's logged in-->
 	<% include partials/nav %>
+	<div class="user-welcome">
+		<h1 id="logged-welcome">Welcome <%= user %>!</h1>
+	</div>
 	<div class="body-part">
 	<% if(proj){ 
 		var chProj = eval(proj)
