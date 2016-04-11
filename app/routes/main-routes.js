@@ -168,10 +168,8 @@ router.post('/makeProject/posts', function (req, res) {
         var status = con.query('CALL createProject(?,?,?,?,?,@newProjId);', 
             [projType, "NOT-STARTED", projName, projDesc, accountName],
             function(err, result){
-                console.log("yo1");
                 con.query('SELECT @newProjId AS newProjId;',
                     function(err, result){
-                        console.log("yo2");
                         for(var i = 0; i < userList.length; i++){
                             con.query('CALL addAccountProject(?,?);', 
                             [userList[i],result[0].newProjId],
@@ -179,7 +177,7 @@ router.post('/makeProject/posts', function (req, res) {
                         }
                 });
         });
-        res.render('makeProject',{ title: 'PlayDuctive',stats: req.session.stats, succes: status, user: req.session.user});
+        res.redirect('/')
     }
 });
 
