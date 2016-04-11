@@ -24,8 +24,8 @@ router.get('/', function(req,res){
                     console.log(err)
                 } else{
                     if(result) {
-                        console.log(result);
-                        projList = JSON.stringify(result[0]);
+                        console.log(result)
+                        projList = result
                     }
                     res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
                 }
