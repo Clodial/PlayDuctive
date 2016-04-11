@@ -105,28 +105,23 @@ router.post('/login', function(req, res){
                 res.redirect('/');
             } else {
                 console.log("success: " + true);
-                console.log(req.session.user);
-                req.session.user = user;
-                res.render('login', {title: 'PlayDuctive', proj: null, success: "success", user: req.session.user});
+                res.redirect('/logCheck?user='+user+'&pass='+pass});
             }
         }
     );
 });
 //ajax call to check valid users
 router.post('/login/usetest', function(req,res){
-    var user = req.query.user;  
-    con.query('select accountId from Accounts where accountUser = ?', [user],
+    var user = req.body.user;  
+    con.query('select accountId from Accounts where accountUser = ?;', [user],
         function (err, result) {
             resultNum = 0;
             if (err) {
                 console.log(err.code);
             } else {
                 if(result.length > 0 || user == ''){
-                    console.log(result.length);
-                    req.session.user = user
                     res.send(JSON.stringify("invalid"));
                 }else{
-                //res.send(result[0].accountId);
                     res.send(JSON.stringify("valid"));
                 }
             }
