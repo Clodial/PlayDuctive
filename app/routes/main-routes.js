@@ -114,7 +114,7 @@ router.post('/login', function(req, res){
 
 //ajax call to check that a username hasn't already been taken
 router.post('/login/usetest', function(req,res){
-    var user = req.query.user;  
+    var user = req.body.user;  
     console.log(user)
     con.query('select accountId from Accounts where accountUser = ?;', [user],
         function (err, result) {
