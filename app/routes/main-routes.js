@@ -18,7 +18,7 @@ router.get('/', function(req,res){
     //console.log(req.session.user);
     //res.render('index', { title: 'PlayDuctive', user: req.session.user});
     if(!req.session.user){
-	   res.render('index', { title: 'PlayDuctive', proj: null, user: req.session.user});
+	   res.render('index', { title: 'PlayDuctive', proj: null, user: null});
     }else{
         con.query('select Projects.projId as id, Projects.projName as name, Statuses.statusName as stat from Projects, Statuses, Accounts, AccountProjects  where Accounts.accountUser = ? and AccountProjects.accountId = Accounts.accountId  and AccountProjects.projId = Projects.projId and Projects.statusId = Statuses.statusId;', [req.session.user],
             function(err, result){
