@@ -115,7 +115,8 @@ router.post('/login', function(req, res){
 //ajax call to check that a username hasn't already been taken
 router.post('/login/usetest', function(req,res){
     var user = req.query.user;  
-    con.query('select accountId from Accounts where accountUser = ?', [user],
+    console.log(user)
+    con.query('select accountId from Accounts where accountUser = ?;', [user],
         function (err, result) {
             console.log(result)
             if (err) {
@@ -125,7 +126,6 @@ router.post('/login/usetest', function(req,res){
                     console.log(result.length);
                     res.send(JSON.stringify("invalid"));
                 }else{
-                //res.send(result[0].accountId);
                     res.send(JSON.stringify("valid"));
                 }
             }
