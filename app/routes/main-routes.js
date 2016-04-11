@@ -141,7 +141,8 @@ router.get('/login/logout', function(req,res){
 
 //project creation routes
 router.get('/makeProject', function (req, res) {
-    //res.sendFile(path.join(__dirname + '/public/view/create_project.html'));
+    console.log(req.session.user)
+    console.log(req.session.stats)
     if(!req.session.user){res.redirect('/');}
     res.render('makeProject',{ title: 'PlayDuctive',stats: req.session.stats, user: req.session.user});
 });
