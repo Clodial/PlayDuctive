@@ -15,17 +15,18 @@ router.use(bodyParser.json());
 //Index page route
 router.get('/', function(req,res){
     var projList = [];
-    //console.log(req.session.user);
-    //res.render('index', { title: 'PlayDuctive', user: req.session.user});
     if(!req.session.user){
 	   res.render('index', { title: 'PlayDuctive', proj: null, user: null});
     }else{
         con.query('select Projects.projId as id, Projects.projName as name, Statuses.statusName as stat from Projects, Statuses, Accounts, AccountProjects  where Accounts.accountUser = ? and AccountProjects.accountId = Accounts.accountId  and AccountProjects.projId = Projects.projId and Projects.statusId = Statuses.statusId;', [req.session.user],
             function(err, result){
-                console.log(err);
-                if(result) {
-                    console.log(result);
-                    projList = JSON.stringify(result[0]);
+                if(err) {
+                    console.log(err)
+                } else{
+                    if(result) {
+                        console.log(result);
+                        projList = JSON.stringify(result[0]);
+                    }
                     res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
                 }
             });
@@ -46,13 +47,14 @@ router.get('/logCheck', function(req,res){
                 }else{
                     if(result.length > 0){
                         req.session.user = user;
-                        con.query('select classTitleId, classExp from Classes, Accounts where Accounts.accountUser = ? and Accounts.accountId = Classes.accountId',
+                        con.query('select classTitleId, classExp from Classes, Accounts where Accounts.accountUser = ? and Accounts.accountId = Classes.accountId;',
                             [user],function(err, result){
                                 if(err){
                                     console.log('QUERY ERROR');
                                     console.log(err.code);
                                     res.redirect('/');
                                 }else{
+                                    console.log(result)
                                     req.session.stats = JSON.stringify(result);
                                     console.log(req.session.stats);
                                     res.redirect('/');
@@ -61,6 +63,7 @@ router.get('/logCheck', function(req,res){
                         //res.redirect('/');
                         //res.render('login', { title: 'PlayDuctive', proj: null, user: req.session.user});
                     }else{
+                        console.log('ERROR: NO CLASSES FOUND')
                         console.log(req.session.user);
                         //res.redirect('/');
                         res.render('index', { title: 'PlayDuctive', proj: null, user: req.session.user});
