@@ -105,7 +105,7 @@ router.post('/login', function(req, res){
                 res.redirect('/');
             } else {
                 console.log("success: " + true);
-                res.redirect('/logCheck?user='+user+'&pass='+pass});
+                res.redirect('/logCheck?user='+user+'&pass='+pass);
             }
         }
     );
