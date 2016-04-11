@@ -111,18 +111,18 @@ router.post('/login', function(req, res){
         }
     );
 });
-//ajax call to check valid users
+
+//ajax call to check that a username hasn't already been taken
 router.post('/login/usetest', function(req,res){
     var user = req.query.user;  
     con.query('select accountId from Accounts where accountUser = ?', [user],
         function (err, result) {
-            resultNum = 0;
+            console.log(result)
             if (err) {
                 console.log(err.code);
             } else {
                 if(result.length > 0 || user == ''){
                     console.log(result.length);
-                    req.session.user = user
                     res.send(JSON.stringify("invalid"));
                 }else{
                 //res.send(result[0].accountId);
