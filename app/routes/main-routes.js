@@ -177,7 +177,7 @@ router.post('/makeProject/posts', function (req, res) {
                         }
                 });
         });
-        res.render('makeProject',{ title: 'PlayDuctive',stats: req.session.stats, succes: status, user: req.session.user});
+        res.render('index',{ title: 'PlayDuctive',stats: req.session.stats, succes: status, user: req.session.user});
     }
 });
 
