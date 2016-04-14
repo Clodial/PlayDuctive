@@ -4,6 +4,7 @@ var path 	    = require('path');
 var mysql 	    = require('mysql');
 //var session     = require('express-session');
 //var mysqlStore  = require('express-mysql-session')(session);
+var sendgrid = require("sendgrid")(process.env.SENDGRID_API_KEY);
 
 //database connection stuff
 var con = mysql.createConnection(process.env.JAWSDB_URL);
@@ -198,8 +199,20 @@ router.post('/makeProject/search_users', function (req, res) {
 
 router.post('/email/test', function (req, res) {
     var emailTo=req.body.emailTo;
-    console.log(process.env.SENDGRID_API_KEY)
-    res.send(JSON.stringify("success"))
+    var emailFrom=req.body.emailFrom;
+    var subject=req.body.subject;
+    var html=req.body.html;
+
+    var email = new sendgrid.Email();
+     
+    email.addTo(emailTo);
+    email.setFrom(emailFrom);
+    email.setSubject(subject);
+    email.setHtml(html);
+     
+    sendgrid.send(email);
+
+    res.redirect('/');
 });
 
 //Project stuff
