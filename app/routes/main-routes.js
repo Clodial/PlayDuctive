@@ -4,7 +4,7 @@ var path 	    = require('path');
 var mysql 	    = require('mysql');
 //var session     = require('express-session');
 //var mysqlStore  = require('express-mysql-session')(session);
-var sendgrid = require("sendgrid")(process.env.SENDGRID_API_KEY);
+var sendgrid = require("sendgrid")(process.env.SENDGRID_USERNAME, process.env.SENDGRID_PASSWORD);
 
 //database connection stuff
 var con = mysql.createConnection(process.env.JAWSDB_URL);
