@@ -197,14 +197,15 @@ router.post('/email/test', function (req, res) {
     var subject=req.body.subject;
     var html=req.body.html;
 
-    var email = new sendgrid.Email();
-     
-    email.addTo(emailTo);
-    email.setFrom(emailFrom);
-    email.setSubject(subject);
-    email.setHtml(html);
-     
-    sendgrid.send(email);
+    sendgrid.send({
+      to:emailTo,
+      from:emailFrom,
+      subject:subject,
+      text:html
+    }, function(err, json) {
+      if (err) { return console.error(err); }
+      console.log(json);
+    });
 
     res.redirect('/');
 });
