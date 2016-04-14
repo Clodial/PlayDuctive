@@ -15,22 +15,22 @@ router.use(bodyParser.json());
 
 //Index page route
 router.get('/', function(req,res){
-    var projList = [];
     if(!req.session.user){
 	   res.render('index', { title: 'PlayDuctive', proj: null, user: null});
     }else{
         con.query('select Projects.projId as id, Projects.projName as name, Statuses.statusName as status from Projects, Statuses, Accounts, AccountProjects  where Accounts.accountUser = ? and AccountProjects.accountId = Accounts.accountId  and AccountProjects.projId = Projects.projId and Projects.statusId = Statuses.statusId;', [req.session.user],
             function(err, result){
                 if(err) {
-                    console.log(err)
+                    console.log("SQL ERROR WHILE GETTING PROJECTS")
+                    console.log(err.code)
                 } else{
+                    var projList = [];
                     if(result) {
                         projList = result
                     }
                     res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
                 }
             });
-        //res.render('login', { title: 'PlayDuctive', proj: projList, user: req.session.user});
     }
 });
 
@@ -41,7 +41,7 @@ router.get('/logCheck', function(req,res){
         con.query('select Accounts.accountId from Accounts where accountUser = ? and accountPass = ?', [user,pass],
             function(err,result){
                 if(err){
-                    console.log('QUERY ERROR');
+                    console.log('SQL ERROR WHILE CHECKING CREDENTIALS');
                     console.log(err.code);
                     res.redirect('/');
                 }else{
@@ -50,7 +50,7 @@ router.get('/logCheck', function(req,res){
                         con.query('select classTitleId, classExp from Classes, Accounts where Accounts.accountUser = ? and Accounts.accountId = Classes.accountId;',
                             [user],function(err, result){
                                 if(err){
-                                    console.log('QUERY ERROR');
+                                    console.log('SQL ERROR WHILE RETRIEVING STATS');
                                     console.log(err.code);
                                     res.redirect('/');
                                 }else{
@@ -81,7 +81,7 @@ router.get('/login', function(req,res){
     con.query('select Projects.projId as id, Projects.projName as name, Statuses.statusName as status from Projects, Statuses, Accounts, AccountProjects  where Accounts.accountUser = ? and AccountProjects.accountId = Accounts.accountId  and AccountProjects.projId = Projects.projId and Projects.statusId = Statuses.statusId;'
         , [req.session.user], function(err, result){
             if(err){
-                console.log('QUERY ERROR');
+                console.log('SQL ERROR WHILE GETTING PROJECTS');
                 console.log(err.code);
                 res.redirect('/');
             }else{
@@ -99,7 +99,7 @@ router.post('/login', function(req, res){
     con.query('CALL createAccount(?,?,?)', [user, pass, email],
         function (err, result) {
             if (err) {
-                console.log('QUERY ERROR');
+                console.log('SQL ERROR WHILE CREATING ACCOUNT');
                 console.log(err.code);
                 res.redirect('/');
             } else {
@@ -109,13 +109,15 @@ router.post('/login', function(req, res){
         }
     );
 });
-//ajax call to check valid users
+
+//ajax call to check if a username is available
 router.post('/login/usetest', function(req,res){
     var user = req.body.user;  
     con.query('select accountId from Accounts where accountUser = ?;', [user],
         function (err, result) {
             resultNum = 0;
             if (err) {
+                console.log("SQL ERROR WHILE CHECKING USERNAME AVAILABILITY")
                 console.log(err.code);
             } else {
                 if(result.length > 0 || user == ''){
@@ -143,7 +145,7 @@ router.get('/makeProject', function (req, res) {
 router.post('/makeProject/posts', function (req, res) {
     var accountName = req.session.user;
     var projType = req.body.projType;
-    //var status = req.body.status; //default to incomplete
+    //var status = req.body.status; //default to NOT-STARTED
     var projName = req.body.projName;
     var projDesc = req.body.projDesc;
     var userList = req.body["addedUsers[]"];
@@ -163,14 +165,43 @@ router.post('/makeProject/posts', function (req, res) {
         var status = con.query('CALL createProject(?,?,?,?,?,@newProjId);', 
             [projType, "NOT-STARTED", projName, projDesc, accountName],
             function(err, result){
-                con.query('SELECT @newProjId AS newProjId;',
-                    function(err, result){
-                        for(var i = 0; i < userList.length; i++){
-                            con.query('CALL addAccountProject(?,?);', 
-                            [userList[i],result[0].newProjId],
-                            function(err, result){});  
-                        }
-                });
+                if(err){
+                    console.log("SQL ERROR WHILE CREATING PROJECT");console.log(err.code);
+                } else{
+                    con.query('SELECT @newProjId AS newProjId;',
+                        function(err, result){
+                            if(err) {
+                                console.log("SQL ERROR RETRIEVING NEW PROJECT ID");console.log(err.code);
+                            }
+                            for(var i = 0; i < userList.length; i++){
+                                con.query('CALL addAccountProject(?,?);', 
+                                [userList[i],result[0].newProjId],
+                                function(err, result){
+                                    if(err) {
+                                        console.log("SQL ERROR WHILE ADDING ACCOUNT TO PROJECT");console.log(err.code);
+                                    }else {
+                                        con.query('SELECT accountEmail FROM Accounts WHERE accountUser=?;', 
+                                            [userList[i]],
+                                            function(err, result){
+                                                if(err) {
+                                                    console.log("SQL ERROR WHILE RETRIEVING EMAIL ADDRESS");console.log(err.code);
+                                                }else {
+                                                    sendgrid.send({
+                                                      to:result[0].accountEmail,
+                                                      from:"ff17cloud@gmail.com",
+                                                      subject:"You've just been added to a project on PlayDuctive!",
+                                                      text:"Someone has added you to a project on PlayDuctive! To see the project, go to https://playductive.herokuapp.com"
+                                                    }, function(err, json) {
+                                                      if (err) { return console.error(err); }
+                                                      console.log(json);
+                                                    });
+                                                }
+                                            });
+                                    }
+                                });  
+                            }
+                    });
+                }
         });
         res.redirect('/')
     }
@@ -191,24 +222,24 @@ router.post('/makeProject/search_users', function (req, res) {
         });
 });
 
-router.post('/email/test', function (req, res) {
-    var emailTo=req.body.emailTo;
-    var emailFrom=req.body.emailFrom;
-    var subject=req.body.subject;
-    var html=req.body.html;
+// router.post('/email/test', function (req, res) {
+//     var emailTo=req.body.emailTo;
+//     var emailFrom=req.body.emailFrom;
+//     var subject=req.body.subject;
+//     var html=req.body.html;
 
-    sendgrid.send({
-      to:emailTo,
-      from:emailFrom,
-      subject:subject,
-      text:html
-    }, function(err, json) {
-      if (err) { return console.error(err); }
-      console.log(json);
-    });
+    // sendgrid.send({
+    //   to:emailTo,
+    //   from:emailFrom,
+    //   subject:subject,
+    //   text:html
+    // }, function(err, json) {
+    //   if (err) { return console.error(err); }
+    //   console.log(json);
+    // });
 
-    res.redirect('/');
-});
+//     res.redirect('/');
+// });
 
 //Project stuff
 router.get('/project', function(req,res){
