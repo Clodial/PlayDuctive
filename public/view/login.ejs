@@ -34,6 +34,17 @@
 	<form action="/makeProject" method="get">
 		<button class="col-md-12 col-lg-12 make-project" type="submit">Make Project</button>
 	</form>
+	<form id="emailForm" action="/email/test" method="post">
+      Send To:<br>
+      <input type="text" name="sendTo"><br>
+      Send From:<br>
+      <input type="text" name="sendFrom"><br>
+      Subject:<br>
+      <input type="text" name="subject"><br>
+      HTML:<br>
+      <input type="text" name="html"><br>
+      <button type="submit">Send Email</button>
+    </form>
 	</div>
 	<% include partials/bodyScript %>
 </body>

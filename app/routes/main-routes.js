@@ -196,6 +196,12 @@ router.post('/makeProject/search_users', function (req, res) {
         });
 });
 
+router.post('/email/test', function (req, res) {
+    var emailTo=req.body.emailTo;
+    console.log(process.env.SENDGRID_API_KEY)
+    res.send(JSON.stringify("success"))
+});
+
 //Project stuff
 router.get('/project', function(req,res){
     var projId = req.query.projectId;
