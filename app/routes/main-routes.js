@@ -227,9 +227,7 @@ router.get('/project', function(req,res){
                             res.redirect('/');
                         } else {
                             if(result2){
-                                console.log(result2);
                                 var stStatids = JSON.stringify(result2);
-                                console.log(stStatids);
                                 res.render('agile',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
                             }else{
                                 res.redirect('/');
