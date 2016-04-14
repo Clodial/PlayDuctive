@@ -25,7 +25,6 @@ router.get('/', function(req,res){
                     console.log(err)
                 } else{
                     if(result) {
-                        console.log(result)
                         projList = result
                     }
                     res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
@@ -55,9 +54,7 @@ router.get('/logCheck', function(req,res){
                                     console.log(err.code);
                                     res.redirect('/');
                                 }else{
-                                    console.log(result)
                                     req.session.stats = JSON.stringify(result);
-                                    console.log(req.session.stats);
                                     res.redirect('/');
                                 }
                             });
@@ -81,19 +78,17 @@ router.get('/logCheck', function(req,res){
 //Login routes
 router.get('/login', function(req,res){
     console.log(req.session.user);
-    con.query('select Projects.* from Projects, Accounts, AccountProjects where Accounts.accountUser = ? and AccountProjects.accountId = Accounts.accountId and Projects.projId = AccountProjects.projId'
+    con.query('select Projects.projId as id, Projects.projName as name, Statuses.statusName as status from Projects, Statuses, Accounts, AccountProjects  where Accounts.accountUser = ? and AccountProjects.accountId = Accounts.accountId  and AccountProjects.projId = Projects.projId and Projects.statusId = Statuses.statusId;'
         , [req.session.user], function(err, result){
             if(err){
                 console.log('QUERY ERROR');
                 console.log(err.code);
                 res.redirect('/');
             }else{
-                for(var i = 0; i < result.length; i++){
-                    console.log(result[0]);
-                }  
+                projList=result;
             }   
         });
-	res.render('login', { title: 'PlayDuctive', proj: null, stats: req.session.stats, user: req.session.user});
+	res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
 });
 
 //Login functionality
@@ -146,7 +141,6 @@ router.get('/makeProject', function (req, res) {
 });
 
 router.post('/makeProject/posts', function (req, res) {
-    console.log(req.body);
     var accountName = req.session.user;
     var projType = req.body.projType;
     //var status = req.body.status; //default to incomplete
