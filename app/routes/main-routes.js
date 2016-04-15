@@ -176,26 +176,26 @@ router.post('/makeProject/posts', function (req, res) {
                                 function(err, result){
                                     if(err) {console.log("SQL ERROR WHILE ADDING ACCOUNT TO PROJECT");console.log(err.code);}
                                 }); 
-                                con.query('SELECT accountEmail AS accountEmail FROM Accounts WHERE accountUser=?;', 
-                                    [userList[i]],
-                                    function(err, result){
-                                        if(err) {console.log("SQL ERROR WHILE RETRIEVING EMAIL ADDRESS");console.log(err.code);
-                                        }else {
-                                            console.log(result);
-                                            console.log(userList[i])
-                                            if(result!=false){
-                                                sendgrid.send({
-                                                  to:result[0].accountEmail,
-                                                  from:"ff17cloud@gmail.com",
-                                                  subject:"You've just been added to a project on PlayDuctive!",
-                                                  text:"Someone has added you to a project on PlayDuctive! To see the project, go to https://playductive.herokuapp.com"
-                                                }, function(err, json) {
-                                                  if (err) { return console.error(err); }
-                                                  console.log(json);
-                                                });
+                                if(userList[i]!=req.session.user) {
+                                    con.query('SELECT accountEmail AS accountEmail FROM Accounts WHERE accountUser=?;', 
+                                        [userList[i]],
+                                        function(err, result){
+                                            if(err) {console.log("SQL ERROR WHILE RETRIEVING EMAIL ADDRESS");console.log(err.code);
+                                            }else {
+                                                if(result!=false){
+                                                    sendgrid.send({
+                                                      to:result[0].accountEmail,
+                                                      from:"ff17cloud@gmail.com",
+                                                      subject:"You've just been added to a project on PlayDuctive!",
+                                                      text:"Someone has added you to a project on PlayDuctive! To see the project, go to https://playductive.herokuapp.com"
+                                                    }, function(err, json) {
+                                                      if (err) { return console.error(err); }
+                                                      console.log(json);
+                                                    });
+                                                }
                                             }
-                                        }
-                                    }); 
+                                        }); 
+                                }
                             }
                     });
                 }
