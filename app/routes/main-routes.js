@@ -185,7 +185,7 @@ router.post('/makeProject/posts', function (req, res) {
                                                 if(result!=false){
                                                     sendgrid.send({
                                                       to:result[0].accountEmail,
-                                                      from:"ff17cloud@gmail.com",
+                                                      from:"no-reply@playductive.herokuapp.com",
                                                       subject:"You've just been added to a project on PlayDuctive!",
                                                       text:"Someone has added you to a project on PlayDuctive! To see the project, go to https://playductive.herokuapp.com"
                                                     }, function(err, json) {
