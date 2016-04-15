@@ -187,7 +187,8 @@ router.post('/makeProject/posts', function (req, res) {
                                                     console.log("SQL ERROR WHILE RETRIEVING EMAIL ADDRESS");console.log(err.code);
                                                 }else {
                                                     console.log(result);
-                                                    if(result){
+                                                    console.log(userList[i])
+                                                    if(result!=false){
                                                         sendgrid.send({
                                                           to:result[0].accountEmail,
                                                           from:"ff17cloud@gmail.com",
