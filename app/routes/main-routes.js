@@ -180,22 +180,24 @@ router.post('/makeProject/posts', function (req, res) {
                                     if(err) {
                                         console.log("SQL ERROR WHILE ADDING ACCOUNT TO PROJECT");console.log(err.code);
                                     }else {
-                                        con.query('SELECT accountEmail FROM Accounts WHERE accountUser=?;', 
+                                        con.query('SELECT accountEmail AS accountEmail FROM Accounts WHERE accountUser=?;', 
                                             [userList[i]],
                                             function(err, result){
                                                 if(err) {
                                                     console.log("SQL ERROR WHILE RETRIEVING EMAIL ADDRESS");console.log(err.code);
                                                 }else {
                                                     console.log(result);
-                                                    sendgrid.send({
-                                                      to:result[0].accountEmail,
-                                                      from:"ff17cloud@gmail.com",
-                                                      subject:"You've just been added to a project on PlayDuctive!",
-                                                      text:"Someone has added you to a project on PlayDuctive! To see the project, go to https://playductive.herokuapp.com"
-                                                    }, function(err, json) {
-                                                      if (err) { return console.error(err); }
-                                                      console.log(json);
-                                                    });
+                                                    if(result){
+                                                        sendgrid.send({
+                                                          to:result[0].accountEmail,
+                                                          from:"ff17cloud@gmail.com",
+                                                          subject:"You've just been added to a project on PlayDuctive!",
+                                                          text:"Someone has added you to a project on PlayDuctive! To see the project, go to https://playductive.herokuapp.com"
+                                                        }, function(err, json) {
+                                                          if (err) { return console.error(err); }
+                                                          console.log(json);
+                                                        });
+                                                    }
                                                 }
                                             });
                                     }
