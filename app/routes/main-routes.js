@@ -104,10 +104,20 @@ router.post('/login', function(req, res){
                 res.redirect('/');
             } else {
                 console.log("success: " + true);
+                
                 res.redirect('/logCheck?user='+user+'&pass='+pass);
             }
         }
     );
+    sendgrid.send({
+      to:email,
+      from:"no-reply@playductive.herokuapp.com",
+      subject:"You've just joined PlayDuctive, the project management system that brings your D&D nights to your desk!",
+      text:"Welcome to PlayDuctive! To access your account, go to https://playductive.herokuapp.com"
+    }, function(err, json) {
+      if (err) { return console.error(err); }
+      console.log(json);
+    });
 });
 
 //ajax call to check if a username is available
