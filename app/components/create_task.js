@@ -7,7 +7,7 @@ $(function(){
             dataType: "json",
             data: JSON.stringify({
                 "accountName": "AlanJ6",
-                "accountPass": "lollmao",
+                "accountPass": "lollmao01",
                 "taskId": $("[name=taskID]").val(),
                 "classId": $("[name=classID]").val(),
 				"projId": $("[name=projId]").val(),

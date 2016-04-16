@@ -5,15 +5,9 @@
 </head>
 <body>
   <% include partials/nav %>
+    <div class="user-welcome">
+    <h1 id="logged-welcome">Making a task for Project: <%= projectId %></h1>
     <form id="taskForm" action="/makeTask/posts" method="post">
-      Task Id:<br>
-	  <input type="text" name="taskID"><br>
-      Status:<br>
-      <select name="statusin">
-          <option value="1">NOT-STARTED</option>
-          <option value="2">INPROGRESS</option>
-          <option value="3">COMPLETE</option>
-      </select><br>
 	  Class:<br>
       <select name="classID">
           <option value="1">Warrior</option>
