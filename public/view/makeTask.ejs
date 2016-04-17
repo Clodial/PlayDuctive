@@ -9,7 +9,7 @@
     <h1 id="logged-welcome">Making a task for Project: <%= projectId %></h1>
     <form id="taskForm" action="/makeTask/posts" method="post">
 	  Class:<br>
-      <select name="classID">
+      <select name="class">
           <option value="1">Warrior</option>
           <option value="2">Magician</option>
           <option value="3">Rogue</option>
@@ -19,7 +19,7 @@
 	  Task Reward(Min:10 Exp | Max:100 Exp):<br>
 	  <input type="number" name="taskexp" min="10" max="100"><br>
       Task Description:<br>
-      <input type="text" name="taskDesc"><br>
+      <input type="text" name="taskDescrip"><br>
       <!-- form for adding users-->
       Add User to Task:<br>
       <input id="addUser" type="text" name="addUser"><br>

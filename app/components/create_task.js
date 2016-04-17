@@ -8,12 +8,9 @@ $(function(){
             data: JSON.stringify({
                 "accountName": "AlanJ6",
                 "accountPass": "lollmao01",
-                "taskId": $("[name=taskID]").val(),
-                "classId": $("[name=classID]").val(),
-				"projId": $("[name=projId]").val(),
-                "statusId": $("[name=statusin]").val(),
+                "classId": $("[name=class]").val(),
 				"taskExp": $("[name=taskexp]").val(),
-				"taskDesc": $("[name=taskDesc]").val()
+				"taskDesc": $("[name=taskDescrip]").val()
             }),
             contentType: "application/json",
             mimeType: "application/json",

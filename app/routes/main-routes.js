@@ -263,4 +263,35 @@ router.get('/makeTask', function(req,res){
     }
 });
 
+router.post('/makeTask/posts', function (req, res) {
+    console.log(req.body);
+	var projId = req.session.projId;
+    var accountName = req.session.user;
+    var classID = req.body.classId;
+    //var status = req.body.status; //default to incomplete
+    var taskreward = req.body.taskExp;
+    var taskDetail = req.body.taskDesc;
+    var userList = req.body["addedUsers[]"];
+    if(!userList) {
+        userList=[];
+    } else if(typeof userList != "object") {
+        userList=[userList];
+    }
+    userList.push(accountName);
+
+    //insert validation of values here(types, length requirement, etc.)
+    if(!accountName){
+        console.log(req.session.user);
+        console.log(accountName);
+        res.redirect('/');
+    } else{
+        var makingTask = con.query('CALL createTask(?,?,?,?,?);', 
+            [accountName, classID, taskDetail, taskreward, projId],
+            function(err, result){
+
+        });
+        res.redirect('/')
+    }
+});
+
 module.exports = router;
