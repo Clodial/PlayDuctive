@@ -5,8 +5,9 @@
 </head>
 <body>
   <% include partials/nav %>
-    <div class="user-welcome">
-    <h1 id="logged-welcome">Making a task for Project: <%= projId %></h1>
+  <div class="user-welcome">
+	<h1 id="logged-welcome">Making a task for Project: <%= projId %></h1>
+  </div>
     <form id="taskForm" action="/makeTask/posts" method="post">
 	  Class:<br>
       <select name="class">
@@ -20,11 +21,6 @@
 	  <input type="number" name="taskexp" min="10" max="100"><br>
       Task Description:<br>
       <input type="text" name="taskDescrip"><br>
-      <!-- form for adding users-->
-      Add User to Task:<br>
-      <input id="addUser" type="text" name="addUser"><br>
-      <select id="userSelect" name="userSelect"></select><br>
-	  Users Added to Task:<br>
       <button type="submit">Make Task</button><br>
     </form>
 

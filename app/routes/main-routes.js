@@ -231,36 +231,10 @@ router.get('/project', function(req,res){
     }
 });
 
-router.get('/makeTask', function(req,res){
-    var projId = req.query.projId;
-    console.log(projId);
-    if(!req.session.user){
-        redirect('/');
-    }else{
-        con.query('select Accounts.accountUser as name, Projects.projName as project from AccountProjects, Accounts, Projects where Projects.projId = ? and AccountProjects.projId = ? and Accounts.accountId = AccountProjects.accountId',
-            [projId, projId], 
-            function(err, result){
-                console.log(result[0]);
-                if(err){
-                    res.redirect('/');
-                }
-                if(result.length > 0){
-                    var userList = [];
-                    var projName = result[0].project;
-                    for(var i = 0; i < result.length; i++){
-                        console.log(result[i].name);
-                        userList.push(result[i].name);
-                    }
-					//alan's agile status query work in progress
-                    console.log(userList);
-                    res.render('makeTask',{title: 'PlayDuctive', users: userList, statusinfo: statids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project})
-                }else{
-                    //there has to be an account user
-                    console.log(err);
-                    res.redirect('/');
-                }
-            });
-    }
+router.get('/makeTask', function (req, res) {
+	var projId = req.session.projId;
+    if(!req.session.user){res.redirect('/');}
+    res.render('makeTask',{ title: 'PlayDuctive',stats: req.session.stats, projId: projId, user: req.session.user});
 });
 
 router.post('/makeTask/posts', function (req, res) {
@@ -271,13 +245,6 @@ router.post('/makeTask/posts', function (req, res) {
     //var status = req.body.status; //default to incomplete
     var taskreward = req.body.taskExp;
     var taskDetail = req.body.taskDesc;
-    var userList = req.body["addedUsers[]"];
-    if(!userList) {
-        userList=[];
-    } else if(typeof userList != "object") {
-        userList=[userList];
-    }
-    userList.push(accountName);
 
     //insert validation of values here(types, length requirement, etc.)
     if(!accountName){
