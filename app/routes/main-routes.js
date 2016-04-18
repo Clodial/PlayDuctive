@@ -245,6 +245,12 @@ router.post('/makeTask/posts', function (req, res) {
     //var status = req.body.status; //default to incomplete
     var taskreward = req.body.taskExp;
     var taskDetail = req.body.taskDesc;
+	if(!userList) {
+        userList=[];
+    } else if(typeof userList != "object") {
+        userList=[userList];
+    }
+    userList.push(accountName);
 
     //insert validation of values here(types, length requirement, etc.)
     if(!accountName){
