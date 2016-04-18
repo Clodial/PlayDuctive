@@ -20,7 +20,7 @@
 				<div class="proj-show">
 					<h3><%= piece.name %></h3>
 					<p><%= piece.status %></p>
-					<form action="/makeTask" method="GET">
+					<form action="/project" method="GET">
 						<input type="hidden" name="projectId" value="<%= piece.id %>">
 						<button class="proj-view-button" type="submit">View Project</button> 
 						<div class="clearfix"></div>
