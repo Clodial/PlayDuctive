@@ -258,7 +258,7 @@ router.post('/makeTask/posts', function (req, res) {
         console.log(accountName);
         res.redirect('/');
     } else{
-        var makingTask = con.query('CALL createTask(?,?,?,?,?);', 
+        var makingTask = con.query('CALL creatingTask(?,?,?,?,?);', 
             [classID, projId, 1, taskreward, taskDetail],
             function(err, result){
 				console.log(err);
