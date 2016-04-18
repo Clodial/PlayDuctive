@@ -239,7 +239,7 @@ router.get('/makeTask', function (req, res) {
 
 router.post('/makeTask/posts', function (req, res) {
     console.log(req.body);
-	var projId = req.session.projId;
+	var projId = req.session.projectId;
     var accountName = req.session.user;
     var classID = req.body.classId;
     //var status = req.body.status; //default to incomplete
@@ -255,6 +255,7 @@ router.post('/makeTask/posts', function (req, res) {
         var makingTask = con.query('CALL createTask(?,?,?,?,?);', 
             [classID, projId, 1, taskreward, taskDetail],
             function(err, result){
+				console.log(err);
 
         });
         res.redirect('/')
