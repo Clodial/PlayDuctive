@@ -303,7 +303,7 @@ router.get('/makeTask', function(req,res){
                     }
 					//alan's agile status query work in progress
                     console.log(userList);
-                    res.render('makeTask',{title: 'PlayDuctive', users: userList, statusinfo: statids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project})
+                    res.render('makeTask',{title: 'PlayDuctive', users: userList, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project})
                 }else{
                     //there has to be an account user
                     console.log(err);
