@@ -327,10 +327,22 @@ router.post('/makeTask/posts', function (req, res) {
         console.log(accountName);
         res.redirect('/');
     }else{
-		var makingTask = con.query('CALL creatingTask(?,?,?,?,?);', 
+		var makingTask = con.query('CALL creatingTask(?,?,?,?,?,@newTaskId);', 
 		[classID, projId, 1, taskreward, taskDetail],
         function(err, result){
-			console.log(err);
+			if(err){
+				console.log(err);
+			}else{
+				con.query('SELECT @newTaskId AS newTaskId;',
+				function(err, result){
+					if(err){
+						console.log("SQL ERROR RETRIEVING NEW PROJECT ID");
+						console.log(err.code);
+					}else{
+						console.log(newTaskId);
+					}
+				}
+			}
 
         });
         res.redirect('/')
