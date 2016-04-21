@@ -329,7 +329,7 @@ router.post('/makeTask/posts', function (req, res) {
         res.redirect('/');
     }else{
 		var makingTask = con.query('CALL creatingTask(?,?,?,?,?,@newTaskId);', 
-		[classID, projId, 1, taskreward, taskDetail],
+		[classID, projId, "NOT-STARTED", taskreward, taskDetail],
         function(err, result){
 			if(err){
 				console.log(err);
