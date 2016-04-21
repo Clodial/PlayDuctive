@@ -281,42 +281,15 @@ router.get('/project', function(req,res){
     }
 });
 
-router.get('/makeTask', function (req, res) {
-	var projId = req.session.projId;
-    if(!req.session.user){res.redirect('/');}
-    res.render('makeTask',{ title: 'PlayDuctive',stats: req.session.stats, projId: projId, user: req.session.user});
-});
-
-router.post('/makeTask/posts', function (req, res) {
-    console.log(req.body);
-	var projId = req.session.projectId;
-    var accountName = req.session.user;
-    var classID = req.body.classId;
-    //var status = req.body.status; //default to incomplete
-    var taskreward = req.body.taskExp;
-    var taskDetail = req.body.taskDesc;
-	if(!userList) {
-        userList=[];
-    } else if(typeof userList != "object") {
-        userList=[userList];
-    }
-    userList.push(accountName);
-
-    //insert validation of values here(types, length requirement, etc.)
-    if(!accountName){
-        console.log(req.session.user);
-        console.log(accountName);
-        res.redirect('/');
-    } else{
-        var makingTask = con.query('CALL creatingTask(?,?,?,?,?);', 
-            [classID, projId, 1, taskreward, taskDetail],
+router.get('/makeTask', function(req,res){
+    var projId = req.query.projId;
+    console.log(projId);
+    if(!req.session.user){
+        redirect('/');
+    }else{
+        con.query('select Accounts.accountUser as name, Projects.projName as project from AccountProjects, Accounts, Projects where Projects.projId = ? and AccountProjects.projId = ? and Accounts.accountId = AccountProjects.accountId',
+            [projId, projId], 
             function(err, result){
-<<<<<<< HEAD
-				console.log(err);
-
-        });
-        res.redirect('/')
-=======
                 console.log(result[0]);
                 if(err){
                     res.redirect('/');
@@ -337,7 +310,30 @@ router.post('/makeTask/posts', function (req, res) {
                     res.redirect('/');
                 }
             });
->>>>>>> refs/remotes/origin/master
+    }
+});
+
+router.post('/makeTask/posts', function (req, res) {
+	var projId = req.session.projId;
+	console.log(projId);
+    var accountName = req.session.user;
+    var classID = req.body.classId;
+    var taskreward = req.body.taskExp;
+    var taskDetail = req.body.taskDesc;
+
+    //insert validation of values here(types, length requirement, etc.)
+    if(!accountName){
+        console.log(req.session.user);
+        console.log(accountName);
+        res.redirect('/');
+    }else{
+		var makingTask = con.query('CALL creatingTask(?,?,?,?,?);', 
+		[classID, projId, 1, taskreward, taskDetail],
+        function(err, result){
+			console.log(err);
+
+        });
+        res.redirect('/')
     }
 });
 
