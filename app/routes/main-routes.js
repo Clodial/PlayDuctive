@@ -4,6 +4,7 @@ var path 	    = require('path');
 var mysql 	    = require('mysql');
 //var session     = require('express-session');
 //var mysqlStore  = require('express-mysql-session')(session);
+var sendgrid = require("sendgrid")(process.env.SENDGRID_USERNAME, process.env.SENDGRID_PASSWORD);
 
 //database connection stuff
 var con = mysql.createConnection(process.env.JAWSDB_URL);
@@ -14,23 +15,22 @@ router.use(bodyParser.json());
 
 //Index page route
 router.get('/', function(req,res){
-    var projList = [];
     if(!req.session.user){
 	   res.render('index', { title: 'PlayDuctive', proj: null, user: null});
     }else{
         con.query('select Projects.projId as id, Projects.projName as name, Statuses.statusName as status from Projects, Statuses, Accounts, AccountProjects  where Accounts.accountUser = ? and AccountProjects.accountId = Accounts.accountId  and AccountProjects.projId = Projects.projId and Projects.statusId = Statuses.statusId;', [req.session.user],
             function(err, result){
                 if(err) {
-                    console.log(err)
+                    console.log("SQL ERROR WHILE GETTING PROJECTS")
+                    console.log(err.code)
                 } else{
+                    var projList = [];
                     if(result) {
-                        console.log(result)
                         projList = result
                     }
                     res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
                 }
             });
-        //res.render('login', { title: 'PlayDuctive', proj: projList, user: req.session.user});
     }
 });
 
@@ -41,7 +41,7 @@ router.get('/logCheck', function(req,res){
         con.query('select Accounts.accountId from Accounts where accountUser = ? and accountPass = ?', [user,pass],
             function(err,result){
                 if(err){
-                    console.log('QUERY ERROR');
+                    console.log('SQL ERROR WHILE CHECKING CREDENTIALS');
                     console.log(err.code);
                     res.redirect('/');
                 }else{
@@ -50,13 +50,11 @@ router.get('/logCheck', function(req,res){
                         con.query('select classTitleId, classExp from Classes, Accounts where Accounts.accountUser = ? and Accounts.accountId = Classes.accountId;',
                             [user],function(err, result){
                                 if(err){
-                                    console.log('QUERY ERROR');
+                                    console.log('SQL ERROR WHILE RETRIEVING STATS');
                                     console.log(err.code);
                                     res.redirect('/');
                                 }else{
-                                    console.log(result)
                                     req.session.stats = JSON.stringify(result);
-                                    console.log(req.session.stats);
                                     res.redirect('/');
                                 }
                             });
@@ -80,19 +78,17 @@ router.get('/logCheck', function(req,res){
 //Login routes
 router.get('/login', function(req,res){
     console.log(req.session.user);
-    con.query('select Projects.* from Projects, Accounts, AccountProjects where Accounts.accountUser = ? and AccountProjects.accountId = Accounts.accountId and Projects.projId = AccountProjects.projId'
+    con.query('select Projects.projId as id, Projects.projName as name, Statuses.statusName as status from Projects, Statuses, Accounts, AccountProjects  where Accounts.accountUser = ? and AccountProjects.accountId = Accounts.accountId  and AccountProjects.projId = Projects.projId and Projects.statusId = Statuses.statusId;'
         , [req.session.user], function(err, result){
             if(err){
-                console.log('QUERY ERROR');
+                console.log('SQL ERROR WHILE GETTING PROJECTS');
                 console.log(err.code);
                 res.redirect('/');
             }else{
-                for(var i = 0; i < result.length; i++){
-                    console.log(result[0]);
-                }  
+                projList=result;
             }   
         });
-	res.render('login', { title: 'PlayDuctive', proj: null, stats: req.session.stats, user: req.session.user});
+	res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
 });
 
 //Login functionality
@@ -103,23 +99,35 @@ router.post('/login', function(req, res){
     con.query('CALL createAccount(?,?,?)', [user, pass, email],
         function (err, result) {
             if (err) {
-                console.log('QUERY ERROR');
+                console.log('SQL ERROR WHILE CREATING ACCOUNT');
                 console.log(err.code);
                 res.redirect('/');
             } else {
                 console.log("success: " + true);
+                
                 res.redirect('/logCheck?user='+user+'&pass='+pass);
             }
         }
     );
+    sendgrid.send({
+      to:email,
+      from:"no-reply@playductive.herokuapp.com",
+      subject:"You've just joined PlayDuctive, the project management system that brings your D&D nights to your desk!",
+      text:"Welcome to PlayDuctive! To access your account, go to https://playductive.herokuapp.com"
+    }, function(err, json) {
+      if (err) { return console.error(err); }
+      console.log(json);
+    });
 });
-//ajax call to check valid users
+
+//ajax call to check if a username is available
 router.post('/login/usetest', function(req,res){
     var user = req.body.user;  
     con.query('select accountId from Accounts where accountUser = ?;', [user],
         function (err, result) {
             resultNum = 0;
             if (err) {
+                console.log("SQL ERROR WHILE CHECKING USERNAME AVAILABILITY")
                 console.log(err.code);
             } else {
                 if(result.length > 0 || user == ''){
@@ -145,10 +153,9 @@ router.get('/makeProject', function (req, res) {
 });
 
 router.post('/makeProject/posts', function (req, res) {
-    console.log(req.body);
     var accountName = req.session.user;
     var projType = req.body.projType;
-    //var status = req.body.status; //default to incomplete
+    //var status = req.body.status; //default to NOT-STARTED
     var projName = req.body.projName;
     var projDesc = req.body.projDesc;
     var userList = req.body["addedUsers[]"];
@@ -168,14 +175,40 @@ router.post('/makeProject/posts', function (req, res) {
         var status = con.query('CALL createProject(?,?,?,?,?,@newProjId);', 
             [projType, "NOT-STARTED", projName, projDesc, accountName],
             function(err, result){
-                con.query('SELECT @newProjId AS newProjId;',
-                    function(err, result){
-                        for(var i = 0; i < userList.length; i++){
-                            con.query('CALL addAccountProject(?,?);', 
-                            [userList[i],result[0].newProjId],
-                            function(err, result){});  
-                        }
-                });
+                if(err){console.log("SQL ERROR WHILE CREATING PROJECT");console.log(err.code);
+                } else{
+                    con.query('SELECT @newProjId AS newProjId;',
+                        function(err, result){
+                            if(err) {console.log("SQL ERROR RETRIEVING NEW PROJECT ID");console.log(err.code);}
+                            for(var i = 0; i < userList.length; i++){
+                                con.query('CALL addAccountProject(?,?);', 
+                                [userList[i],result[0].newProjId],
+                                function(err, result){
+                                    if(err) {console.log("SQL ERROR WHILE ADDING ACCOUNT TO PROJECT");console.log(err.code);}
+                                }); 
+                                if(userList[i]!=req.session.user) {
+                                    con.query('SELECT accountEmail AS accountEmail FROM Accounts WHERE accountUser=?;', 
+                                        [userList[i]],
+                                        function(err, result){
+                                            if(err) {console.log("SQL ERROR WHILE RETRIEVING EMAIL ADDRESS");console.log(err.code);
+                                            }else {
+                                                if(result!=false){
+                                                    sendgrid.send({
+                                                      to:result[0].accountEmail,
+                                                      from:"no-reply@playductive.herokuapp.com",
+                                                      subject:"You've just been added to a project on PlayDuctive!",
+                                                      text:"Someone has added you to a project on PlayDuctive! To see the project, go to https://playductive.herokuapp.com"
+                                                    }, function(err, json) {
+                                                      if (err) { return console.error(err); }
+                                                      console.log(json);
+                                                    });
+                                                }
+                                            }
+                                        }); 
+                                }
+                            }
+                    });
+                }
         });
         res.redirect('/')
     }
@@ -196,6 +229,25 @@ router.post('/makeProject/search_users', function (req, res) {
         });
 });
 
+// router.post('/email/test', function (req, res) {
+//     var emailTo=req.body.emailTo;
+//     var emailFrom=req.body.emailFrom;
+//     var subject=req.body.subject;
+//     var html=req.body.html;
+
+    // sendgrid.send({
+    //   to:emailTo,
+    //   from:emailFrom,
+    //   subject:subject,
+    //   text:html
+    // }, function(err, json) {
+    //   if (err) { return console.error(err); }
+    //   console.log(json);
+    // });
+
+//     res.redirect('/');
+// });
+
 //Project stuff
 router.get('/project', function(req,res){
     var projId = req.query.projectId;
@@ -206,7 +258,7 @@ router.get('/project', function(req,res){
         [projId],
         function (err, result){
             if(result[0].type = "Agile"){
-                var status = con.query('SELECT AccountTasks.statusId as statid, AccountTasks.taskExp as exp, AccountTasks.taskDesc as desc from AccountTasks where AccountTasks.projId = ?',
+                var status = con.query('SELECT AccountTasks.statusId as statid, AccountTasks.taskExp as exp, AccountTasks.taskDesc as description from AccountTasks where AccountTasks.projId = ?',
                         [projId] , 
                     function (err, result2){    
                         if(err){
@@ -214,9 +266,7 @@ router.get('/project', function(req,res){
                             res.redirect('/');
                         } else {
                             if(result2){
-                                console.log(result2);
                                 var stStatids = JSON.stringify(result2);
-                                console.log(stStatids);
                                 res.render('agile',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
                             }else{
                                 res.redirect('/');
@@ -261,10 +311,33 @@ router.post('/makeTask/posts', function (req, res) {
         var makingTask = con.query('CALL creatingTask(?,?,?,?,?);', 
             [classID, projId, 1, taskreward, taskDetail],
             function(err, result){
+<<<<<<< HEAD
 				console.log(err);
 
         });
         res.redirect('/')
+=======
+                console.log(result[0]);
+                if(err){
+                    res.redirect('/');
+                }
+                if(result.length > 0){
+                    var userList = [];
+                    var projName = result[0].project;
+                    for(var i = 0; i < result.length; i++){
+                        console.log(result[i].name);
+                        userList.push(result[i].name);
+                    }
+					//alan's agile status query work in progress
+                    console.log(userList);
+                    res.render('makeTask',{title: 'PlayDuctive', users: userList, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project})
+                }else{
+                    //there has to be an account user
+                    console.log(err);
+                    res.redirect('/');
+                }
+            });
+>>>>>>> refs/remotes/origin/master
     }
 });
 
