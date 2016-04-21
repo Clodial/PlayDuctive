@@ -63,15 +63,20 @@
 		</div>
 		<div id="facebook-share" class="logo-button button-check">
 			<div id="fb-root"></div>
-				<script>(function(d, s, id) {
-				  var js, fjs = d.getElementsByTagName(s)[0];
-				  if (d.getElementById(id)) return;
-				  js = d.createElement(s); js.id = id;
-				  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6";
-				  fjs.parentNode.insertBefore(js, fjs);
-				}(document, 'script', 'facebook-jssdk'));</script>
-			</div>
+			<script>(function(d, s, id) {
+			  var js, fjs = d.getElementsByTagName(s)[0];
+			  if (d.getElementById(id)) return;
+			  js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6";
+			  fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+			</script>
 			<div class="fb-share-button" data-href="https://playductive.herokuapp.com/" data-layout="button_count" data-mobile-iframe="true"></div>
+		</div>
+			
+		<div id="linkedin-share" class="logo-button button-check">
+			<script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
+			<script type="IN/Share" data-url="https://playductive.herokuapp.com/" data-counter="right"></script>
+		</div>
 		<div class="log-buttons button-check">
 			<form action="/login/logout" method="GET"><button type="submit">Logout</button></form>
 		</div>
