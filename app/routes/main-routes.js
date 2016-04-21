@@ -343,7 +343,7 @@ router.post('/makeTask/posts', function (req, res) {
 							console.log(newTaskId);
 						}
 					});
-			});
+			})
 		}
         res.redirect('/');
     }
