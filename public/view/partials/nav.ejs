@@ -47,25 +47,17 @@
 				<button type="submit">Home</button>
 			</form>
 		</div>
-		<div id="twitter-share">
+		<div id="twitter-share" class="logo-button button-check">
 		<script>window.twttr = (function(d, s, id) {
-			  var js, fjs = d.getElementsByTagName(s)[0],
-			    t = window.twttr || {};
+			  var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {};
 			  if (d.getElementById(id)) return t;
-			  js = d.createElement(s);
-			  js.id = id;
-			  js.src = "https://platform.twitter.com/widgets.js";
+			  js = d.createElement(s);js.id = id;js.src = "https://platform.twitter.com/widgets.js";
 			  fjs.parentNode.insertBefore(js, fjs);
-			 
 			  t._e = [];
-			  t.ready = function(f) {
-			    t._e.push(f);
-			  };
-			 
-			  return t;
+			  t.ready = function(f) {t._e.push(f);};return t;
 			}(document, "script", "twitter-wjs"));</script>
 			<a class="twitter-share-button"
-			  href="https://twitter.com/intent/tweet?text=Hello%20world"
+			  href="https://twitter.com/intent/tweet?text=I%20Love%20Playductive!"
 			  data-size="large">
 			Tweet</a>
 		</div>
