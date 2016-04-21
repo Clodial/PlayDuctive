@@ -281,6 +281,7 @@ router.get('/project', function(req,res){
     }
 });
 
+//Task Creation and Management
 router.get('/makeTask', function(req,res){
     var projId = req.query.projId;
     console.log(projId);
@@ -342,7 +343,7 @@ router.post('/makeTask/posts', function (req, res) {
 							console.log(newTaskId);
 						}
 					});
-			}
+			});
 		}
         res.redirect('/');
     }
