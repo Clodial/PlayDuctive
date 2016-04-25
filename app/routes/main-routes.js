@@ -26,7 +26,7 @@ router.get('/', function(req,res){
                 } else{
                     var projList = [];
                     if(result) {
-                        projList = result
+                        projList = result;
                     }
                     res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
                 }
@@ -61,8 +61,8 @@ router.get('/logCheck', function(req,res){
                         //res.redirect('/');
                         //res.render('login', { title: 'PlayDuctive', proj: null, user: req.session.user});
                     }else{
-                        console.log('ERROR: NO CLASSES FOUND')
-                        console.log(req.session.user);
+                        console.log('LOGCHECK: USER NOT FOUND')
+                        //console.log(req.session.user);
                         //res.redirect('/');
                         res.render('index', { title: 'PlayDuctive', proj: null, user: req.session.user});
                     }
@@ -284,6 +284,7 @@ router.get('/project', function(req,res){
 //Task Creation and Management
 router.get('/makeTask', function(req,res){
     var projId = req.query.projId;
+    req.session.projId=projId;
     //console.log(projId);
     if(!req.session.user){
         redirect('/');
@@ -299,7 +300,7 @@ router.get('/makeTask', function(req,res){
                     var userList = [];
                     var projName = result[0].project;
                     for(var i = 0; i < result.length; i++){
-                        console.log(result[i].name);
+                        //console.log(result[i].name);
                         userList.push(result[i].name);
                     }
 					//alan's agile status query work in progress
