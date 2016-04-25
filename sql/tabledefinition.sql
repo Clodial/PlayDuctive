@@ -168,6 +168,32 @@ BEGIN
 	END IF;
 END; //
 
+CREATE PROCEDURE createTask2(
+IN newUser VARCHAR(255),
+IN newClassTitle VARCHAR(255),
+IN newDescription TEXT,
+IN newExp INT,
+IN newProjId VARCHAR(255),
+OUT newTaskId INT
+)
+BEGIN
+	IF EXISTS(SELECT AccountProjects.actProjId FROM AccountProjects, Accounts 
+		WHERE Accounts.accountName = user 
+		AND Accounts.accountId = AccountProjects.accountId) THEN
+		
+		INSERT INTO AccountTasks(classId, projId, statusId, taskExp, taskDesc) 
+			SELECT Classes.classId, Projects.projId, Statuses.statusId, newTaskExp, newTaskDesc
+			FROM Classes, Projects, AccountProjects, Accounts, ClassTitles, Statuses
+			WHERE Accounts.accountName = newUser
+				AND ClassTitles.classTitle = newClassTitle
+				AND Classes.classTitleId = ClassTitles.classTitleId
+				AND Classes.accountId = Accounts.accountId
+				AND Projects.projId = newProjId
+				AND Statuses.statusName = "NOT-STARTED";
+		SET newTaskId=LAST_INSERT_ID();
+	END IF;
+END; //
+
 CREATE PROCEDURE getStats(
 IN user VARCHAR(255)
 )

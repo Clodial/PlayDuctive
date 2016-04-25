@@ -317,16 +317,10 @@ router.get('/makeTask', function(req,res){
 
 router.post('/makeTask/posts', function (req, res) {
 	var projId = req.session.projId;
-	console.log(projId);
     var accountName = req.session.user;
-    var classID = req.body.classId;
-    var taskreward = req.body.taskExp;
-    var taskDetail = req.body.taskDesc;
-
-    console.log("REQUEST BODY:")
-    console.log(req.body)
-    console.log("SESSION VARS")
-    console.log(req.session)
+    var classTitle = req.body.classTitle;
+    var taskExp = req.body.taskExp;
+    var taskDesc = req.body.taskDesc;
 
     //insert validation of values here(types, length requirement, etc.)
     if(!accountName){
@@ -334,8 +328,8 @@ router.post('/makeTask/posts', function (req, res) {
         console.log(accountName);
         res.redirect('/');
     }else{
-		var makingTask = con.query('CALL creatingTask(?,?,?,?,?,@newTaskId);', 
-		[classID, projId, "NOT-STARTED", taskreward, taskDetail],
+		var makingTask = con.query('CALL createTask2(?,?,?,?,?,@newTaskId);', 
+		[accountName, classTitle, taskDesc, taskExp, projId],
         function(err, result){
 			if(err){
 				console.log(err);
