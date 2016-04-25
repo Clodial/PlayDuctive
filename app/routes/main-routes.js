@@ -322,6 +322,11 @@ router.post('/makeTask/posts', function (req, res) {
     var taskreward = req.body.taskExp;
     var taskDetail = req.body.taskDesc;
 
+    console.log("REQUEST BODY:")
+    console.log(req.body)
+    console.log("SESSION VARS")
+    console.log(req.session)
+
     //insert validation of values here(types, length requirement, etc.)
     if(!accountName){
         console.log(req.session.user);
