@@ -328,6 +328,7 @@ router.post('/makeTask/posts', function (req, res) {
         console.log(accountName);
         res.redirect('/');
     }else{
+        console.log([accountName, classTitle, taskDesc, taskExp, projId])
 		var makingTask = con.query('CALL createTask2(?,?,?,?,?,@newTaskId);', 
 		[accountName, classTitle, taskDesc, taskExp, projId],
         function(err, result){
@@ -346,7 +347,7 @@ router.post('/makeTask/posts', function (req, res) {
 					});
 			}
 		});
-        res.redirect('/');
+        res.redirect('/makeTask?projId='+projId);
     }
 });
 
