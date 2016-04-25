@@ -153,7 +153,7 @@ IN project VARCHAR(255)
 )
 BEGIN
 	IF EXISTS(SELECT AccountProjects.actProjId FROM AccountProjects, Accounts 
-		WHERE Accounts.accountName = user 
+		WHERE Accounts.accountUser = user 
 		AND Accounts.accountId = AccountProjects.accountId) THEN
 		
 		INSERT INTO AccountTasks(classId, projId, statusId, taskExp, taskDesc) 
@@ -171,20 +171,20 @@ END; //
 CREATE PROCEDURE createTask2(
 IN newUser VARCHAR(255),
 IN newClassTitle VARCHAR(255),
-IN newDescription TEXT,
-IN newExp INT,
+IN newTaskDesc TEXT,
+IN newTaskExp INT,
 IN newProjId VARCHAR(255),
 OUT newTaskId INT
 )
 BEGIN
 	IF EXISTS(SELECT AccountProjects.actProjId FROM AccountProjects, Accounts 
-		WHERE Accounts.accountName = user 
+		WHERE Accounts.accountUser = newUser 
 		AND Accounts.accountId = AccountProjects.accountId) THEN
 		
 		INSERT INTO AccountTasks(classId, projId, statusId, taskExp, taskDesc) 
 			SELECT Classes.classId, Projects.projId, Statuses.statusId, newTaskExp, newTaskDesc
-			FROM Classes, Projects, AccountProjects, Accounts, ClassTitles, Statuses
-			WHERE Accounts.accountName = newUser
+			FROM Classes, Projects, Accounts, ClassTitles, Statuses
+			WHERE Accounts.accountUser = newUser
 				AND ClassTitles.classTitle = newClassTitle
 				AND Classes.classTitleId = ClassTitles.classTitleId
 				AND Classes.accountId = Accounts.accountId
