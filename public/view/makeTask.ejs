@@ -10,7 +10,7 @@
   </div>
     <form id="taskForm" action="/makeTask/posts" method="post">
 	  Class:<br>
-      <select name="class">
+      <select name="classId">
           <option value="1">Warrior</option>
           <option value="2">Magician</option>
           <option value="3">Rogue</option>
@@ -18,9 +18,9 @@
 		  <option value="5">Priest</option>
       </select><br>
 	  Task Reward(Min:10 Exp | Max:100 Exp):<br>
-	  <input type="number" name="taskexp" min="10" max="100"><br>
+	  <input type="number" name="taskExp" min="10" max="100"><br>
       Task Description:<br>
-      <input type="text" name="taskDescrip"><br>
+      <input type="text" name="taskDesc"><br>
       <button type="submit">Make Task</button><br>
     </form>
 
