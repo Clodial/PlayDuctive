@@ -77,7 +77,7 @@ router.get('/logCheck', function(req,res){
 
 //Login routes
 router.get('/login', function(req,res){
-    console.log(req.session.user);
+    //console.log(req.session.user);
     con.query('select Projects.projId as id, Projects.projName as name, Statuses.statusName as status from Projects, Statuses, Accounts, AccountProjects  where Accounts.accountUser = ? and AccountProjects.accountId = Accounts.accountId  and AccountProjects.projId = Projects.projId and Projects.statusId = Statuses.statusId;'
         , [req.session.user], function(err, result){
             if(err){
@@ -284,14 +284,14 @@ router.get('/project', function(req,res){
 //Task Creation and Management
 router.get('/makeTask', function(req,res){
     var projId = req.query.projId;
-    console.log(projId);
+    //console.log(projId);
     if(!req.session.user){
         redirect('/');
     }else{
         con.query('select Accounts.accountUser as name, Projects.projName as project from AccountProjects, Accounts, Projects where Projects.projId = ? and AccountProjects.projId = ? and Accounts.accountId = AccountProjects.accountId',
             [projId, projId], 
             function(err, result){
-                console.log(result[0]);
+                //console.log(result[0]);
                 if(err){
                     res.redirect('/');
                 }
@@ -303,7 +303,7 @@ router.get('/makeTask', function(req,res){
                         userList.push(result[i].name);
                     }
 					//alan's agile status query work in progress
-                    console.log(userList);
+                    //console.log(userList);
                     res.render('makeTask',{title: 'PlayDuctive', users: userList, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project})
                 }else{
                     //there has to be an account user
@@ -345,6 +345,7 @@ router.post('/makeTask/posts', function (req, res) {
 							console.log("SQL ERROR RETRIEVING NEW PROJECT ID");
 							console.log(err.code);
 						}else{
+                            console.log("NEW TASK ID")
 							console.log(result[0].newTaskId);
 						}
 					});
