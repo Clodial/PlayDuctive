@@ -340,7 +340,7 @@ router.post('/makeTask/posts', function (req, res) {
 							console.log("SQL ERROR RETRIEVING NEW PROJECT ID");
 							console.log(err.code);
 						}else{
-							console.log(newTaskId);
+							console.log(result[0].newTaskId);
 						}
 					});
 			}
