@@ -27,7 +27,9 @@ form{
 .user-stats{
 	width:			100%;
 	min-height: 	50px;
-	background-color: #814c9e;
+	line-height: 25px;
+	background-color: #555;
+	position: static;
 }
 .clearfix{
 	clear:both;
