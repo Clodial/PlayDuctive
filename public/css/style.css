@@ -110,6 +110,9 @@ form{
 .userName{
 	color: white;
 }
+.logo-main{
+	margin-right: 30px;
+}
 #logged-welcome{
 	padding-top:10px;
 	margin-left: 30px;

@@ -1,7 +1,10 @@
 <% if(!user){ //not logged in%>
 	<div class="navbar-main">
 		<div class="logo-button button-check">
-			<form action="/" method="get">
+			<form class="logo-piece logo-main" action="/" method="get">
+				<button type="submit"><img src="../img/playductiveLogo.png" height="45px"/></button>
+			</form>
+			<form class="logo-piece" action="/" method="get">
 				<button type="submit">Home</button>
 			</form>
 		</div>
@@ -43,7 +46,7 @@
 <% }else { //logged in%>
 	<div class="navbar-main nav-log-true">
 		<div class="logo-button button-check">
-			<form class="logo-piece" action="/" method="get">
+			<form class="logo-piece logo-main" action="/" method="get">
 				<button type="submit"><img src="../img/playductiveLogo.png" height="45px"/></button>
 			</form>
 			<h4 class="userName logo-piece">Welcome <%= user %>!</h4>
