@@ -52,10 +52,12 @@ form{
 }
 .logo-button{
 	position: relative;
+	width: 50%;
 	float: left;
 }
 .logo-piece{
 	margin-left: 10px;
+	display: inline;
 }
 .logo-button button{
 	background-color: #814c9e;
