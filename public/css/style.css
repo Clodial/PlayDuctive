@@ -37,8 +37,11 @@ form{
 	color: white;
 	height:	50px;
 }
+.stat-spot{
+	margin-bottom: 0px;
+}
 .spacingTool{
-	height:15px;
+	height:5px;
 }
 .log-buttons{
 	position: relative;
