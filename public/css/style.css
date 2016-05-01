@@ -27,7 +27,6 @@ form{
 .user-stats{
 	width:			100%;
 	min-height: 	50px;
-	line-height: 23px;
 	background-color: #555;
 	position: static;
 }
@@ -37,6 +36,10 @@ form{
 .stat-spot{
 	color: white;
 	height:	50px;
+}
+.stat-spot p{
+	position: relative;
+	top:10px;
 }
 .log-buttons{
 	position: relative;
