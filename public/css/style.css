@@ -62,7 +62,7 @@ form{
 .logo-button button{
 	background-color: #814c9e;
 	position: relative;
-	height: 50px;
+	height: 49px;
 	border-style: none;
 	color: white;
 }
@@ -80,7 +80,7 @@ form{
 *
 *****/
 .bodyDiv{
-	margin-top:50px;
+	margin-top:100px;
 }
 .body-part{
 	margin-top:20px;
