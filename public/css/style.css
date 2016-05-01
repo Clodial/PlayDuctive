@@ -37,9 +37,8 @@ form{
 	color: white;
 	height:	50px;
 }
-.stat-spot p{
-	position: relative;
-	top:10px;
+.spacingTool{
+	height:15px;
 }
 .log-buttons{
 	position: relative;
