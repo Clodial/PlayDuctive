@@ -43,12 +43,12 @@
 <% }else { //logged in%>
 	<div class="navbar-main nav-log-true">
 		<div class="logo-button button-check">
-			<form action="/" method="get">
+			<form class="logo-piece" action="/" method="get">
 				<button type="submit">Home</button>
 			</form>
+			<h4 class="userName logo-piece">Welcome <%= user %>!</h4>
+			<button class="button-check logo-piece" id="statShow">User Statistics</button>
 		</div>
-		<h4 class="userName">Welcome <%= user %>!</h4>
-		<button class="button-check" id="statShow">User Statistics</button>
 		<div class="log-buttons button-check">
 			<form action="/login/logout" method="GET"><button type="submit">Logout</button></form>
 		</div>

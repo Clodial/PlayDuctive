@@ -54,6 +54,9 @@ form{
 	position: relative;
 	float: left;
 }
+.logo-piece{
+	margin-left: 10px;
+}
 .logo-button button{
 	background-color: #814c9e;
 	position: relative;
@@ -74,6 +77,9 @@ form{
 *	Body stuff
 *
 *****/
+.bodyDiv{
+	margin-top:50px;
+}
 .body-part{
 	margin-top:20px;
 	margin-left:30px;
