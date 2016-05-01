@@ -40,75 +40,45 @@
 			</form>
 		</div>
 	</div>
-	<!--
-	<div class="clearfix"></div>
-	<div class="nav-login nav-drop">
-		<h1>Login</h1>
-		<form action="/logCheck" method="get">
-			<label>Username </label><br>
-			<input class="log-input" type="text" name="user" required/></br>
-			<label>Password </label><br>
-			<input class="log-input" type="password" name="pass" required/></br>
-			<button class="sign-button" type="submit">Login</button>
-			<div class="clearfix"></div>
-		</form>
-	</div>
-	<div class="nav-register nav-drop">
-		<h1>New Account</h1>
-		<form action="/login" method="post">
-			<input type="hidden" name="register" value="true">
-			<label>New Username</label><br>
-			<input id="reg-user" class="log-input" type="text" name="user" required></br>
-			<label>Email</label><br>
-			<input type="email" class="log-input" name="email" required></br>
-			<label>New Password</label><br>
-			<input id="reg-pass" class="log-input" type="password" name="pass" onkeyup="passCheck()" required></br>
-			<label>Repeat Password</label><br>
-			<input id="reg-pass2" class="log-input" type="password" name="pass2" onkeyup="passCheck()" required></br>
-			<span id="pass-check"></span></br>
-			<span id="user-check"></span></br>
-			<button class="sign-button" id="reg-button" type="submit" >Create Account</button>
-			<div class="clearfix"></div>
-		</form>
-	</div>
-	-->
 <% }else { //logged in%>
 	<div class="navbar-main nav-log-true">
 		<div class="logo-button button-check">
 			<form action="/" method="get">
 				<button type="submit">Home</button>
 			</form>
+			<h4 class="userName">Welcome <%= user %>!</h4>
+			<button class="button-check" id="statShow">User Statistics</button>
 		</div>
 		<div class="log-buttons button-check">
 			<form action="/login/logout" method="GET"><button type="submit">Logout</button></form>
 		</div>
-	</div>
-	<div class="clearfix"></div>
-	<div class="user-stats">
-		<% var clStat = eval(stats) %>
-		<div class="col-md-2 col-lg-2 stat-spot">
-			<p>Dungeon Master</p>
-			<p>Total EXP: <%= clStat[0].classExp %></p>
-		</div>
-		<div class="col-md-2 col-lg-2 stat-spot">
-			<p>Warrior</p>
-			<p>Total EXP: <%= clStat[1].classExp %></p>
-		</div>
-		<div class="col-md-2 col-lg-2 stat-spot">
-			<p>Magician</p>
-			<p>Total EXP: <%= clStat[2].classExp %></p>
-		</div>
-		<div class="col-md-2 col-lg-2 stat-spot">
-			<p>Rogue</p>
-			<p>Total EXP: <%= clStat[3].classExp %></p>
-		</div>
-		<div class="col-md-2 col-lg-2 stat-spot">
-			<p>Tinkerer</p>
-			<p>Total EXP: <%= clStat[4].classExp %></p>
-		</div>
-		<div class="col-md-2 col-lg-2 stat-spot">
-			<p>Priest</p>
-			<p>Total EXP: <%= clStat[5].classExp %></p>
+		<div class="clearfix"></div>
+		<div class="user-stats">
+			<% var clStat = eval(stats) %>
+			<div class="col-md-2 col-lg-2 stat-spot">
+				<p>Dungeon Master</p>
+				<p>Total EXP: <%= clStat[0].classExp %></p>
+			</div>
+			<div class="col-md-2 col-lg-2 stat-spot">
+				<p>Warrior</p>
+				<p>Total EXP: <%= clStat[1].classExp %></p>
+			</div>
+			<div class="col-md-2 col-lg-2 stat-spot">
+				<p>Magician</p>
+				<p>Total EXP: <%= clStat[2].classExp %></p>
+			</div>
+			<div class="col-md-2 col-lg-2 stat-spot">
+				<p>Rogue</p>
+				<p>Total EXP: <%= clStat[3].classExp %></p>
+			</div>
+			<div class="col-md-2 col-lg-2 stat-spot">
+				<p>Tinkerer</p>
+				<p>Total EXP: <%= clStat[4].classExp %></p>
+			</div>
+			<div class="col-md-2 col-lg-2 stat-spot">
+				<p>Priest</p>
+				<p>Total EXP: <%= clStat[5].classExp %></p>
+			</div>
 		</div>
 	</div>
 <% } %>

@@ -1,5 +1,6 @@
 $(".nav-login").hide();
 $(".nav-register").hide();
+$(".user-stats").hide();
 //clicking buttons to show login and registration sections
 $(".showLog").click(function(){
 	if($(".nav-register").is(':visible')){
@@ -21,6 +22,14 @@ $(".showReg").click(function(){
 		$(".nav-register").slideDown();
 	}
 });	
+
+$("#statShow").click(function(){
+	if($(".user-stats").is(':visible')){
+		$(".user-stats").slideUp();
+	}else{
+		$(".user-stats").slideDown();
+	}
+});
 
 //Function checking if passwords match up
 var passCheck = function(){

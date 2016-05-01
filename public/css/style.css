@@ -100,6 +100,9 @@ form{
 	background-color: #4C7FCC;
 	color: white;
 }
+.userName{
+	color: white;
+}
 #logged-welcome{
 	padding-top:10px;
 	margin-left: 30px;
