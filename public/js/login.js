@@ -14,10 +14,10 @@ $(".showLog").click(function(){
 $(".showReg").click(function(){
 	if($(".nav-login").is(':visible')){
 		$(".nav-login").slideToggle(1000, function(){
-			$(".nav-register").toggle("slow");
+			$(".nav-register").slideToggle("slow");
 		});
 	}else{
-		$(".nav-register").toggle("slow");
+		$(".nav-register").slideToggle("slow");
 	}
 });	
 
