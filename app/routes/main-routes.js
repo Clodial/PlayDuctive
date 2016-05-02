@@ -308,7 +308,19 @@ router.get('/project', function(req,res){
                         } else {
                             if(result2){
                                 var stStatids = JSON.stringify(result2);
-                                res.render('waterfall',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
+                                con.query('select classTitleId, classExp from Classes, Accounts where Accounts.accountUser = ? and Accounts.accountId = Classes.accountId;',
+                                    [req.session.user],function(err, result){
+                                        if(err){
+                                            console.log('SQL ERROR WHILE RETRIEVING STATS');
+                                            console.log(err.code);
+                                            req.session.stats=[0,0,0,0,0,0];
+                                            res.render('waterfall',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
+                                        }else{
+                                            req.session.stats = JSON.stringify(result);
+                                            res.render('waterfall',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
+                                        }
+                                    });
+                                
                             }else{
                                 res.redirect('/');
                             }
