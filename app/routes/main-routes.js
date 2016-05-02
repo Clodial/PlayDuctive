@@ -368,6 +368,7 @@ router.post('/makeTask/posts', function (req, res) {
 router.post('/tasks/completeTask', function (req, res) {
     var projId = req.session.projId;
     var taskId = req.body.taskId;
+    var accountName = req.session.user;
 
     //insert validation of values here(types, length requirement, etc.)
     if(!accountName){
