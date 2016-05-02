@@ -8,7 +8,7 @@ $(".showLog").click(function(){
 			$(".nav-login").slideToggle("slow");
 		});
 	}else{
-		$(".nav-login").toggle("slow");
+		$(".nav-login").slideToggle("slow");
 	}
 });	
 $(".showReg").click(function(){
