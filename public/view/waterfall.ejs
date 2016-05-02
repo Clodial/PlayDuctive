@@ -23,7 +23,7 @@
 				<p><%= task.statusName %></p>
 				<p>Task Exp: <%= task.taskExp %></p>
 				<form action="/tasks/completeTask" method="POST">
-					<input type="hidden" name="projectId" value="<%= projId %>">
+					<input type="hidden" name="projId" value="<%= projId %>">
 					<input type="hidden" name="taskId" value="<%= task.taskId %>">
 					<button class="waterfall-task-complete-button" type="submit">Mark As Completed</button> 
 					<div class="clearfix"></div>
