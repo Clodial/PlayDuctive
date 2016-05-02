@@ -81,7 +81,7 @@ DELIMITER //
 
 CREATE TRIGGER afterAccountCreate AFTER INSERT ON Accounts FOR EACH ROW
 BEGIN
-INSERT INTO Classes(accountId,classTitleId,classEXP) SELECT NEW.accountId, classTitleId, 0 FROM ClassTitles;
+INSERT INTO Classes(accountId,classTitleId,classExp) SELECT NEW.accountId, classTitleId, 0 FROM ClassTitles;
 END; //
 
 CREATE PROCEDURE createProject(
@@ -125,12 +125,12 @@ CREATE PROCEDURE getProjects(
 IN user VARCHAR(255)
 )
 BEGIN
-	select Projects.projId as id, Projects.projName as name, Statuses.statusName as stat 
+	SELECT Projects.projId AS id, Projects.projName AS name, Statuses.statusName AS stat 
 	from Projects, Statuses, Accounts, AccountProjects 
-	where Accounts.accountUser = user 
-		and AccountProjects.accountId = Accounts.accountId 
-		and AccountProjects.projId = Projects.projId 
-		and Projects.statusId = Statuses.statusId;
+	WHERE Accounts.accountUser = user 
+		AND AccountProjects.accountId = Accounts.accountId 
+		AND AccountProjects.projId = Projects.projId 
+		AND Projects.statusId = Statuses.statusId;
 END; //
 
 CREATE PROCEDURE addUser(
@@ -198,10 +198,10 @@ CREATE PROCEDURE getStats(
 IN user VARCHAR(255)
 )
 BEGIN
-	select ClassTitles.classTitle as class, Classes.classExp as exp from ClassTitles, Classes, Accounts 
-	where Accounts.accountUser = user
-		and Accounts.accountId = Classes.accountId
-        and Classes.classTitleId = ClassTitles.classTitleId;
+	SELECT ClassTitles.classTitle AS class, Classes.classExp AS exp FROM ClassTitles, Classes, Accounts 
+	WHERE Accounts.accountUser = user
+		AND Accounts.accountId = Classes.accountId
+        AND Classes.classTitleId = ClassTitles.classTitleId;
 END; //
 
 CREATE PROCEDURE addStat(
@@ -209,11 +209,11 @@ IN user VARCHAR(255),
 IN exp INT,
 IN class VARCHAR(255))
 BEGIN
-	update Classes, Accounts, ClassTitles set classExp = exp 
-	where Accounts.accountUser = user
-		and Accounts.accountId = Classes.accountId 
-	    and ClassTitles.classTitle = class
-	    and Classes.classTitleId = ClassTitles.classTitleId;
+	UPDATE Classes, Accounts, ClassTitles set classExp = exp 
+	WHERE Accounts.accountUser = user
+		AND Accounts.accountId = Classes.accountId 
+	    AND ClassTitles.classTitle = class
+	    AND Classes.classTitleId = ClassTitles.classTitleId;
 END; //
 
 CREATE PROCEDURE addAccountProject(
@@ -222,6 +222,15 @@ IN proj VARCHAR(255))
 BEGIN
 INSERT INTO AccountProjects(accountId, projId)
 	SELECT accountId,proj FROM Accounts WHERE accountUser=user;
+END; //
+
+CREATE PROCEDURE completeTask(
+IN completedTaskId INT)
+BEGIN
+	IF EXISTS(SELECT * FROM AccountTasks WHERE taskId=completedTaskId AND statusId!=(SELECT statusId FROM Statuses WHERE statusName="COMPLETE")) THEN
+		UPDATE AccountTasks SET statusId=(SELECT statusId FROM Statuses WHERE statusName="COMPLETE") WHERE taskId=completedTaskId;
+		UPDATE Classes SET classExp=classExp+(SELECT taskExp FROM AccountTasks WHERE taskId=completedTaskId) WHERE classId=(SELECT classId FROM AccountTasks WHERE taskId=completedTaskId);
+	END IF;
 END; //
 DELIMITER ;
 
