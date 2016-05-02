@@ -68,44 +68,44 @@
 			<form action="/login/logout" method="GET"><button type="submit">Logout</button></form>
 		</div>
 		<div class="clearfix"></div>
-		<div class="user-stats">
-			<% var clStat = eval(stats) %>
-			<div class="col-md-2 col-lg-2 stat-spot">
-				<div class="spacingTool"></div>
-				<p>Dungeon Master</p>
-				<p>Level: <%= pmLvl %>
-				<p>Total EXP: <%= 100 % clStat[0].classExp %></p>
-			</div>
-			<div class="col-md-2 col-lg-2 stat-spot">
-				<div class="spacingTool"></div>
-				<p>Warrior</p>
-				<p>Level: <%= warLvl %>
-				<p>Total EXP: <%= clStat[1].classExp %></p>
-			</div>
-			<div class="col-md-2 col-lg-2 stat-spot">
-				<div class="spacingTool"></div>
-				<p>Magician</p>
-				<p>Level: <%= magLvl %>
-				<p>Total EXP: <%= clStat[2].classExp %></p>
-			</div>
-			<div class="col-md-2 col-lg-2 stat-spot">
-				<div class="spacingTool"></div>
-				<p>Rogue</p>
-				<p>Level: <%= rogLvl %>
-				<p>Total EXP: <%= clStat[3].classExp %></p>
-			</div>
-			<div class="col-md-2 col-lg-2 stat-spot">
-				<div class="spacingTool"></div>
-				<p>Tinkerer</p>
-				<p>Level: <%= tinkLvl %>
-				<p>Total EXP: <%= clStat[4].classExp %></p>
-			</div>
-			<div class="col-md-2 col-lg-2 stat-spot">
-				<div class="spacingTool"></div>
-				<p>Priest</p>
-				<p>Level: <%= prLvl %>
-				<p>Total EXP: <%= clStat[5].classExp %></p>
-			</div>
+	</div>
+	<div class="user-stats">
+		<% var clStat = eval(stats) %>
+		<div class="col-md-2 col-lg-2 stat-spot">
+			<div class="spacingTool"></div>
+			<p>Dungeon Master</p>
+			<p>Level: <%= pmLvl %>
+			<p>Total EXP: <%= 100 % clStat[0].classExp %></p>
+		</div>
+		<div class="col-md-2 col-lg-2 stat-spot">
+			<div class="spacingTool"></div>
+			<p>Warrior</p>
+			<p>Level: <%= warLvl %>
+			<p>Total EXP: <%= clStat[1].classExp %></p>
+		</div>
+		<div class="col-md-2 col-lg-2 stat-spot">
+			<div class="spacingTool"></div>
+			<p>Magician</p>
+			<p>Level: <%= magLvl %>
+			<p>Total EXP: <%= clStat[2].classExp %></p>
+		</div>
+		<div class="col-md-2 col-lg-2 stat-spot">
+			<div class="spacingTool"></div>
+			<p>Rogue</p>
+			<p>Level: <%= rogLvl %>
+			<p>Total EXP: <%= clStat[3].classExp %></p>
+		</div>
+		<div class="col-md-2 col-lg-2 stat-spot">
+			<div class="spacingTool"></div>
+			<p>Tinkerer</p>
+			<p>Level: <%= tinkLvl %>
+			<p>Total EXP: <%= clStat[4].classExp %></p>
+		</div>
+		<div class="col-md-2 col-lg-2 stat-spot">
+			<div class="spacingTool"></div>
+			<p>Priest</p>
+			<p>Level: <%= prLvl %>
+			<p>Total EXP: <%= clStat[5].classExp %></p>
 		</div>
 	</div>
 <% } %>
