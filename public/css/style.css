@@ -82,6 +82,19 @@ form{
 	position:relative;
 }
 /*****
+*
+*	Index
+*
+*****/
+.logoIndexImg{
+	margin: 0 auto;
+	margin-top: 300px;
+	margin-bottom: 100px;
+}
+.logoIndexTxt{
+	margin: 0 auto;
+}
+/*****
 *	
 *	Body stuff
 *
