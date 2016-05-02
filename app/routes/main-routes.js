@@ -376,7 +376,7 @@ router.post('/tasks/completeTask', function (req, res) {
         console.log(accountName);
         res.redirect('/');
     }else{
-        con.query('UPDATE AccountTasks SET statusId=(SELECT statusId FROM Statuses WHERE statusName="COMPLETE") WHERE taskId=?;', 
+        con.query('CALL completeTask(?);', 
         [taskId],
         function(err, result){
             if(err){
