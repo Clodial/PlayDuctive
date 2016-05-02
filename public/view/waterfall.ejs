@@ -12,6 +12,11 @@
 		<div class="header">
 			Waterfall
 		</div>
+		<form action="/projects/completeProject" method="POST">
+			<input type="hidden" name="projId" value="<%= projId %>">
+			<button class="waterfall-project-complete-button" type="submit">Mark Project As Complete</button> 
+			<div class="clearfix"></div>
+		</form>
 	</div>
 	<div>
 <% if(statusinfo){ 

@@ -232,6 +232,16 @@ BEGIN
 		UPDATE Classes SET classExp=classExp+(SELECT taskExp FROM AccountTasks WHERE taskId=completedTaskId) WHERE classId=(SELECT classId FROM AccountTasks WHERE taskId=completedTaskId);
 	END IF;
 END; //
+
+CREATE PROCEDURE completeProject(
+IN completedProjId INT)
+BEGIN
+	IF EXISTS(SELECT * FROM Projects WHERE projId=completedProjId AND statusId!=(SELECT statusId FROM Statuses WHERE statusName="COMPLETE")) THEN
+		UPDATE Projects SET statusId=(SELECT statusId FROM Statuses WHERE statusName="COMPLETE") WHERE projId=completedProjId;
+		UPDATE Classes SET classExp=classExp+(SELECT taskExp FROM AccountTasks WHERE taskId=completedTaskId) WHERE 
+			accountId=(SELECT creatorId FROM Projects WHERE projId=completedProjId) AND classTitleId=(SELECT classTitleId FROM ClassTitles WHERE classTitle="Dungeon Master");
+	END IF;
+END; //
 DELIMITER ;
 
 

@@ -421,4 +421,27 @@ router.post('/tasks/completeTask', function (req, res) {
     }
 });
 
+router.post('/projects/completeProject', function (req, res) {
+    var projId = req.body.projId;
+    var accountName = req.session.user;
+
+    //insert validation of values here(types, length requirement, etc.)
+    if(!accountName){
+        console.log(req.session.user);
+        console.log(accountName);
+        res.redirect('/');
+    }else{
+        con.query('CALL completeProject(?);', 
+        [taskId],
+        function(err, result){
+            if(err){
+                console.log(err);
+                res.redirect('/');
+            }else{
+                res.redirect('/');
+            }
+        });
+    }
+});
+
 module.exports = router;
