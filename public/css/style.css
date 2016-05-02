@@ -163,3 +163,41 @@ form{
 .make-project:hover{
 	background-color: #4C7FCC;
 }
+.waterfall-task{
+	margin-right: 10px;
+	margin-bottom: 10px;
+	height: 100px;
+	border-radius: 5px;
+	color: white;
+	background-color: #4C7FCC;
+}
+.waterfall-task h3{
+	padding-top:4px;
+	margin-left: 10px;
+}
+.waterfall-task p{
+	margin-left: 10px;
+}
+.waterfall-task-complete-button{
+	margin-right: 10px;
+	float:right;
+	border-radius: 2px;
+	border-style: none;
+	background-color: #FF8878;
+}
+.waterfall-task-complete-button:hover{
+	background-color: #E5FF92;
+	color: #444444;
+}
+
+.waterfall-task-create-button{
+	margin-right: 10px;
+	float:right;
+	border-radius: 2px;
+	border-style: none;
+	background-color: #FF8878;
+}
+.waterfall-task-create-button:hover{
+	background-color: #E5FF92;
+	color: #444444;
+}

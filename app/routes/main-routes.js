@@ -28,7 +28,22 @@ router.get('/', function(req,res){
                     if(result) {
                         projList = result;
                     }
-                    res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
+                    if(!req.session.stats) {
+                        con.query('select classTitleId, classExp from Classes, Accounts where Accounts.accountUser = ? and Accounts.accountId = Classes.accountId;',
+                            [user],function(err, result){
+                                if(err){
+                                    console.log('SQL ERROR WHILE RETRIEVING STATS');
+                                    console.log(err.code);
+                                    req.session.stats=[0,0,0,0,0,0];
+                                    res.redirect('/');
+                                }else{
+                                    req.session.stats = JSON.stringify(result);
+                                    res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
+                                }
+                            });
+                    } else {
+                        res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
+                    }
                 }
             });
     }
@@ -64,7 +79,7 @@ router.get('/logCheck', function(req,res){
                         console.log('LOGCHECK: USER NOT FOUND')
                         //console.log(req.session.user);
                         //res.redirect('/');
-                        res.render('index', { title: 'PlayDuctive', proj: null, user: req.session.user});
+                        res.render('index', { title: 'PlayDuctive', proj: null, user: null});
                     }
                 }
 
@@ -86,9 +101,25 @@ router.get('/login', function(req,res){
                 res.redirect('/');
             }else{
                 projList=result;
+                if(!req.session.stats) {
+                    con.query('select classTitleId, classExp from Classes, Accounts where Accounts.accountUser = ? and Accounts.accountId = Classes.accountId;',
+                            [user],function(err, result){
+                                if(err){
+                                    console.log('SQL ERROR WHILE RETRIEVING STATS');
+                                    console.log(err.code);
+                                    req.session.stats=[0,0,0,0,0,0];
+                                    res.redirect('/');
+                                }else{
+                                    req.session.stats = JSON.stringify(result);
+                                    res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
+                                }
+                            });
+                } else {
+                    res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
+                }
             }   
         });
-	res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
+	
 });
 
 //Login functionality
@@ -251,13 +282,14 @@ router.post('/makeProject/search_users', function (req, res) {
 //Project stuff
 router.get('/project', function(req,res){
     var projId = req.query.projectId;
+    req.session.projId=projId;
     if(!req.session.user){
         res.redirect('/');
     }else{
         con.query('select ProjTypes.projTypeName as type, Projects.projName as project from Projects, ProjTypes where Projects.projId = ? and ProjTypes.projTypeId = Projects.projTypeId', 
         [projId],
         function (err, result){
-            if(result[0].type = "Agile"){
+            if(result[0].type == "Agile"){
                 var status = con.query('SELECT AccountTasks.statusId as statid, AccountTasks.taskExp as exp, AccountTasks.taskDesc as description from AccountTasks where AccountTasks.projId = ?',
                         [projId] , 
                     function (err, result2){    
@@ -275,7 +307,21 @@ router.get('/project', function(req,res){
                     });
                 //res.render('agile', {title: 'PlayDuctive',stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
             }else{
-                res.send("waterfall");
+                var status = con.query('SELECT AccountTasks.taskId as taskId, Statuses.statusName as statusName, AccountTasks.taskExp as taskExp, AccountTasks.taskDesc as taskDesc from AccountTasks,Statuses where AccountTasks.projId = ? AND AccountTasks.statusId=Statuses.statusId;',
+                        [projId] , 
+                    function (err, result2){    
+                        if(err){
+                            console.log(err);
+                            res.redirect('/');
+                        } else {
+                            if(result2){
+                                var stStatids = JSON.stringify(result2);
+                                res.render('waterfall',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
+                            }else{
+                                res.redirect('/');
+                            }
+                        }
+                    });
             }
         });
     }
@@ -347,7 +393,31 @@ router.post('/makeTask/posts', function (req, res) {
 					});
 			}
 		});
-        res.redirect('/makeTask?projId='+projId);
+        res.redirect('/project?projectId='+projId);
+    }
+});
+
+router.post('/tasks/completeTask', function (req, res) {
+    var projId = req.body.projId;
+    var taskId = req.body.taskId;
+    var accountName = req.session.user;
+
+    //insert validation of values here(types, length requirement, etc.)
+    if(!accountName){
+        console.log(req.session.user);
+        console.log(accountName);
+        res.redirect('/');
+    }else{
+        con.query('CALL completeTask(?);', 
+        [taskId],
+        function(err, result){
+            if(err){
+                console.log(err);
+                res.redirect('/project?projectId='+projId);
+            }else{
+                res.redirect('/project?projectId='+projId);
+            }
+        });
     }
 });
 
