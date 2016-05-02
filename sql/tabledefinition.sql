@@ -164,7 +164,7 @@ BEGIN
 				AND Classes.classTitleId = ClassTitles.classTitleId
 				AND Classes.accountId = Accounts.accountId
 				AND Projects.projName = project
-				AND Statuses.statusName = "NOT-STARTED";
+				AND Statuses.statusName = "INPROGRESS";
 	END IF;
 END; //
 
@@ -189,7 +189,7 @@ BEGIN
 				AND Classes.classTitleId = ClassTitles.classTitleId
 				AND Classes.accountId = Accounts.accountId
 				AND Projects.projId = newProjId
-				AND Statuses.statusName = "NOT-STARTED";
+				AND Statuses.statusName = "INPROGRESS";
 		SET newTaskId=LAST_INSERT_ID();
 	END IF;
 END; //
@@ -229,12 +229,24 @@ IN completedTaskId INT)
 BEGIN
 	IF EXISTS(SELECT * FROM AccountTasks WHERE taskId=completedTaskId AND statusId!=(SELECT statusId FROM Statuses WHERE statusName="COMPLETE")) THEN
 		UPDATE AccountTasks SET statusId=(SELECT statusId FROM Statuses WHERE statusName="COMPLETE") WHERE taskId=completedTaskId;
-		UPDATE Classes SET classExp=classExp+(SELECT taskExp FROM AccountTasks WHERE taskId=completedTaskId) WHERE classId=(SELECT classId FROM AccountTasks WHERE taskId=completedTaskId);
+		SET @completedClassTitleId := (SELECT classTitleId FROM Classes WHERE classId=(SELECT classId FROM AccountTasks WHERE taskId=completedTaskId));
+		UPDATE Classes SET classExp=classExp+(SELECT taskExp FROM AccountTasks WHERE taskId=completedTaskId) WHERE classTitleId=@completedClassTitleId
+			AND accountId=ANY(SELECT accountId FROM AccountProjects WHERE projId=(SELECT projId FROM AccountTasks WHERE taskId=completedTaskId));
+	END IF;
+END; //
+
+CREATE PROCEDURE completeProject(
+IN completedProjId INT)
+BEGIN
+	IF EXISTS(SELECT * FROM Projects WHERE projId=completedProjId AND statusId!=(SELECT statusId FROM Statuses WHERE statusName="COMPLETE")) THEN
+		UPDATE Projects SET statusId=(SELECT statusId FROM Statuses WHERE statusName="COMPLETE") WHERE projId=completedProjId;
+		UPDATE Classes SET classExp=classExp+20 WHERE 
+			accountId=(SELECT creatorId FROM Projects WHERE projId=completedProjId) AND classTitleId=(SELECT classTitleId FROM ClassTitles WHERE classTitle="Dungeon Master");
 	END IF;
 END; //
 DELIMITER ;
 
 
 INSERT INTO ProjTypes(projTypeName) VALUES ("Waterfall"),("Agile");
-INSERT INTO Statuses(statusName) VALUES ("NOT-STARTED"),("INPROGRESS"),("COMPLETE");
+INSERT INTO Statuses(statusName) VALUES ("INPROGRESS"),("COMPLETE");
 INSERT INTO ClassTitles(classTitle) VALUES ("Dungeon Master"),("Warrior"),("Magician"),("Rogue"),("Tinkerer"),("Priest");

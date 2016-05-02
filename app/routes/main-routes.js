@@ -186,7 +186,7 @@ router.get('/makeProject', function (req, res) {
 router.post('/makeProject/posts', function (req, res) {
     var accountName = req.session.user;
     var projType = req.body.projType;
-    //var status = req.body.status; //default to NOT-STARTED
+    //var status = req.body.status; //default to INPROGRESS
     var projName = req.body.projName;
     var projDesc = req.body.projDesc;
     var userList = req.body["addedUsers[]"];
@@ -204,7 +204,7 @@ router.post('/makeProject/posts', function (req, res) {
         res.redirect('/');
     } else{
         var status = con.query('CALL createProject(?,?,?,?,?,@newProjId);', 
-            [projType, "NOT-STARTED", projName, projDesc, accountName],
+            [projType, "INPROGRESS", projName, projDesc, accountName],
             function(err, result){
                 if(err){console.log("SQL ERROR WHILE CREATING PROJECT");console.log(err.code);
                 } else{
@@ -416,6 +416,29 @@ router.post('/tasks/completeTask', function (req, res) {
                 res.redirect('/project?projectId='+projId);
             }else{
                 res.redirect('/project?projectId='+projId);
+            }
+        });
+    }
+});
+
+router.post('/projects/completeProject', function (req, res) {
+    var projId = req.body.projId;
+    var accountName = req.session.user;
+
+    //insert validation of values here(types, length requirement, etc.)
+    if(!accountName){
+        console.log(req.session.user);
+        console.log(accountName);
+        res.redirect('/');
+    }else{
+        con.query('CALL completeProject(?);', 
+        [taskId],
+        function(err, result){
+            if(err){
+                console.log(err);
+                res.redirect('/');
+            }else{
+                res.redirect('/');
             }
         });
     }
