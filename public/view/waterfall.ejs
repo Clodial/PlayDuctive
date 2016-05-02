@@ -30,7 +30,7 @@
 				<h3><%= task.taskDesc %></h3>
 				<p><%= task.statusName %></p>
 				<p>Task Exp: <%= task.taskExp %></p>
-				<% if(task.statusName!="COMPLETE") {%> 
+				<% if(task.statusName!="COMPLETE" && projStatus!="COMPLETE") {%> 
 					<form action="/tasks/completeTask" method="POST">
 						<input type="hidden" name="projId" value="<%= projId %>">
 						<input type="hidden" name="taskId" value="<%= task.taskId %>">
