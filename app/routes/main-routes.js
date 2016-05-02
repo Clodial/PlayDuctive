@@ -28,22 +28,18 @@ router.get('/', function(req,res){
                     if(result) {
                         projList = result;
                     }
-                    if(!req.session.stats) {
-                        con.query('select classTitleId, classExp from Classes, Accounts where Accounts.accountUser = ? and Accounts.accountId = Classes.accountId;',
-                            [user],function(err, result){
-                                if(err){
-                                    console.log('SQL ERROR WHILE RETRIEVING STATS');
-                                    console.log(err.code);
-                                    req.session.stats=[0,0,0,0,0,0];
-                                    res.redirect('/');
-                                }else{
-                                    req.session.stats = JSON.stringify(result);
-                                    res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
-                                }
-                            });
-                    } else {
-                        res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
-                    }
+                    con.query('select classTitleId, classExp from Classes, Accounts where Accounts.accountUser = ? and Accounts.accountId = Classes.accountId;',
+                        [user],function(err, result){
+                            if(err){
+                                console.log('SQL ERROR WHILE RETRIEVING STATS');
+                                console.log(err.code);
+                                req.session.stats=[0,0,0,0,0,0];
+                                res.redirect('/');
+                            }else{
+                                req.session.stats = JSON.stringify(result);
+                                res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
+                            }
+                        });
                 }
             });
     }
@@ -101,22 +97,18 @@ router.get('/login', function(req,res){
                 res.redirect('/');
             }else{
                 projList=result;
-                if(!req.session.stats) {
-                    con.query('select classTitleId, classExp from Classes, Accounts where Accounts.accountUser = ? and Accounts.accountId = Classes.accountId;',
-                            [user],function(err, result){
-                                if(err){
-                                    console.log('SQL ERROR WHILE RETRIEVING STATS');
-                                    console.log(err.code);
-                                    req.session.stats=[0,0,0,0,0,0];
-                                    res.redirect('/');
-                                }else{
-                                    req.session.stats = JSON.stringify(result);
-                                    res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
-                                }
-                            });
-                } else {
-                    res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
-                }
+                con.query('select classTitleId, classExp from Classes, Accounts where Accounts.accountUser = ? and Accounts.accountId = Classes.accountId;',
+                        [user],function(err, result){
+                            if(err){
+                                console.log('SQL ERROR WHILE RETRIEVING STATS');
+                                console.log(err.code);
+                                req.session.stats=[0,0,0,0,0,0];
+                                res.redirect('/');
+                            }else{
+                                req.session.stats = JSON.stringify(result);
+                                res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
+                            }
+                        });
             }   
         });
 	
