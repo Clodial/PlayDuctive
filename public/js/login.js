@@ -4,15 +4,21 @@ $(".user-stats").hide();
 //clicking buttons to show login and registration sections
 $(".showLog").click(function(){
 	if($(".nav-register").is(':visible')){
-		$(".nav-register").slideUp(1000);
+		$(".nav-register").slideToggle(1000, function(){
+			$(".nav-login").slideToggle("slow");
+		});
+	}else{
+		$(".nav-login").toggle("slow");
 	}
-	$(".nav-login").toggle("slow");
 });	
 $(".showReg").click(function(){
 	if($(".nav-login").is(':visible')){
-		$(".nav-login").slideUp(1000);
+		$(".nav-login").slideToggle(1000, function(){
+			$(".nav-register").toggle("slow");
+		});
+	}else{
+		$(".nav-register").toggle("slow");
 	}
-	$(".nav-register").toggle("slow");
 });	
 
 $("#statShow").click(function(){
