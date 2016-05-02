@@ -278,9 +278,11 @@ router.get('/project', function(req,res){
     if(!req.session.user){
         res.redirect('/');
     }else{
-        con.query('select ProjTypes.projTypeName as type, Projects.projName as project from Projects, ProjTypes where Projects.projId = ? and ProjTypes.projTypeId = Projects.projTypeId', 
+        con.query('select ProjTypes.projTypeName as type, Projects.projName as project, Statuses.statusName as statusName from Projects, ProjTypes, Statuses where Projects.projId = ? and ProjTypes.projTypeId = Projects.projTypeId AND Projects.statusId=Statuses.statusId;', 
         [projId],
         function (err, result){
+            projName=result[0].project;
+            projStatus=result[0].statusName;
             if(result[0].type == "Agile"){
                 var status = con.query('SELECT AccountTasks.taskId as taskId, Statuses.statusName as statusName, AccountTasks.taskExp as taskExp, AccountTasks.taskDesc as taskDesc from AccountTasks,Statuses where AccountTasks.projId = ? AND AccountTasks.statusId=Statuses.statusId;',
                         [projId] , 
@@ -309,15 +311,15 @@ router.get('/project', function(req,res){
                             if(result2){
                                 var stStatids = JSON.stringify(result2);
                                 con.query('select classTitleId, classExp from Classes, Accounts where Accounts.accountUser = ? and Accounts.accountId = Classes.accountId;',
-                                    [req.session.user],function(err, result){
+                                    [req.session.user],function(err, result3){
                                         if(err){
                                             console.log('SQL ERROR WHILE RETRIEVING STATS');
                                             console.log(err.code);
                                             req.session.stats=[0,0,0,0,0,0];
-                                            res.render('waterfall',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
+                                            res.render('waterfall',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: projName, projStatus: projStatus});
                                         }else{
-                                            req.session.stats = JSON.stringify(result);
-                                            res.render('waterfall',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
+                                            req.session.stats = JSON.stringify(result3);
+                                            res.render('waterfall',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: projName, projStatus: projStatus});
                                         }
                                     });
                                 

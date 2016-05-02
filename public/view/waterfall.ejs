@@ -10,13 +10,15 @@
 	<% include partials/nav %>
 	<div class="colmask">
 		<div class="header">
-			Waterfall
+			Waterfall <%= projName %> <%= projStatus %>
 		</div>
-		<form action="/projects/completeProject" method="POST">
-			<input type="hidden" name="projId" value="<%= projId %>">
-			<button class="waterfall-project-complete-button" type="submit">Mark Project As Complete</button> 
-			<div class="clearfix"></div>
-		</form>
+		<% if(projStatus!="COMPLETE") {%> 
+			<form action="/projects/completeProject" method="POST">
+				<input type="hidden" name="projId" value="<%= projId %>">
+				<button class="waterfall-project-complete-button" type="submit">Mark Project As Complete</button> 
+				<div class="clearfix"></div>
+			</form>
+		<% }%>
 	</div>
 	<div>
 <% if(statusinfo){ 
@@ -28,18 +30,21 @@
 				<h3><%= task.taskDesc %></h3>
 				<p><%= task.statusName %></p>
 				<p>Task Exp: <%= task.taskExp %></p>
-				<form action="/tasks/completeTask" method="POST">
-					<input type="hidden" name="projId" value="<%= projId %>">
-					<input type="hidden" name="taskId" value="<%= task.taskId %>">
-					<button class="waterfall-task-complete-button" type="submit">Mark As Completed</button> 
-					<div class="clearfix"></div>
-				</form>
+				<% if(task.statusName!="COMPLETE" && projStatus!="COMPLETE") {%> 
+					<form action="/tasks/completeTask" method="POST">
+						<input type="hidden" name="projId" value="<%= projId %>">
+						<input type="hidden" name="taskId" value="<%= task.taskId %>">
+						<button class="waterfall-task-complete-button" type="submit">Mark As Completed</button> 
+						<div class="clearfix"></div>
+					</form>
+				<% }%>
 			</div>
 		</div>
 <% }} %>
 </div>
 <br>
 <div>
+<% if(projStatus!="COMPLETE") {%> 
 	<form id="taskForm" action="/makeTask/posts" method="post">
 	  Class:<br>
 	  <select name="classTitle">
@@ -55,6 +60,7 @@
 	  <input type="text" name="taskDesc"><br>
 	  <button class="waterfall-task-create-button" type="submit">Make Task</button><br>
 	</form>
+<% }%>
 </div>
 <% include partials/bodyScript %>
 </body>

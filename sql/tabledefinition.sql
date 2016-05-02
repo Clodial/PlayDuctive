@@ -189,7 +189,8 @@ BEGIN
 				AND Classes.classTitleId = ClassTitles.classTitleId
 				AND Classes.accountId = Accounts.accountId
 				AND Projects.projId = newProjId
-				AND Statuses.statusName = "INPROGRESS";
+				AND ((Statuses.statusName = "INPROGRESS" AND Projects.projTypeId=(SELECT projTypeId FROM ProjTypes WHERE projTypeName="Waterfall")) 
+					OR (Statuses.statusName="NOT-STARTED" AND Projects.projTypeId=(SELECT projTypeId FROM ProjTypes WHERE projTypeName="Agile"));
 		SET newTaskId=LAST_INSERT_ID();
 	END IF;
 END; //
@@ -248,5 +249,5 @@ DELIMITER ;
 
 
 INSERT INTO ProjTypes(projTypeName) VALUES ("Waterfall"),("Agile");
-INSERT INTO Statuses(statusName) VALUES ("INPROGRESS"),("COMPLETE");
+INSERT INTO Statuses(statusName) VALUES ("NOT-STARTED"),("INPROGRESS"),("COMPLETE");
 INSERT INTO ClassTitles(classTitle) VALUES ("Dungeon Master"),("Warrior"),("Magician"),("Rogue"),("Tinkerer"),("Priest");
