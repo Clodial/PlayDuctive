@@ -309,15 +309,15 @@ router.get('/project', function(req,res){
                             if(result2){
                                 var stStatids = JSON.stringify(result2);
                                 con.query('select classTitleId, classExp from Classes, Accounts where Accounts.accountUser = ? and Accounts.accountId = Classes.accountId;',
-                                    [req.session.user],function(err, result){
+                                    [req.session.user],function(err, result3){
                                         if(err){
                                             console.log('SQL ERROR WHILE RETRIEVING STATS');
                                             console.log(err.code);
                                             req.session.stats=[0,0,0,0,0,0];
-                                            res.render('waterfall',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project, projStatus: result[0].statusName});
+                                            res.render('waterfall',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result2[0].project, projStatus: result2[0].statusName});
                                         }else{
-                                            req.session.stats = JSON.stringify(result);
-                                            res.render('waterfall',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project, projStatus: result[0].statusName});
+                                            req.session.stats = JSON.stringify(result3);
+                                            res.render('waterfall',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result2[0].project, projStatus: result2[0].statusName});
                                         }
                                     });
                                 
