@@ -34,7 +34,7 @@
 		var task = taskList[i] %>
 		<div class="col-md-3 proj-padding-edit">
 			<div class="proj-show"> <!-- replace with waterfall class -->
-				<h3><%= task.taskName %></h3>
+				<h3><%= task.taskDesc %></h3>
 				<p><%= task.statusName %></p>
 				<p>Task Exp: <%= task.taskExp %></p>
 				<form action="/tasks/completeTask" method="GET">

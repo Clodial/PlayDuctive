@@ -275,7 +275,7 @@ router.get('/project', function(req,res){
                     });
                 //res.render('agile', {title: 'PlayDuctive',stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
             }else{
-                var status = con.query('SELECT AccountTasks.taskId as taskId, AccountTasks.taskName as taskName, Statuses.statusName as statusName, AccountTasks.taskExp as taskExp, AccountTasks.taskDesc as taskDesc from AccountTasks,Statuses where AccountTasks.projId = ? AND AccountTasks.statusId=Statuses.statusId;',
+                var status = con.query('SELECT AccountTasks.taskId as taskId, Statuses.statusName as statusName, AccountTasks.taskExp as taskExp, AccountTasks.taskDesc as taskDesc from AccountTasks,Statuses where AccountTasks.projId = ? AND AccountTasks.statusId=Statuses.statusId;',
                         [projId] , 
                     function (err, result2){    
                         if(err){
