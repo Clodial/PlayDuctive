@@ -278,7 +278,7 @@ router.get('/project', function(req,res){
     if(!req.session.user){
         res.redirect('/');
     }else{
-        con.query('select ProjTypes.projTypeName as type, Projects.projName as project from Projects, ProjTypes where Projects.projId = ? and ProjTypes.projTypeId = Projects.projTypeId', 
+        con.query('select ProjTypes.projTypeName as type, Projects.projName as project, Statuses.statusName as statusName from Projects, ProjTypes, Statuses where Projects.projId = ? and ProjTypes.projTypeId = Projects.projTypeId AND Projects.statusId=Statuses.statusId;', 
         [projId],
         function (err, result){
             if(result[0].type == "Agile"){
@@ -314,10 +314,10 @@ router.get('/project', function(req,res){
                                             console.log('SQL ERROR WHILE RETRIEVING STATS');
                                             console.log(err.code);
                                             req.session.stats=[0,0,0,0,0,0];
-                                            res.render('waterfall',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
+                                            res.render('waterfall',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project, projStatus: result[0].statusName});
                                         }else{
                                             req.session.stats = JSON.stringify(result);
-                                            res.render('waterfall',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
+                                            res.render('waterfall',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project, projStatus: result[0].statusName});
                                         }
                                     });
                                 
