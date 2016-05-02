@@ -88,17 +88,15 @@ form{
 *****/
 .logoIndexBody{
 	width: 100%;
-	padding-top: 100px;
+	padding-top: 25px;
 	padding-bottom: 100px;
 }
-.logoIndexImg{
-	margin: 0 auto;
-}
 .logoIndexBody img{
+	display: block;
 	margin: 0 auto;
 }
 .logoIndexTxt{
-	padding-top: 100px;
+	padding-top: 25px;
 	width: 500px;
 	margin: 0 auto;
 }
