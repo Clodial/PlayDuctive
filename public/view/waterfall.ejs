@@ -29,6 +29,23 @@
 		</div>
 	</div>
 <% include partials/bodyScript %>
+<% if(proj){ 
+	var taskList = eval(stStatids)
+	for(var i = 0; i < taskList.length; i++){ 
+		var task = taskList[i] %>
+		<div class="col-md-3 proj-padding-edit">
+			<div class="proj-show"> <!-- replace with waterfall class -->
+				<h3><%= task.name %></h3>
+				<p><%= task.status %></p>
+				<form action="/tasks/completeTask" method="GET">
+					<input type="hidden" name="projectId" value="<%= projId %>">
+					<input type="hidden" name="taskId" value="<%= taskId %>">
+					<button class="proj-view-button" type="submit">Completed</button> 
+					<div class="clearfix"></div>
+				</form>
+			</div>
+		</div>
+<% } %>
 <form action="/makeTask" method="get">
 	<input type="hidden" name="projId" value="<%= projId %>">
 	<button class="col-md-12 col-lg-12 make-project" type="submit">Make Task</button>

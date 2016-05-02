@@ -275,7 +275,7 @@ router.get('/project', function(req,res){
                     });
                 //res.render('agile', {title: 'PlayDuctive',stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
             }else{
-                var status = con.query('SELECT AccountTasks.statusId as statid, AccountTasks.taskExp as exp, AccountTasks.taskDesc as description from AccountTasks where AccountTasks.projId = ?',
+                var status = con.query('SELECT AccountTasks.taskId as taskId, AccountTasks.statusId as statid, AccountTasks.taskExp as exp, AccountTasks.taskDesc as description from AccountTasks where AccountTasks.projId = ?',
                         [projId] , 
                     function (err, result2){    
                         if(err){
@@ -319,9 +319,7 @@ router.get('/makeTask', function(req,res){
                     }
 					//alan's agile status query work in progress
                     //console.log(userList);
-                    //res.render('makeTask',{title: 'PlayDuctive', users: userList, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project})
-                    //redirect to project screen instead
-                    res.redirect('/makeTask?projectId='+projId)
+                    res.render('makeTask',{title: 'PlayDuctive', users: userList, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project})
                 }else{
                     //there has to be an account user
                     console.log(err);
@@ -363,7 +361,7 @@ router.post('/makeTask/posts', function (req, res) {
 					});
 			}
 		});
-        res.redirect('/makeTask?projId='+projId);
+        res.redirect('/project?projectId='+projId);
     }
 });
 
