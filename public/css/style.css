@@ -124,6 +124,9 @@ form{
 	margin-right: 50px;
 	margin-left: 50px;
 }
+.innerIndexBody img{
+	height: 300px;
+}
 /*****
 *	
 *	Body stuff
