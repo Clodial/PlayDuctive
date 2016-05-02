@@ -109,7 +109,11 @@ form{
 }
 .sectPurp{
 	color: white;
-	background-color: #4C7FCC;
+	background-color: #814c9e;
+}
+.sectPurp{
+	color: #814c9e;
+	background-color: white;
 }
 /*****
 *	
@@ -118,8 +122,7 @@ form{
 *****/
 .bodyDiv{
 	margin-top:75px;
-	margin-left:30px;
-	margin-right:30px;
+	
 }
 /*****
 *
