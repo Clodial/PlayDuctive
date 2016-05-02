@@ -4,30 +4,30 @@ $(".user-stats").hide();
 //clicking buttons to show login and registration sections
 $(".showLog").click(function(){
 	if($(".nav-register").is(':visible')){
-		$(".nav-register").slideUp();
+		$(".nav-register").slideUp(100);
 	}
 	if($(".nav-login").is(':visible')){
-		$(".nav-login").slideUp();
+		$(".nav-login").slideUp(100);
 	}else{
-		$(".nav-login").slideDown();
+		$(".nav-login").slideDown(100);
 	}
 });	
 $(".showReg").click(function(){
 	if($(".nav-login").is(':visible')){
-		$(".nav-login").slideUp();
+		$(".nav-login").slideUp(100);
 	}
 	if($(".nav-register").is(':visible')){
-		$(".nav-register").slideUp();
+		$(".nav-register").slideUp(100);
 	}else{
-		$(".nav-register").slideDown();
+		$(".nav-register").slideDown(100);
 	}
 });	
 
 $("#statShow").click(function(){
 	if($(".user-stats").is(':visible')){
-		$(".user-stats").slideUp();
+		$(".user-stats").slideUp(100);
 	}else{
-		$(".user-stats").slideDown();
+		$(".user-stats").slideDown(100);
 	}
 });
 
