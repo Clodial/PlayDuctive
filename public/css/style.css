@@ -28,7 +28,6 @@ form{
 	width:			100%;
 	min-height: 	75px;
 	background-color: #555;
-	position: static;
 }
 .clearfix{
 	clear:both;
@@ -87,7 +86,7 @@ form{
 *
 *****/
 .bodyDiv{
-	margin-top:125px;
+	margin-top:75px;
 	margin-left:30px;
 	margin-right:30px;
 }
