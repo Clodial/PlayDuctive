@@ -1,0 +1,28 @@
+<html>
+<head>
+    <% include partials/head %>
+    <title><%= title %></title>
+</head>
+<body>
+	<% include partials/nav %>
+	<div class="user-welcome">
+    <h1 id="logged-welcome">Editing User Information for: <%= user %></h1>
+	</div>
+	<form action="/accountDetail" method="post">
+		<label>Current Password:</label><br>
+		<input id="accountPass" class="log-input" type="text" name="edit-curpass" required></br>
+		<label>New Email:</label><br>
+		<input type="email" class="log-input" name="new-email" required></br>
+		<label>New Password</label><br>
+		<input id="reg-pass" class="log-input" type="password" name="pass" onkeyup="passCheck()" required></br>
+		<label>Repeat Password</label><br>
+		<input id="reg-pass2" class="log-input" type="password" name="pass2" onkeyup="passCheck()" required></br>
+		<span id="pass-check"></span></br>
+		<span id="user-check"></span></br>
+		<button class="sign-button" id="editacc-button" type="submit" >Edit Account Details</button>
+		<div class="clearfix"></div>
+	</form>
+
+    <% include partials/bodyScript %>
+</body>
+</html>
