@@ -257,7 +257,7 @@ router.get('/project', function(req,res){
         con.query('select ProjTypes.projTypeName as type, Projects.projName as project from Projects, ProjTypes where Projects.projId = ? and ProjTypes.projTypeId = Projects.projTypeId', 
         [projId],
         function (err, result){
-            if(result[0].type = "Agile"){
+            if(result[0].type == "Agile"){
                 var status = con.query('SELECT AccountTasks.statusId as statid, AccountTasks.taskExp as exp, AccountTasks.taskDesc as description from AccountTasks where AccountTasks.projId = ?',
                         [projId] , 
                     function (err, result2){    
@@ -275,7 +275,21 @@ router.get('/project', function(req,res){
                     });
                 //res.render('agile', {title: 'PlayDuctive',stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
             }else{
-                res.send("waterfall");
+                var status = con.query('SELECT AccountTasks.statusId as statid, AccountTasks.taskExp as exp, AccountTasks.taskDesc as description from AccountTasks where AccountTasks.projId = ?',
+                        [projId] , 
+                    function (err, result2){    
+                        if(err){
+                            console.log(err);
+                            res.redirect('/');
+                        } else {
+                            if(result2){
+                                var stStatids = JSON.stringify(result2);
+                                res.render('waterfall',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
+                            }else{
+                                res.redirect('/');
+                            }
+                        }
+                    });
             }
         });
     }
