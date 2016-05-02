@@ -10,7 +10,7 @@
 	<% include partials/nav %>
 	<div class="colmask">
 		<div class="header">
-			Waterfall <% projName %> <% projStatus %>
+			Waterfall <%= projName %> <%= projStatus %>
 		</div>
 		<% if(projStatus!="COMPLETE") {%> 
 			<form action="/projects/completeProject" method="POST">
