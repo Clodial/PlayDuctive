@@ -290,7 +290,7 @@ router.get('/project', function(req,res){
         [projId],
         function (err, result){
             if(result[0].type == "Agile"){
-                var status = con.query('SELECT AccountTasks.statusId as statid, AccountTasks.taskExp as exp, AccountTasks.taskDesc as description from AccountTasks where AccountTasks.projId = ?',
+                var status = con.query('SELECT AccountTasks.taskId as taskId, Statuses.statusName as statusName, AccountTasks.taskExp as taskExp, AccountTasks.taskDesc as taskDesc from AccountTasks,Statuses where AccountTasks.projId = ? AND AccountTasks.statusId=Statuses.statusId;',
                         [projId] , 
                     function (err, result2){    
                         if(err){
