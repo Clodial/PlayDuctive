@@ -7,13 +7,10 @@ $(function(){
             dataType: "json",
             data: JSON.stringify({
                 "accountName": "AlanJ6",
-                "accountPass": "lollmao",
-                "taskId": $("[name=taskID]").val(),
-                "classId": $("[name=classID]").val(),
-				"projId": $("[name=projId]").val(),
-                "statusId": $("[name=statusin]").val(),
+                "accountPass": "lollmao01",
+                "classId": $("[name=class]").val(),
 				"taskExp": $("[name=taskexp]").val(),
-				"taskDesc": $("[name=taskDesc]").val()
+				"taskDesc": $("[name=taskDescrip]").val()
             }),
             contentType: "application/json",
             mimeType: "application/json",

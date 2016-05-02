@@ -13,39 +13,60 @@
 			Agile
 		</div>
 		<div class="colmid">
+		<% if(statusinfo){ 
+			var taskList = eval(statusinfo)
+			for(var i = 0; i < taskList.length; i++){ 
+				var task = taskList[i] %>
 			<div class="colin">
 				<div class="colleft">
-					<div class="col1">
-						Information
-					</div>
 					<div class="col2">
 						<table>
-						   <tr>
-								<th>To-Do</th>
-						   </tr>
-						   <%  if(statusinfo) { 
-						   		%>
 							<tr>
-								<td><%= statusinfo %></td>
+								<th>In Progress</th>
+							</tr>
+							<tr>
+								<td><h3><%= task.taskDesc %></h3></td>
+							</tr>
+							<tr>
+								<td><p><%= task.statusName %></p></td>
+							</tr>
+							<tr>
+								<td><p>Task Exp: <%= task.taskExp %></p>
+								<form action="/tasks/completeTask" method="POST">
+									<input type="hidden" name="projId" value="<%= projId %>">
+									<input type="hidden" name="taskId" value="<%= task.taskId %>">
+									<button class="waterfall-task-complete-button" type="submit">Mark As Completed</button> 
+									<div class="clearfix"></div>
+								</form>
+								</td>
 							</tr>    
-						   <% } %>
 						</table>
 					</div>
 					<div class="col3">
-						In-Progress
-					</div>
-					<div class="col4">
 						Complete
 					</div>
 				</div>
 			</div>
+			<% }} %>
 		</div>
 	</div>
-	<% include partials/bodyScript %>
-	<form action="/makeTask" method="get">
-		<input type="hidden" name="projId" value="<%= projId %>">
-		<button class="col-md-12 col-lg-12 make-project" type="submit">Make Task</button>
-	</form>
+	<div>
+		<form id="taskForm" action="/makeTask/posts" method="post">
+		  Class:<br>
+		  <select name="classTitle">
+			  <option value="Warrior">Warrior</option>
+			  <option value="Magician">Magician</option>
+			  <option value="Rogue">Rogue</option>
+			  <option value="Tinkerer">Tinkerer</option>
+			  <option value="Priest">Priest</option>
+		  </select><br>
+		  Task Reward(Min:10 Exp | Max:100 Exp):<br>
+		  <input type="number" name="taskExp" min="10" max="100"><br>
+		  Task Description:<br>
+		  <input type="text" name="taskDesc"><br>
+		  <button class="col-md-12 col-lg-12 make-project" type="submit">Make Task</button><br>
+		</form>
+	</div>
 	<% include partials/bodyScript %>
 </body>
 </html>

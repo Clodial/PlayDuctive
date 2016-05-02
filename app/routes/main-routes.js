@@ -26,9 +26,20 @@ router.get('/', function(req,res){
                 } else{
                     var projList = [];
                     if(result) {
-                        projList = result
+                        projList = result;
                     }
-                    res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
+                    con.query('select classTitleId, classExp from Classes, Accounts where Accounts.accountUser = ? and Accounts.accountId = Classes.accountId;',
+                        [req.session.user],function(err, result){
+                            if(err){
+                                console.log('SQL ERROR WHILE RETRIEVING STATS');
+                                console.log(err.code);
+                                req.session.stats=[0,0,0,0,0,0];
+                                res.redirect('/');
+                            }else{
+                                req.session.stats = JSON.stringify(result);
+                                res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
+                            }
+                        });
                 }
             });
     }
@@ -61,10 +72,10 @@ router.get('/logCheck', function(req,res){
                         //res.redirect('/');
                         //res.render('login', { title: 'PlayDuctive', proj: null, user: req.session.user});
                     }else{
-                        console.log('ERROR: NO CLASSES FOUND')
-                        console.log(req.session.user);
+                        console.log('LOGCHECK: USER NOT FOUND')
+                        //console.log(req.session.user);
                         //res.redirect('/');
-                        res.render('index', { title: 'PlayDuctive', proj: null, user: req.session.user});
+                        res.render('index', { title: 'PlayDuctive', proj: null, user: null});
                     }
                 }
 
@@ -77,7 +88,7 @@ router.get('/logCheck', function(req,res){
 
 //Login routes
 router.get('/login', function(req,res){
-    console.log(req.session.user);
+    //console.log(req.session.user);
     con.query('select Projects.projId as id, Projects.projName as name, Statuses.statusName as status from Projects, Statuses, Accounts, AccountProjects  where Accounts.accountUser = ? and AccountProjects.accountId = Accounts.accountId  and AccountProjects.projId = Projects.projId and Projects.statusId = Statuses.statusId;'
         , [req.session.user], function(err, result){
             if(err){
@@ -86,9 +97,21 @@ router.get('/login', function(req,res){
                 res.redirect('/');
             }else{
                 projList=result;
+                con.query('select classTitleId, classExp from Classes, Accounts where Accounts.accountUser = ? and Accounts.accountId = Classes.accountId;',
+                    [req.session.user],function(err, result){
+                        if(err){
+                            console.log('SQL ERROR WHILE RETRIEVING STATS');
+                            console.log(err.code);
+                            req.session.stats=[0,0,0,0,0,0];
+                            res.redirect('/');
+                        }else{
+                            req.session.stats = JSON.stringify(result);
+                            res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
+                        }
+                    });
             }   
         });
-	res.render('login', { title: 'PlayDuctive', proj: projList, stats: req.session.stats, user: req.session.user});
+	
 });
 
 //Login functionality
@@ -155,7 +178,7 @@ router.get('/makeProject', function (req, res) {
 router.post('/makeProject/posts', function (req, res) {
     var accountName = req.session.user;
     var projType = req.body.projType;
-    //var status = req.body.status; //default to NOT-STARTED
+    //var status = req.body.status; //default to INPROGRESS
     var projName = req.body.projName;
     var projDesc = req.body.projDesc;
     var userList = req.body["addedUsers[]"];
@@ -173,7 +196,7 @@ router.post('/makeProject/posts', function (req, res) {
         res.redirect('/');
     } else{
         var status = con.query('CALL createProject(?,?,?,?,?,@newProjId);', 
-            [projType, "NOT-STARTED", projName, projDesc, accountName],
+            [projType, "INPROGRESS", projName, projDesc, accountName],
             function(err, result){
                 if(err){console.log("SQL ERROR WHILE CREATING PROJECT");console.log(err.code);
                 } else{
@@ -251,14 +274,17 @@ router.post('/makeProject/search_users', function (req, res) {
 //Project stuff
 router.get('/project', function(req,res){
     var projId = req.query.projectId;
+    req.session.projId=projId;
     if(!req.session.user){
         res.redirect('/');
     }else{
-        con.query('select ProjTypes.projTypeName as type, Projects.projName as project from Projects, ProjTypes where Projects.projId = ? and ProjTypes.projTypeId = Projects.projTypeId', 
+        con.query('select ProjTypes.projTypeName as type, Projects.projName as project, Statuses.statusName as statusName from Projects, ProjTypes, Statuses where Projects.projId = ? and ProjTypes.projTypeId = Projects.projTypeId AND Projects.statusId=Statuses.statusId;', 
         [projId],
         function (err, result){
-            if(result[0].type = "Agile"){
-                var status = con.query('SELECT AccountTasks.statusId as statid, AccountTasks.taskExp as exp, AccountTasks.taskDesc as description from AccountTasks where AccountTasks.projId = ?',
+            projName=result[0].project;
+            projStatus=result[0].statusName;
+            if(result[0].type == "Agile"){
+                var status = con.query('SELECT AccountTasks.taskId as taskId, Statuses.statusName as statusName, AccountTasks.taskExp as taskExp, AccountTasks.taskDesc as taskDesc from AccountTasks,Statuses where AccountTasks.projId = ? AND AccountTasks.statusId=Statuses.statusId;',
                         [projId] , 
                     function (err, result2){    
                         if(err){
@@ -275,22 +301,50 @@ router.get('/project', function(req,res){
                     });
                 //res.render('agile', {title: 'PlayDuctive',stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
             }else{
-                res.send("waterfall");
+                var status = con.query('SELECT AccountTasks.taskId as taskId, Statuses.statusName as statusName, AccountTasks.taskExp as taskExp, AccountTasks.taskDesc as taskDesc from AccountTasks,Statuses where AccountTasks.projId = ? AND AccountTasks.statusId=Statuses.statusId;',
+                        [projId] , 
+                    function (err, result2){    
+                        if(err){
+                            console.log(err);
+                            res.redirect('/');
+                        } else {
+                            if(result2){
+                                var stStatids = JSON.stringify(result2);
+                                con.query('select classTitleId, classExp from Classes, Accounts where Accounts.accountUser = ? and Accounts.accountId = Classes.accountId;',
+                                    [req.session.user],function(err, result3){
+                                        if(err){
+                                            console.log('SQL ERROR WHILE RETRIEVING STATS');
+                                            console.log(err.code);
+                                            req.session.stats=[0,0,0,0,0,0];
+                                            res.render('waterfall',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: projName, projStatus: projStatus});
+                                        }else{
+                                            req.session.stats = JSON.stringify(result3);
+                                            res.render('waterfall',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: projName, projStatus: projStatus});
+                                        }
+                                    });
+                                
+                            }else{
+                                res.redirect('/');
+                            }
+                        }
+                    });
             }
         });
     }
 });
 
+//Task Creation and Management
 router.get('/makeTask', function(req,res){
     var projId = req.query.projId;
-    console.log(projId);
+    req.session.projId=projId;
+    //console.log(projId);
     if(!req.session.user){
         redirect('/');
     }else{
         con.query('select Accounts.accountUser as name, Projects.projName as project from AccountProjects, Accounts, Projects where Projects.projId = ? and AccountProjects.projId = ? and Accounts.accountId = AccountProjects.accountId',
             [projId, projId], 
             function(err, result){
-                console.log(result[0]);
+                //console.log(result[0]);
                 if(err){
                     res.redirect('/');
                 }
@@ -298,11 +352,11 @@ router.get('/makeTask', function(req,res){
                     var userList = [];
                     var projName = result[0].project;
                     for(var i = 0; i < result.length; i++){
-                        console.log(result[i].name);
+                        //console.log(result[i].name);
                         userList.push(result[i].name);
                     }
 					//alan's agile status query work in progress
-                    console.log(userList);
+                    //console.log(userList);
                     res.render('makeTask',{title: 'PlayDuctive', users: userList, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project})
                 }else{
                     //there has to be an account user
@@ -310,6 +364,89 @@ router.get('/makeTask', function(req,res){
                     res.redirect('/');
                 }
             });
+    }
+});
+
+router.post('/makeTask/posts', function (req, res) {
+	var projId = req.session.projId;
+    var accountName = req.session.user;
+    var classTitle = req.body.classTitle;
+    var taskExp = req.body.taskExp;
+    var taskDesc = req.body.taskDesc;
+
+    //insert validation of values here(types, length requirement, etc.)
+    if(!accountName){
+        console.log(req.session.user);
+        console.log(accountName);
+        res.redirect('/');
+    }else{
+        console.log([accountName, classTitle, taskDesc, taskExp, projId])
+		var makingTask = con.query('CALL createTask2(?,?,?,?,?,@newTaskId);', 
+		[accountName, classTitle, taskDesc, taskExp, projId],
+        function(err, result){
+			if(err){
+				console.log(err);
+			}else{
+				con.query('SELECT @newTaskId AS newTaskId;',
+					function(err, result){
+						if(err){
+							console.log("SQL ERROR RETRIEVING NEW PROJECT ID");
+							console.log(err.code);
+						}else{
+                            console.log("NEW TASK ID")
+							console.log(result[0].newTaskId);
+						}
+					});
+			}
+		});
+        res.redirect('/project?projectId='+projId);
+    }
+});
+
+router.post('/tasks/completeTask', function (req, res) {
+    var projId = req.body.projId;
+    var taskId = req.body.taskId;
+    var accountName = req.session.user;
+
+    //insert validation of values here(types, length requirement, etc.)
+    if(!accountName){
+        console.log(req.session.user);
+        console.log(accountName);
+        res.redirect('/');
+    }else{
+        con.query('CALL completeTask(?);', 
+        [taskId],
+        function(err, result){
+            if(err){
+                console.log(err);
+                res.redirect('/project?projectId='+projId);
+            }else{
+                res.redirect('/project?projectId='+projId);
+            }
+        });
+    }
+});
+
+router.post('/projects/completeProject', function (req, res) {
+    var projId = req.body.projId;
+    var accountName = req.session.user;
+
+    //insert validation of values here(types, length requirement, etc.)
+    if(!accountName){
+        console.log(req.session.user);
+        console.log(accountName);
+        res.redirect('/');
+    }else{
+        con.query('CALL completeProject(?);', 
+        [projId],
+        function(err, result){
+            if(err){
+                console.log(err);
+                res.redirect('/');
+            }else{
+                res.redirect('/');
+            }
+        });
     }
 });
 

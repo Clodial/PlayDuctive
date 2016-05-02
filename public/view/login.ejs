@@ -12,7 +12,6 @@
 	</div>
 	<div class="body-part">
 	<% if(proj){ 
-		console.log(proj)
 		var chProj = eval(proj)
 		for(var i = 0; i < chProj.length; i++){ 
 			var piece = chProj[i] %>
@@ -32,7 +31,7 @@
 		Oh no!
 	<% } %>
 	<form action="/makeProject" method="get">
-		<button class="col-md-12 col-lg-12 make-project" type="submit">Make Project</button>
+		<button class="col-md-12 col-lg-12 make-project" type="submit">Make a Project</button>
 	</form>
 	<!--<form id="emailForm" action="/email/test" method="post">
       Send To:<br>
