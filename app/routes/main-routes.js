@@ -432,7 +432,7 @@ router.post('/projects/completeProject', function (req, res) {
         res.redirect('/');
     }else{
         con.query('CALL completeProject(?);', 
-        [taskId],
+        [projId],
         function(err, result){
             if(err){
                 console.log(err);
