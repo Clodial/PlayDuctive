@@ -44,6 +44,7 @@
 </div>
 <br>
 <div>
+<% if(projStatus!="COMPLETE") {%> 
 	<form id="taskForm" action="/makeTask/posts" method="post">
 	  Class:<br>
 	  <select name="classTitle">
@@ -59,6 +60,7 @@
 	  <input type="text" name="taskDesc"><br>
 	  <button class="waterfall-task-create-button" type="submit">Make Task</button><br>
 	</form>
+<% }%>
 </div>
 <% include partials/bodyScript %>
 </body>
