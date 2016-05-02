@@ -13,6 +13,7 @@
 			Waterfall
 		</div>
 	</div>
+	<div>
 <% if(statusinfo){ 
 	var taskList = eval(statusinfo)
 	for(var i = 0; i < taskList.length; i++){ 
@@ -31,6 +32,7 @@
 			</div>
 		</div>
 <% }} %>
+</div>
 <form id="taskForm" action="/makeTask/posts" method="post">
   Class:<br>
   <select name="classTitle">
