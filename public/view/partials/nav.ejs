@@ -43,7 +43,15 @@
 			</form>
 		</div>
 	</div>
-<% }else { //logged in%>
+<% }else { 
+
+	var pmLvl = 100 % clStat[0].classExp;
+	var warLvl = 100 % clStat[1].classExp;
+	var magLvl = 100 % clStat[2].classExp;
+	var rogLvl = 100 % clStat[3].classExp;
+	var tinkLvl = 100 % clStat[4].classExp;
+	var prLvl = 100 % clStat[5].classExp; 
+	//logged in%>
 	<div class="navbar-main nav-log-true">
 		<div class="logo-button button-check">
 			<form class="logo-piece logo-main" action="/" method="get">
@@ -64,61 +72,37 @@
 			<div class="col-md-2 col-lg-2 stat-spot">
 				<div class="spacingTool"></div>
 				<p>Dungeon Master</p>
-				<p>Level: <%= if(100 % clStat[5].classExp >= 0){
-				100 % clStat[5].classExp
-				}else{
-				0
-				} %>
+				<p>Level: <%= pmLvl%>
 				<p>Total EXP: <%= 100 % clStat[0].classExp %></p>
 			</div>
 			<div class="col-md-2 col-lg-2 stat-spot">
 				<div class="spacingTool"></div>
 				<p>Warrior</p>
-				<p>Level: <%= if(100 % clStat[5].classExp >= 0){
-				100 % clStat[5].classExp
-				}else{
-				0
-				} %>
+				<p>Level: <%= warLvl %>
 				<p>Total EXP: <%= 100 % clStat[1].classExp %></p>
 			</div>
 			<div class="col-md-2 col-lg-2 stat-spot">
 				<div class="spacingTool"></div>
 				<p>Magician</p>
-				<p>Level: <%= if(100 % clStat[5].classExp >= 0){
-				100 % clStat[5].classExp
-				}else{
-				0
-				} %>
+				<p>Level: <%= magLvl %>
 				<p>Total EXP: <%= 100 % clStat[2].classExp %></p>
 			</div>
 			<div class="col-md-2 col-lg-2 stat-spot">
 				<div class="spacingTool"></div>
 				<p>Rogue</p>
-				<p>Level: <%= if(100 % clStat[5].classExp >= 0){
-				100 % clStat[5].classExp
-				}else{
-				0
-				} %>
+				<p>Level: <%= rogLvl %>
 				<p>Total EXP: <%= 100 % clStat[3].classExp %></p>
 			</div>
 			<div class="col-md-2 col-lg-2 stat-spot">
 				<div class="spacingTool"></div>
 				<p>Tinkerer</p>
-				<p>Level: <%= if(100 % clStat[5].classExp >= 0){
-				100 % clStat[5].classExp
-				}else{
-				0
-				} %>
+				<p>Level: <%= tinkLvl %>
 				<p>Total EXP: <%= 100 % clStat[4].classExp %></p>
 			</div>
 			<div class="col-md-2 col-lg-2 stat-spot">
 				<div class="spacingTool"></div>
 				<p>Priest</p>
-				<p>Level: <%= if(100 % clStat[5].classExp >= 0){
-				100 % clStat[5].classExp
-				}else{
-				0
-				} %>
+				<p>Level: <%= prLvl %>
 				<p>Total EXP: <%= clStat[5].classExp %></p>
 			</div>
 		</div>
