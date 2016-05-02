@@ -86,13 +86,21 @@ form{
 *	Index
 *
 *****/
+.logoIndexBody{
+	width: 100%;
+	padding-top: 100px;
+	padding-bottom: 100px;
+}
 .logoIndexImg{
 	margin: 0 auto;
-	margin-top: 300px;
-	margin-bottom: 100px;
 }
 .logoIndexTxt{
 	margin: 0 auto;
+}
+.sectIndexBody{
+	width: 100%;
+	padding-top: 50px;
+	padding-bottom: 50px;
 }
 /*****
 *	
