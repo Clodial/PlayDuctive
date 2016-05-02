@@ -229,7 +229,9 @@ IN completedTaskId INT)
 BEGIN
 	IF EXISTS(SELECT * FROM AccountTasks WHERE taskId=completedTaskId AND statusId!=(SELECT statusId FROM Statuses WHERE statusName="COMPLETE")) THEN
 		UPDATE AccountTasks SET statusId=(SELECT statusId FROM Statuses WHERE statusName="COMPLETE") WHERE taskId=completedTaskId;
-		UPDATE Classes SET classExp=classExp+(SELECT taskExp FROM AccountTasks WHERE taskId=completedTaskId) WHERE classId=(SELECT classId FROM AccountTasks WHERE taskId=completedTaskId);
+		SET @completedClassTitleId := (SELECT classTitleId FROM Classes WHERE classId=(SELECT classId FROM AccountTasks WHERE taskId=completedTaskId));
+		UPDATE Classes SET classExp=classExp+(SELECT taskExp FROM AccountTasks WHERE taskId=completedTaskId) WHERE classTitleId=@completedClassTitleId
+			AND accountId=ANY(SELECT accountId FROM AccountProjects WHERE projId=(SELECT projId FROM AccountTasks WHERE taskId=completedTaskId));
 	END IF;
 END; //
 
@@ -238,7 +240,7 @@ IN completedProjId INT)
 BEGIN
 	IF EXISTS(SELECT * FROM Projects WHERE projId=completedProjId AND statusId!=(SELECT statusId FROM Statuses WHERE statusName="COMPLETE")) THEN
 		UPDATE Projects SET statusId=(SELECT statusId FROM Statuses WHERE statusName="COMPLETE") WHERE projId=completedProjId;
-		UPDATE Classes SET classExp=classExp+(SELECT taskExp FROM AccountTasks WHERE taskId=completedTaskId) WHERE 
+		UPDATE Classes SET classExp=classExp+20 WHERE 
 			accountId=(SELECT creatorId FROM Projects WHERE projId=completedProjId) AND classTitleId=(SELECT classTitleId FROM ClassTitles WHERE classTitle="Dungeon Master");
 	END IF;
 END; //
