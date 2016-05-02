@@ -94,8 +94,12 @@ form{
 .logoIndexImg{
 	margin: 0 auto;
 }
+.logoIndexBody img{
+	margin: 0 auto;
+}
 .logoIndexTxt{
-	width: 300px;
+	padding-top: 100px;
+	width: 500px;
 	margin: 0 auto;
 }
 .sectIndexBody{
