@@ -19,27 +19,25 @@
 				var task = taskList[i] %>
 			<div class="colin">
 				<div class="colleft">
-					<div class="col1">
-						Not Started
-						<div class="waterfall-task">
-						<h3><%= task.taskDesc %></h3>
-						<p><%= task.statusName %></p>
-						<p>Task Exp: <%= task.taskExp %></p>
-						<form action="/tasks/completeTask" method="POST">
-							<input type="hidden" name="projId" value="<%= projId %>">
-							<input type="hidden" name="taskId" value="<%= task.taskId %>">
-							<button class="waterfall-task-complete-button" type="submit">Mark As Completed</button> 
-							<div class="clearfix"></div>
-						</form>
-						</div>
-					</div>
 					<div class="col2">
 						<table>
 						   <tr>
 								<th>In Progress</th>
 						   </tr>
 							<tr>
-								<td>TESTING</td>
+								<td>						
+								<div class="waterfall-task">
+								<h3><%= task.taskDesc %></h3>
+								<p><%= task.statusName %></p>
+								<p>Task Exp: <%= task.taskExp %></p>
+								<form action="/tasks/completeTask" method="POST">
+									<input type="hidden" name="projId" value="<%= projId %>">
+									<input type="hidden" name="taskId" value="<%= task.taskId %>">
+									<button class="waterfall-task-complete-button" type="submit">Mark As Completed</button> 
+									<div class="clearfix"></div>
+								</form>
+								</div>
+								</td>
 							</tr>    
 						</table>
 					</div>
