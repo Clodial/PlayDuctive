@@ -282,6 +282,7 @@ router.post('/makeProject/search_users', function (req, res) {
 //Project stuff
 router.get('/project', function(req,res){
     var projId = req.query.projectId;
+    req.session.projId=projId;
     if(!req.session.user){
         res.redirect('/');
     }else{
