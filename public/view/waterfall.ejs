@@ -12,35 +12,20 @@
 		<div class="header">
 			Waterfall
 		</div>
-		<div class="colin">
-			<div class="colleft">
-				<div class="col1">
-					Complete
-				</div>
-				<table>
-					   <%  if(statusinfo) { 
-							%>
-						<tr>
-							<td><%= statusinfo %></td>
-						</tr>    
-					   <% } %>
-				</table>
-			</div>
-		</div>
 	</div>
 <% if(statusinfo){ 
 	var taskList = eval(statusinfo)
 	for(var i = 0; i < taskList.length; i++){ 
 		var task = taskList[i] %>
 		<div class="col-md-3 proj-padding-edit">
-			<div class="proj-show"> <!-- replace with waterfall class -->
+			<div class="waterfall-task"> <!-- replace with waterfall class -->
 				<h3><%= task.taskDesc %></h3>
 				<p><%= task.statusName %></p>
 				<p>Task Exp: <%= task.taskExp %></p>
 				<form action="/tasks/completeTask" method="GET">
 					<input type="hidden" name="projectId" value="<%= projId %>">
 					<input type="hidden" name="taskId" value="<%= task.taskId %>">
-					<button class="proj-view-button" type="submit">Completed</button> 
+					<button class="waterfall-task-complete-button" type="submit">Completed</button> 
 					<div class="clearfix"></div>
 				</form>
 			</div>
