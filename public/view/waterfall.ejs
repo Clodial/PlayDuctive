@@ -29,7 +29,7 @@
 		</div>
 	</div>
 <% include partials/bodyScript %>
-<% if(proj){ 
+<% if(stStatids){ 
 	var taskList = eval(stStatids)
 	for(var i = 0; i < taskList.length; i++){ 
 		var task = taskList[i] %>
@@ -39,7 +39,7 @@
 				<p><%= task.status %></p>
 				<form action="/tasks/completeTask" method="GET">
 					<input type="hidden" name="projectId" value="<%= projId %>">
-					<input type="hidden" name="taskId" value="<%= taskId %>">
+					<input type="hidden" name="taskId" value="<%= task.taskId %>">
 					<button class="proj-view-button" type="submit">Completed</button> 
 					<div class="clearfix"></div>
 				</form>
