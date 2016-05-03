@@ -44,14 +44,15 @@
 		</div>
 	</div>
 <% }else { 
+	/*
 	var pmLvl = Math.floor(clStat[0].classExp / 100);
 	var warLvl = Math.floor(clStat[1].classExp / 100);
 	var magLvl = Math.floor(clStat[2].classExp / 100);
 	var rogLvl = Math.floor(clStat[3].classExp / 100);
 	var tinkLvl = Math.floor(clStat[4].classExp / 100);
 	var prLvl = Math.floor(clStat[5].classExp / 100);
-	//var prLvl = 100 % clStat[5].classExp || 0; 
-	//logged in%>
+	/*
+	//logged in %>
 	<div class="navbar-main nav-log-true">
 
 		<div class="logo-button button-check">
@@ -106,7 +107,7 @@
 			<div class="col-md-2 col-lg-2 stat-spot">
 				<div class="spacingTool"></div>
 				<p>Dungeon Master</p>
-				<p>Level: <%= pmLvl %>
+				<p>Level: <%= Math.floor(clStat[0].classExp / 100) %>
 				<p>Total EXP: <%= clStat[0].classExp %></p>
 			</div>
 			<div class="col-md-2 col-lg-2 stat-spot">
@@ -118,25 +119,25 @@
 			<div class="col-md-2 col-lg-2 stat-spot">
 				<div class="spacingTool"></div>
 				<p>Magician</p>
-				<p>Level: <%= magLvl %>
+				<p>Level: <%= Math.floor(clStat[1].classExp / 100) %>
 				<p>Total EXP: <%= clStat[2].classExp %></p>
 			</div>
 			<div class="col-md-2 col-lg-2 stat-spot">
 				<div class="spacingTool"></div>
-				<p>Rogue</p>
-				<p>Level: <%= rogLvl %>
+				<p>Merchant</p>
+				<p>Level: <%= Math.floor(clStat[3].classExp / 100) %>
 				<p>Total EXP: <%= clStat[3].classExp %></p>
 			</div>
 			<div class="col-md-2 col-lg-2 stat-spot">
 				<div class="spacingTool"></div>
 				<p>Tinkerer</p>
-				<p>Level: <%= tinkLvl %>
+				<p>Level: <%= Math.floor(clStat[4].classExp / 100) %>
 				<p>Total EXP: <%= clStat[4].classExp %></p>
 			</div>
 			<div class="col-md-2 col-lg-2 stat-spot">
 				<div class="spacingTool"></div>
 				<p>Priest</p>
-				<p>Level: <%= prLvl %>
+				<p>Level: <%= Math.floor(clStat[5].classExp / 100) %>
 				<p>Total EXP: <%= clStat[5].classExp %></p>
 			</div>
 		</div>
