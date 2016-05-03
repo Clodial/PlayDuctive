@@ -129,10 +129,12 @@ form{
 }
 .textLeft{
 	margin-left: 50px;
+	width: 50%;
 	float: left;
 }
 .textRight{
 	margin-right: 50px;
+	width: 50%;
 	float: right;
 }
 /*****
