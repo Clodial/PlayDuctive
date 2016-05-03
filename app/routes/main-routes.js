@@ -283,52 +283,38 @@ router.get('/project', function(req,res){
         function (err, result){
             projName=result[0].project;
             projStatus=result[0].statusName;
+            projType="waterfall";
             if(result[0].type == "Agile"){
-                var status = con.query('SELECT AccountTasks.taskId as taskId, Statuses.statusName as statusName, AccountTasks.taskExp as taskExp, AccountTasks.taskDesc as taskDesc from AccountTasks,Statuses where AccountTasks.projId = ? AND AccountTasks.statusId=Statuses.statusId;',
-                        [projId] , 
-                    function (err, result2){    
-                        if(err){
-                            console.log(err);
-                            res.redirect('/');
-                        } else {
-                            if(result2){
-                                var stStatids = JSON.stringify(result2);
-                                res.render('agile',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
-                            }else{
-                                res.redirect('/');
-                            }
-                        }
-                    });
-                //res.render('agile', {title: 'PlayDuctive',stats: req.session.stats, user: req.session.user, projId: projId, projName: result[0].project});
-            }else{
-                var status = con.query('SELECT AccountTasks.taskId as taskId, Statuses.statusName as statusName, AccountTasks.taskExp as taskExp, AccountTasks.taskDesc as taskDesc from AccountTasks,Statuses where AccountTasks.projId = ? AND AccountTasks.statusId=Statuses.statusId;',
-                        [projId] , 
-                    function (err, result2){    
-                        if(err){
-                            console.log(err);
-                            res.redirect('/');
-                        } else {
-                            if(result2){
-                                var stStatids = JSON.stringify(result2);
-                                con.query('select classTitleId, classExp from Classes, Accounts where Accounts.accountUser = ? and Accounts.accountId = Classes.accountId;',
-                                    [req.session.user],function(err, result3){
-                                        if(err){
-                                            console.log('SQL ERROR WHILE RETRIEVING STATS');
-                                            console.log(err.code);
-                                            req.session.stats=[0,0,0,0,0,0];
-                                            res.render('waterfall',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: projName, projStatus: projStatus});
-                                        }else{
-                                            req.session.stats = JSON.stringify(result3);
-                                            res.render('waterfall',{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: projName, projStatus: projStatus});
-                                        }
-                                    });
-                                
-                            }else{
-                                res.redirect('/');
-                            }
-                        }
-                    });
+                projType="agile";
             }
+            var status = con.query('SELECT AccountTasks.taskId as taskId, Statuses.statusName as statusName, AccountTasks.taskExp as taskExp, AccountTasks.taskDesc as taskDesc from AccountTasks,Statuses where AccountTasks.projId = ? AND AccountTasks.statusId=Statuses.statusId;',
+                    [projId] , 
+                function (err, result2){    
+                    if(err){
+                        console.log(err);
+                        res.redirect('/');
+                    } else {
+                        if(result2){
+                            var stStatids = JSON.stringify(result2);
+                            con.query('select classTitleId, classExp from Classes, Accounts where Accounts.accountUser = ? and Accounts.accountId = Classes.accountId;',
+                                [req.session.user],function(err, result3){
+                                    if(err){
+                                        console.log('SQL ERROR WHILE RETRIEVING STATS');
+                                        console.log(err.code);
+                                        req.session.stats=[0,0,0,0,0,0];
+                                        res.render(projType,{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: projName, projStatus: projStatus});
+                                    }else{
+                                        req.session.stats = JSON.stringify(result3);
+                                        res.render(projType,{title: 'PlayDuctive', statusinfo: stStatids, stats: req.session.stats, user: req.session.user, projId: projId, projName: projName, projStatus: projStatus});
+                                    }
+                                });
+                            
+                        }else{
+                            res.redirect('/');
+                        }
+                    }
+                });
+
         });
     }
 });
