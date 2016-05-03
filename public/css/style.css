@@ -394,7 +394,7 @@ form{
     border-radius: 10px;
     padding-bottom: 70px;
 }
-#newTaskForm{
+.newTaskForm{
 	margin-bottom: 10px;
 	display:block;
 }
