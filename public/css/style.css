@@ -315,13 +315,20 @@ form{
 	height: 50px;
 }
 .projectName{
+	margin-left: 50px;
 	float:left;
 }
 .projectComplete{
+	margin-right: 50px;
 	height: 50px;
 	float:right;
 	border-radius: 2px;
 	border-style: none;
 	padding: 10px;
 	background-color: #4C7FCC;
+	color: white;
+}
+.projectComplete:hover{
+	background-color: #444444;
+	color: white;
 }
