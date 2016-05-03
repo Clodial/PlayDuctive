@@ -352,18 +352,24 @@ form{
 	border-radius: 5px;
 }
 .taskComplete{
+	display: block;
+	margin-bottom: 10px;
 	padding: 10px;
 	border-radius: 5px;
 	background-color: #3DAD4D;
 	color: white;
 }
 .taskInProgress{
+	display: block;
+	margin-bottom: 10px;
 	padding: 10px;
 	border-radius: 5px;
 	background-color: #555555;
 	color: white;
 }
 .taskNotStarted{
+	display: block;
+	margin-bottom: 10px;
 	padding: 10px;
 	border-radius: 5px;
 	background-color: #FF8878;
