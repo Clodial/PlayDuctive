@@ -378,6 +378,7 @@ form{
 	margin-right: 50px;
 }
 .agileTable tr{
+	width: 100%;
 	margin-bottom:10px;
 }
 #taskForm{
