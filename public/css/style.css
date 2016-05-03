@@ -314,6 +314,9 @@ form{
 .projectHeader{
 	height: 50px;
 }
+.projectName{
+	float:left;
+}
 .projectComplete{
 	height: 50px;
 	float:right;
