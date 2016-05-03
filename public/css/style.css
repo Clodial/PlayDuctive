@@ -126,7 +126,7 @@ form{
 }
 .textLeft{
 	margin-left: 50px;
-	width: 50%;
+	width: 45%;
 	float: left;
 }
 .textLeft img{
@@ -134,7 +134,7 @@ form{
 }
 .textRight{
 	margin-right: 50px;
-	width: 50%;
+	width: 45%;
 	float: right;
 }
 .imgIndex img{
