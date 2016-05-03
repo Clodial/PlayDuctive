@@ -43,6 +43,18 @@ form{
 .spacingTool{
 	height:5px;
 }
+#twitter-share{
+	position: relative;
+	top: 10px;
+}
+#facebook-share{
+	position: relative;
+	top: 10px;
+}
+#linkedin-share{
+	position: relative;
+	top: 10px;
+}
 .log-buttons{
 	position: relative;
 	float: right;
@@ -59,7 +71,7 @@ form{
 }
 .logo-button{
 	position: relative;
-	width: 50%;
+	width: 95%;
 	float: left;
 }
 .logo-piece{
@@ -110,10 +122,10 @@ form{
 }
 .sectPurp{
 	color: white;
-	background-color: #814c9e;
+	background-color: #4C7FCC;
 }
 .sectWhite{
-	color: #814c9e;
+	color: #4C7FCC;
 	background-color: white;
 }
 .purpText{
@@ -124,8 +136,21 @@ form{
 	margin-right: 50px;
 	margin-left: 50px;
 }
-.innerIndexBody img{
-	height: 200px;
+.textLeft{
+	margin-left: 50px;
+	width: 45%;
+	float: left;
+}
+.textLeft img{
+	height:;
+}
+.textRight{
+	margin-right: 50px;
+	width: 45%;
+	float: right;
+}
+.imgIndex img{
+	width: 85%;
 }
 /*****
 *	
@@ -198,7 +223,7 @@ form{
 	height: 100px;
 	border-radius: 5px;
 	color: white;
-	background-color: #4C7FCC;
+	background-color: #555555;
 }
 .proj-show h3{
 	padding-top:4px;
@@ -212,11 +237,10 @@ form{
 	float:right;
 	border-radius: 2px;
 	border-style: none;
-	background-color: #FF8878;
+	background-color: #4C7FCC;
 }
 .proj-view-button:hover{
-	background-color: #E5FF92;
-	color: #444444;
+	background-color: #555555;
 }
 .make-project{
 	margin-top: 10px;
@@ -224,7 +248,7 @@ form{
 	font-size: 30px;
 	height: 50px;
 	color: white;
-	background-color: #FF8878;
+	background-color: #814c9e;
 }
 .make-project:hover{
 	background-color: #4C7FCC;
