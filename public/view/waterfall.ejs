@@ -26,7 +26,8 @@
 			var taskList = eval(statusinfo)
 			for(var i = 0; i < taskList.length; i++){ 
 				var task = taskList[i] %>
-				<div class="proj-padding-edit waterfallItem">
+				<% if(task.statusName=="COMPLETE"){ %>
+					<div class="proj-padding-edit waterfallItem">
 					<div class="waterfall-task"> <!-- replace with waterfall class -->
 						<h3><%= task.taskDesc %></h3>
 						<p><%= task.statusName %></p>

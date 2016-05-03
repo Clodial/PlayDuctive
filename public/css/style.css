@@ -313,6 +313,7 @@ form{
 ******/
 .projectHeader{
 	height: 50px;
+	margin-bottom: 20px;
 }
 .projectName{
 	margin-left: 50px;
