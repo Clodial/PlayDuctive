@@ -28,7 +28,7 @@
 		<div>
 			<table width= "100%">
 				<tr>
-					<th rowspan= "2">Not Started</th><th rowspan= "2">In Progress</th><th rowspan= "2">Finished</th>
+					<th>Not Started</th><th>In Progress</th><th>Finished</th>
 				</tr>
 				<tr>
 					<td><% if(task.statusName == "NOT-STARTED"){ %>
@@ -36,10 +36,10 @@
 						<p><% task.statusName == "NOT-STARTED" %></p>
 						<p>Task Exp: <%= task.taskExp %></p>
 						<% if(task.statusName!="COMPLETE" && projStatus!="COMPLETE") {%> 
-							<form action="/tasks/completeTask" method="POST">
+							<form action="/tasks/inProTask" method="POST">
 								<input type="hidden" name="projId" value="<%= projId %>">
 								<input type="hidden" name="taskId" value="<%= task.taskId %>">
-								<button class="waterfall-task-complete-button" type="submit">Mark As Completed</button> 
+								<button class="waterfall-task-complete-button" type="submit">Mark As In Progress</button> 
 								<div class="clearfix"></div>
 							</form>
 						<% }}%>

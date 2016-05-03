@@ -403,6 +403,30 @@ router.post('/makeTask/posts', function (req, res) {
     }
 });
 
+router.post('/tasks/inProTask', function (req, res) {
+    var projId = req.body.projId;
+    var taskId = req.body.taskId;
+    var accountName = req.session.user;
+
+    //insert validation of values here(types, length requirement, etc.)
+    if(!accountName){
+        console.log(req.session.user);
+        console.log(accountName);
+        res.redirect('/');
+    }else{
+        con.query('CALL inProgressTask(?);', 
+        [taskId],
+        function(err, result){
+            if(err){
+                console.log(err);
+                res.redirect('/project?projectId='+projId);
+            }else{
+                res.redirect('/project?projectId='+projId);
+            }
+        });
+    }
+});
+
 router.post('/tasks/completeTask', function (req, res) {
     var projId = req.body.projId;
     var taskId = req.body.taskId;
