@@ -10,7 +10,7 @@
 	<% include partials/nav %>
 	<div class="colmask">
 		<div class="header">
-			<p>Agile <br><%= projName %> <%= projStatus %></p>
+			<p>Project Type: Agile<br>Project Name: <%= projName %><br>Project Status: <%= projStatus %></p>
 		</div>
 		<% if(projStatus!="COMPLETE") {%> 
 			<form action="/projects/completeProject" method="POST">
@@ -28,7 +28,7 @@
 		<div>
 			<table>
 				<tr>
-					<th>Not Started</th><th>In Progress</th><th>Finished</th>
+					<th class="colleft">Not Started</th><th class="colmid">In Progress</th class="colin"><th>Finished</th>
 				</tr>
 				<tr>
 					<td class="colleft"><% if(task.statusName == "NOT-STARTED"){ %>
@@ -92,7 +92,7 @@
 		  <input type="number" name="taskExp" min="10" max="100"><br>
 		  Task Description:<br>
 		  <input type="text" name="taskDesc"><br>
-		  <button class="waterfall-task-create-button" type="submit">Make Task</button><br>
+		  <button class="col-md-12 col-lg-12 make-project" type="submit">Make Task</button><br>
 		</form>
 	<% }%>
 	</div>
