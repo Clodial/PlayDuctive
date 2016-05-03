@@ -387,6 +387,7 @@ form{
 .agileTable tr{
 	width: 100%;
 	margin-bottom:10px;
+	display: block;
 }
 #taskForm{
 	background-color: #555;
