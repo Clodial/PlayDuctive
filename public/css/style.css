@@ -394,6 +394,10 @@ form{
     border-radius: 10px;
     padding-bottom: 70px;
 }
+#newTaskForm{
+	margin-bottom: 10px;
+	display:block;
+}
 .classSelector{
 	border:1px solid white;
 	background-color: #555;
