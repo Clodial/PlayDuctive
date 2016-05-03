@@ -8,7 +8,7 @@
 
 <body>
 	<% include partials/nav %>
-	<div class="colmask">
+	<div class="colmask bodyDiv">
 		<div class="header">
 			<p>Project Type: Agile<br>Project Name: <%= projName %><br>Project Status: <%= projStatus %></p>
 		</div>
@@ -26,7 +26,7 @@
 	for(var i = 0; i < taskList.length; i++){ 
 		var task = taskList[i]%>
 		<div>
-			<table>
+			<table class="col-md-4">
 				<tr>
 					<th>Not Started</th>
 				</tr>
@@ -45,7 +45,7 @@
 						<% }}%>
 					</td>
 			</table>
-			<table>
+			<table class="col-md-4">
 				<tr>
 					<th>In Progress</th>
 				</tr>
@@ -65,7 +65,7 @@
 					</td>
 				</tr>
 			</table>
-			<table>
+			<table class="col-md-4">
 				<tr>
 					<th>Finished</th>
 				</tr>

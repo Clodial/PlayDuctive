@@ -44,13 +44,30 @@
 		</div>
 	</div>
 <% }else { 
-
 	var pmLvl = 0;
 	var warLvl = 0;
 	var magLvl = 0;
 	var rogLvl = 0;
 	var tinkLvl = 0;
 	var prLvl = 0;
+	if(100 % clStat[0].classExp >= 0){
+		var pmLvl = 100 % clStat[0].classExp >= 0;
+	}
+	if(100 % clStat[1].classExp >= 0){
+		var warLvl = 100 % clStat[1].classExp >= 0;
+	}
+	if(100 % clStat[2].classExp >= 0){
+		var magLvl = 100 % clStat[2].classExp >= 0;
+	}
+	if(100 % clStat[3].classExp >= 0){
+		var rogLvl = 100 % clStat[0].classExp >= 0;
+	}
+	if(100 % clStat[4].classExp >= 0){
+		var tinkLvl = 100 % clStat[4].classExp >= 0;
+	}
+	if(100 % clStat[5].classExp >= 0){
+		var prLvl = 100 % clStat[5].classExp >= 0;
+	}
 	//var prLvl = 100 % clStat[5].classExp; 
 	//logged in%>
 	<div class="navbar-main nav-log-true">
