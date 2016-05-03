@@ -57,7 +57,7 @@
 								<form action="/tasks/inProTask" method="POST">
 									<input type="hidden" name="projId" value="<%= projId %>">
 									<input type="hidden" name="taskId" value="<%= task.taskId %>">
-									<button class="waterfall-task-complete-button" type="submit">Mark As In Progress</button> 
+									<button class="waterfall-task-complete-button" type="submit">Work on Task</button> 
 									<div class="clearfix"></div>
 								</form>
 							<% }
@@ -103,7 +103,7 @@
 								<form action="/tasks/completeTask" method="POST">
 									<input type="hidden" name="projId" value="<%= projId %>">
 									<input type="hidden" name="taskId" value="<%= task.taskId %>">
-									<button class="waterfall-task-complete-button" type="submit">Mark As Completed</button> 
+									<button class="waterfall-task-complete-button" type="submit">Complete Task</button> 
 									<div class="clearfix"></div>
 								</form>
 							<% }
