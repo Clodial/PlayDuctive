@@ -213,10 +213,7 @@ form{
 /*****
 * show projects
 *****/
-.proj-padding-edit{
-	padding-left:0px;
-	padding-right:0px;
-}
+
 .proj-show{
 	margin-right: 10px;
 	margin-bottom: 10px;
@@ -332,4 +329,20 @@ form{
 .projectComplete:hover{
 	background-color: #444444;
 	color: white;
+}
+.waterfallItem{
+	color: white;
+	margin: 0 auto;
+	padding-top: 30px;
+	padding-bottom: 30px;
+	border-radius: 5px;
+}
+.taskComplete{
+	background-color: #3DAD4D;
+}
+.taskInProgress{
+	background-color: #555555;
+}
+.taskNotStarted{
+	background-color: #FF8878;
 }
