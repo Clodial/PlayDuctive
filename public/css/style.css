@@ -352,8 +352,7 @@ form{
 	border-radius: 5px;
 }
 .taskComplete{
-	padding-top: 10px;
-	padding-bottom: 10px;
+	padding: 10px;
 	border-radius: 5px;
 	background-color: #3DAD4D;
 	color: white;
@@ -365,8 +364,7 @@ form{
 	color: white;
 }
 .taskNotStarted{
-	padding-top: 10px;
-	padding-bottom: 10px;
+	padding: 10px;
 	border-radius: 5px;
 	background-color: #FF8878;
 	color: white;
@@ -381,4 +379,17 @@ form{
 }
 .agileTable tr{
 	margin-bottom:10px;
+}
+#taskForm{
+	    background-color: #555;
+    color: white;
+    padding: 30px;
+    border-radius: 10px;
+}
+.classSelector{
+	border:none;
+	background-color: #555;
+	color: white;
+	border-bottom: 1px solid;
+	width: 100%;
 }

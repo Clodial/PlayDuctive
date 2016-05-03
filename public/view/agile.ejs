@@ -41,7 +41,7 @@
 				%>
 
 			<div>
-				<table class="agileTable">
+				<table class="col-md-4 agileTable">
 					<tr>
 						<th><h2>Not Started</h2></th>
 					</tr>
@@ -67,8 +67,9 @@
 						<td class="newTaskForm">
 						<% if(projStatus!="COMPLETE") {%> 
 							<form id="taskForm" action="/makeTask/posts" method="post">
+								<h3>Make New Task</h3><br>
 							  Class:<br>
-							  <select name="classTitle">
+							  <select class="classSelector" name="classTitle">
 								  <option value="Warrior">Warrior</option>
 								  <option value="Magician">Magician</option>
 								  <option value="Rogue">Rogue</option>
@@ -76,9 +77,9 @@
 								  <option value="Priest">Priest</option>
 							  </select><br>
 							  Task Reward(Min:10 Exp | Max:100 Exp):<br>
-							  <input type="number" name="taskExp" min="10" max="100"><br>
+							  <input class="formInput" type="number" name="taskExp" min="10" max="100"><br>
 							  Task Description:<br>
-							  <input type="text" name="taskDesc"><br>
+							  <input class="formInput" type="text" name="taskDesc"><br>
 							  <button class="col-md-12 col-lg-12 make-task" type="submit">Make Task</button><br>
 							</form>
 						<% }%>
@@ -86,7 +87,7 @@
 					</tr>
 				</table>
 
-				<table class="agileTable">
+				<table class="col-md-4 agileTable">
 					<tr>
 						<th><h2>In Progress</h2></th>
 					</tr>
@@ -112,7 +113,7 @@
 					</tr>
 				</table>
 
-				<table class="agileTable">
+				<table class="col-md-4 agileTable">
 					<tr>
 						<th><h2>Finished</h2></th>
 					</tr>
