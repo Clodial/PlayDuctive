@@ -250,7 +250,18 @@ form{
 .make-project:hover{
 	background-color: #4C7FCC;
 }
-
+.make-task{
+	margin-top: 10px;
+	border-style:none;
+	font-size: 30px;
+	height: 50px;
+	color: white;
+	background-color: #814c9e;
+	border-radius: 5px;
+}
+.make-task:hover{
+	background-color: #4C7FCC;
+}
 
 .waterfall-task{
 	margin-right: 10px;
@@ -273,34 +284,37 @@ form{
 	border-radius: 2px;
 	border-style: none;
 	background-color: #FF8878;
+	color: white;
 }
 .waterfall-task-complete-button:hover{
 	background-color: #E5FF92;
-	color: #444444;
+	color: white;
 }
 
 .waterfall-task-create-button{
 	margin-right: 10px;
 	float:right;
-	border-radius: 2px;
+	border-radius: 5px;
 	border-style: none;
 	background-color: #FF8878;
+	color: white;
 }
 .waterfall-task-create-button:hover{
 	background-color: #E5FF92;
-	color: #444444;
+	color: white;
 }
 
 .waterfall-project-complete-button{
 	margin-right: 10px;
 	float:right;
-	border-radius: 2px;
+	border-radius: 5px;
 	border-style: none;
 	background-color: #FF8878;
+	color: white;
 }
 .waterfall-project-complete-button:hover{
 	background-color: #E5FF92;
-	color: #444444;
+	color: white;
 }
 
 /******
@@ -338,18 +352,31 @@ form{
 	border-radius: 5px;
 }
 .taskComplete{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-radius: 5px;
 	background-color: #3DAD4D;
+	color: white;
 }
 .taskInProgress{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-radius: 5px;
 	background-color: #555555;
+	color: white;
 }
 .taskNotStarted{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-radius: 5px;
 	background-color: #FF8878;
+	color: white;
 }
 .agilePieces{
 	margin-left: 50px;
 	margin-right: 50px;
 }
 .agileTable{
-	width: 90%;
+	width: 30%;
+	margin-right: 5px;
 }
