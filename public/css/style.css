@@ -305,3 +305,20 @@ form{
 	background-color: #E5FF92;
 	color: #444444;
 }
+
+/******
+*
+*	Project main
+*
+******/
+.projectHeader{
+	height: 50px;
+}
+.projectComplete{
+	height: 50px;
+	float:right;
+	border-radius: 2px;
+	border-style: none;
+	padding: 10px;
+	background-color: #4C7FCC;
+}
