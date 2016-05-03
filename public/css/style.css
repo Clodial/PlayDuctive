@@ -405,9 +405,13 @@ form{
 	width: 100%;
 }
 .formInput{
-	border:none;
+	border: none;
 	background-color: #555;
 	color: white;
 	border-bottom: 1px solid;
 	width: 100%;
+}
+.waterTask{
+	margin: 0 auto;
+	width: 50%;
 }

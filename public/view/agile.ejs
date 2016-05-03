@@ -17,7 +17,7 @@
 			<% if(projStatus!="COMPLETE") {%> 
 				<form action="/projects/completeProject" method="POST">
 					<input type="hidden" name="projId" value="<%= projId %>">
-					<button class="waterfall-project-complete-button" type="submit"><h3>Complete Quest</h3></button> 
+					<button class="projectComplete" type="submit"><h3>Complete Quest</h3></button> 
 					<div class="clearfix"></div>
 				</form>
 			<% }%>
