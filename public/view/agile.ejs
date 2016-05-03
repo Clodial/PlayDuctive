@@ -10,7 +10,8 @@
 	<% include partials/nav %>
 	<div class="colmask">
 		<div class="header">
-			Agile <%= projName %> <%= projStatus %>
+			Agile
+			<%= projName %> <%= projStatus %>
 		</div>
 		<% if(projStatus!="COMPLETE") {%> 
 			<form action="/projects/completeProject" method="POST">
@@ -25,13 +26,13 @@
 	var taskList = eval(statusinfo)
 	for(var i = 0; i < taskList.length; i++){ 
 		var task = taskList[i]%>
-		<div class="col-md-3 proj-padding-edit">
+		<div>
 			<table>
 				<tr>
 					<th>Not Started</th><th>In Progress</th><th>Finished</th>
 				</tr>
 				<tr>
-					<td><% if(task.statusName == "NOT-STARTED"){ %>
+					<td class="col1"><% if(task.statusName == "NOT-STARTED"){ %>
 						<h3><%= task.taskDesc %></h3>
 						<p><% task.statusName == "NOT-STARTED" %></p>
 						<p>Task Exp: <%= task.taskExp %></p>
@@ -44,7 +45,7 @@
 							</form>
 						<% }}%>
 					</td>
-					<td><% if(task.statusName == "INPROGRESS"){ %>
+					<td class="col2"><% if(task.statusName == "INPROGRESS"){ %>
 						<h3><%= task.taskDesc %></h3>
 						<p><% task.statusName == "INPROGRESS" %></p>
 						<p>Task Exp: <%= task.taskExp %></p>
@@ -57,7 +58,7 @@
 							</form>
 						<% }}%>
 					</td>
-					<td><% if(task.statusName == "COMPLETE"){ %>
+					<td class="col3"><% if(task.statusName == "COMPLETE"){ %>
 						<h3><%= task.taskDesc %></h3>
 						<p><% task.statusName == "COMPLETE"%></p>
 						<p>Task Exp: <%= task.taskExp %></p>
@@ -76,25 +77,27 @@
 <% }} %>
 </div>
 <br>
-<div>
-<% if(projStatus!="COMPLETE") {%> 
-	<form id="taskForm" action="/makeTask/posts" method="post">
-	  Class:<br>
-	  <select name="classTitle">
-	      <option value="Warrior">Warrior</option>
-	      <option value="Magician">Magician</option>
-	      <option value="Rogue">Rogue</option>
-		  <option value="Tinkerer">Tinkerer</option>
-		  <option value="Priest">Priest</option>
-	  </select><br>
-	  Task Reward(Min:10 Exp | Max:100 Exp):<br>
-	  <input type="number" name="taskExp" min="10" max="100"><br>
-	  Task Description:<br>
-	  <input type="text" name="taskDesc"><br>
-	  <button class="waterfall-task-create-button" type="submit">Make Task</button><br>
-	</form>
-<% }%>
-</div>
+<footer>
+	<div>
+	<% if(projStatus!="COMPLETE") {%> 
+		<form id="taskForm" action="/makeTask/posts" method="post">
+		  Class:<br>
+		  <select name="classTitle">
+			  <option value="Warrior">Warrior</option>
+			  <option value="Magician">Magician</option>
+			  <option value="Rogue">Rogue</option>
+			  <option value="Tinkerer">Tinkerer</option>
+			  <option value="Priest">Priest</option>
+		  </select><br>
+		  Task Reward(Min:10 Exp | Max:100 Exp):<br>
+		  <input type="number" name="taskExp" min="10" max="100"><br>
+		  Task Description:<br>
+		  <input type="text" name="taskDesc"><br>
+		  <button class="waterfall-task-create-button" type="submit">Make Task</button><br>
+		</form>
+	<% }%>
+	</div>
+</footer>
 <% include partials/bodyScript %>
 </body>
 </html>
