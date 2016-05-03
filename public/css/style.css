@@ -405,6 +405,7 @@ form{
 	width: 100%;
 }
 .waterfallForm{
+	margin-top: 30px;
 	padding-bottom:90px;
 }
 .formInput{
