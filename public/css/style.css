@@ -346,3 +346,10 @@ form{
 .taskNotStarted{
 	background-color: #FF8878;
 }
+.agilePieces{
+	margin-left: 50px;
+	margin-right: 50px;
+}
+.agileTable{
+	width: 90%;
+}

@@ -22,7 +22,7 @@
 				</form>
 			<% }%>
 		</div>
-		<div>
+		<div class="agilePieces">
 			<% if(statusinfo){ 
 			var taskList = eval(statusinfo)
 			var notsTask = [];
@@ -41,7 +41,7 @@
 				%>
 
 			<div>
-				<table class="col-md-4">
+				<table class="col-md-4 agileTable">
 					<tr>
 						<th>Not Started</th>
 					</tr>
@@ -86,7 +86,7 @@
 					</tr>
 				</table>
 
-				<table class="col-md-4">
+				<table class="col-md-4 agileTable">
 					<tr>
 						<th>In Progress</th>
 					</tr>
@@ -112,7 +112,7 @@
 					</tr>
 				</table>
 
-				<table class="col-md-4">
+				<table class="col-md-4 agileTable">
 					<tr>
 						<th>Finished</th>
 					</tr>
