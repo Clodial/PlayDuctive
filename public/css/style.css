@@ -121,16 +121,17 @@ form{
 	background-color: #814c9e;
 }
 .innerIndexBody{
+	height: 400px;
 	margin-right: 50px;
 	margin-left: 50px;
-}
-.innerIndexBody img{
-	
 }
 .textLeft{
 	margin-left: 50px;
 	width: 50%;
 	float: left;
+}
+.textLeft img{
+	height:;
 }
 .textRight{
 	margin-right: 50px;
