@@ -8,109 +8,114 @@
 
 <body>
 	<% include partials/nav %>
-	<div class="colmask bodyDiv">
-		<div class="header">
-			<p>Project Type: Agile<br>Project Name: <%= projName %><br>Project Status: <%= projStatus %></p>
+	<div class="bodyDiv">
+		<div class="projectHeader">
+
+				<div class="projectName">
+					<h3>Agile: <%= projName %> <%= projStatus %></h3>
+				</div>
+			<% if(projStatus!="COMPLETE") {%> 
+				<form action="/projects/completeProject" method="POST">
+					<input type="hidden" name="projId" value="<%= projId %>">
+					<button class="waterfall-project-complete-button" type="submit"><h3>Complete Quest</h3></button> 
+					<div class="clearfix"></div>
+				</form>
+			<% }%>
 		</div>
-		<% if(projStatus!="COMPLETE") {%> 
-			<form action="/projects/completeProject" method="POST">
-				<input type="hidden" name="projId" value="<%= projId %>">
-				<button class="waterfall-project-complete-button" type="submit">Mark Project As Complete</button> 
-				<div class="clearfix"></div>
-			</form>
-		<% }%>
-	</div>
-	<div>
-<% if(statusinfo){ 
-	var taskList = eval(statusinfo)
-	for(var i = 0; i < taskList.length; i++){ 
-		var task = taskList[i]%>
 		<div>
-			<table class="col-md-4">
-				<tr>
-					<th>Not Started</th>
-				</tr>
-				<tr>
-					<td><% if(task.statusName == "NOT-STARTED"){ %>
-						<h3><%= task.taskDesc %></h3>
-						<p><% task.statusName == "NOT-STARTED" %></p>
-						<p>Task Exp: <%= task.taskExp %></p>
-						<% if(task.statusName!="COMPLETE" && projStatus!="COMPLETE") {%> 
-							<form action="/tasks/inProTask" method="POST">
-								<input type="hidden" name="projId" value="<%= projId %>">
-								<input type="hidden" name="taskId" value="<%= task.taskId %>">
-								<button class="waterfall-task-complete-button" type="submit">Mark As In Progress</button> 
-								<div class="clearfix"></div>
-							</form>
-						<% }}%>
-					</td>
-			</table>
-			<table class="col-md-4">
-				<tr>
-					<th>In Progress</th>
-				</tr>
-				<tr>
-					<td><% if(task.statusName == "INPROGRESS"){ %>
-						<h3><%= task.taskDesc %></h3>
-						<p><% task.statusName == "INPROGRESS" %></p>
-						<p>Task Exp: <%= task.taskExp %></p>
-						<% if(task.statusName!="COMPLETE" && projStatus!="COMPLETE") {%> 
-							<form action="/tasks/completeTask" method="POST">
-								<input type="hidden" name="projId" value="<%= projId %>">
-								<input type="hidden" name="taskId" value="<%= task.taskId %>">
-								<button class="waterfall-task-complete-button" type="submit">Mark As Completed</button> 
-								<div class="clearfix"></div>
-							</form>
-						<% }}%>
-					</td>
-				</tr>
-			</table>
-			<table class="col-md-4">
-				<tr>
-					<th>Finished</th>
-				</tr>
-				<tr>
-					<td><% if(task.statusName == "COMPLETE"){ %>
-						<h3><%= task.taskDesc %></h3>
-						<p><% task.statusName == "COMPLETE" %></p>
-						<p>Task Exp: <%= task.taskExp %></p>
-						<% if(task.statusName!="COMPLETE") {%> 
-							<form action="/tasks/completeTask" method="POST">
-								<input type="hidden" name="projId" value="<%= projId %>">
-								<input type="hidden" name="taskId" value="<%= task.taskId %>">
-								<button class="waterfall-task-complete-button" type="submit">Mark As Completed</button> 
-								<div class="clearfix"></div>
-							</form>
-						<% }}%>
-					</td>
-				</tr>
-			</table>
+			<% if(statusinfo){ 
+			var taskList = eval(statusinfo){
+			for(var i = 0; i < taskList.length; i++){ 
+				var task = taskList[i]%>
+				<div>
+					<table class="col-md-4">
+						<tr>
+							<th>Not Started</th>
+						</tr>
+						<tr>
+							<td class="taskNotStarted"><% if(task.statusName == "NOT-STARTED"){ %>
+								<h3><%= task.taskDesc %></h3>
+								<p><% task.statusName == "NOT-STARTED" %></p>
+								<p>Task Exp: <%= task.taskExp %></p>
+								<% if(task.statusName!="COMPLETE" && projStatus!="COMPLETE") {%> 
+									<form action="/tasks/inProTask" method="POST">
+										<input type="hidden" name="projId" value="<%= projId %>">
+										<input type="hidden" name="taskId" value="<%= task.taskId %>">
+										<button class="waterfall-task-complete-button" type="submit">Mark As In Progress</button> 
+										<div class="clearfix"></div>
+									</form>
+								<% }
+								}%>
+							</td>
+					</table>
+					<table class="col-md-4">
+						<tr>
+							<th>In Progress</th>
+						</tr>
+						<tr>
+							<td class="taskInProgress"><% if(task.statusName == "INPROGRESS"){ %>
+								<h3><%= task.taskDesc %></h3>
+								<p><% task.statusName == "INPROGRESS" %></p>
+								<p>Task Exp: <%= task.taskExp %></p>
+								<% if(task.statusName!="COMPLETE" && projStatus!="COMPLETE") {%> 
+									<form action="/tasks/completeTask" method="POST">
+										<input type="hidden" name="projId" value="<%= projId %>">
+										<input type="hidden" name="taskId" value="<%= task.taskId %>">
+										<button class="waterfall-task-complete-button" type="submit">Mark As Completed</button> 
+										<div class="clearfix"></div>
+									</form>
+								<% }
+								}%>
+							</td>
+						</tr>
+					</table>
+					<table class="col-md-4">
+						<tr>
+							<th>Finished</th>
+						</tr>
+						<tr>
+							<td class="taskComplete"><% if(task.statusName == "COMPLETE"){ %>
+								<h3><%= task.taskDesc %></h3>
+								<p><% task.statusName == "COMPLETE" %></p>
+								<p>Task Exp: <%= task.taskExp %></p>
+								<% if(task.statusName!="COMPLETE") {%> 
+									<form action="/tasks/completeTask" method="POST">
+										<input type="hidden" name="projId" value="<%= projId %>">
+										<input type="hidden" name="taskId" value="<%= task.taskId %>">
+										<button class="waterfall-task-complete-button" type="submit">Mark As Completed</button> 
+										<div class="clearfix"></div>
+									</form>
+								<% }
+								}%>
+							</td>
+						</tr>
+					</table>
+				</div>
 			</div>
+			<% }
+		} %>
 		</div>
-<% }} %>
-</div>
-<br>
-<footer>
-	<div>
-	<% if(projStatus!="COMPLETE") {%> 
-		<form id="taskForm" action="/makeTask/posts" method="post">
-		  Class:<br>
-		  <select name="classTitle">
-			  <option value="Warrior">Warrior</option>
-			  <option value="Magician">Magician</option>
-			  <option value="Rogue">Rogue</option>
-			  <option value="Tinkerer">Tinkerer</option>
-			  <option value="Priest">Priest</option>
-		  </select><br>
-		  Task Reward(Min:10 Exp | Max:100 Exp):<br>
-		  <input type="number" name="taskExp" min="10" max="100"><br>
-		  Task Description:<br>
-		  <input type="text" name="taskDesc"><br>
-		  <button class="col-md-12 col-lg-12 make-project" type="submit">Make Task</button><br>
-		</form>
-	<% }%>
+		<br>
+			<div>
+			<% if(projStatus!="COMPLETE") {%> 
+				<form id="taskForm" action="/makeTask/posts" method="post">
+				  Class:<br>
+				  <select name="classTitle">
+					  <option value="Warrior">Warrior</option>
+					  <option value="Magician">Magician</option>
+					  <option value="Rogue">Rogue</option>
+					  <option value="Tinkerer">Tinkerer</option>
+					  <option value="Priest">Priest</option>
+				  </select><br>
+				  Task Reward(Min:10 Exp | Max:100 Exp):<br>
+				  <input type="number" name="taskExp" min="10" max="100"><br>
+				  Task Description:<br>
+				  <input type="text" name="taskDesc"><br>
+				  <button class="col-md-12 col-lg-12 make-project" type="submit">Make Task</button><br>
+				</form>
+			<% }%>
+			</div>
 	</div>
-</footer>
 <% include partials/bodyScript %>
 </body>
 </html>
