@@ -10,47 +10,89 @@
 	<% include partials/nav %>
 	<div class="colmask">
 		<div class="header">
-			Agile
+			<p>Project Type: Agile<br>Project Name: <%= projName %><br>Project Status: <%= projStatus %></p>
 		</div>
-		<div class="colmid">
-		<% if(statusinfo){ 
-			var taskList = eval(statusinfo)
-			for(var i = 0; i < taskList.length; i++){ 
-				var task = taskList[i] %>
-			<div class="colin">
-				<div class="colleft">
-					<div class="col2">
-						<table>
-							<tr>
-								<th>In Progress</th>
-							</tr>
-							<tr>
-								<td><h3><%= task.taskDesc %></h3></td>
-							</tr>
-							<tr>
-								<td><p><%= task.statusName %></p></td>
-							</tr>
-							<tr>
-								<td><p>Task Exp: <%= task.taskExp %></p>
-								<form action="/tasks/completeTask" method="POST">
-									<input type="hidden" name="projId" value="<%= projId %>">
-									<input type="hidden" name="taskId" value="<%= task.taskId %>">
-									<button class="waterfall-task-complete-button" type="submit">Mark As Completed</button> 
-									<div class="clearfix"></div>
-								</form>
-								</td>
-							</tr>    
-						</table>
-					</div>
-					<div class="col3">
-						Complete
-					</div>
-				</div>
-			</div>
-			<% }} %>
-		</div>
+		<% if(projStatus!="COMPLETE") {%> 
+			<form action="/projects/completeProject" method="POST">
+				<input type="hidden" name="projId" value="<%= projId %>">
+				<button class="waterfall-project-complete-button" type="submit">Mark Project As Complete</button> 
+				<div class="clearfix"></div>
+			</form>
+		<% }%>
 	</div>
 	<div>
+<% if(statusinfo){ 
+	var taskList = eval(statusinfo)
+	for(var i = 0; i < taskList.length; i++){ 
+		var task = taskList[i]%>
+		<div>
+			<table>
+				<tr>
+					<th>Not Started</th>
+				</tr>
+				<tr>
+					<td><% if(task.statusName == "NOT-STARTED"){ %>
+						<h3><%= task.taskDesc %></h3>
+						<p><% task.statusName == "NOT-STARTED" %></p>
+						<p>Task Exp: <%= task.taskExp %></p>
+						<% if(task.statusName!="COMPLETE" && projStatus!="COMPLETE") {%> 
+							<form action="/tasks/inProTask" method="POST">
+								<input type="hidden" name="projId" value="<%= projId %>">
+								<input type="hidden" name="taskId" value="<%= task.taskId %>">
+								<button class="waterfall-task-complete-button" type="submit">Mark As In Progress</button> 
+								<div class="clearfix"></div>
+							</form>
+						<% }}%>
+					</td>
+			</table>
+			<table>
+				<tr>
+					<th>In Progress</th>
+				</tr>
+				<tr>
+					<td><% if(task.statusName == "INPROGRESS"){ %>
+						<h3><%= task.taskDesc %></h3>
+						<p><% task.statusName == "INPROGRESS" %></p>
+						<p>Task Exp: <%= task.taskExp %></p>
+						<% if(task.statusName!="COMPLETE" && projStatus!="COMPLETE") {%> 
+							<form action="/tasks/completeTask" method="POST">
+								<input type="hidden" name="projId" value="<%= projId %>">
+								<input type="hidden" name="taskId" value="<%= task.taskId %>">
+								<button class="waterfall-task-complete-button" type="submit">Mark As Completed</button> 
+								<div class="clearfix"></div>
+							</form>
+						<% }}%>
+					</td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<th>Finished</th>
+				</tr>
+				<tr>
+					<td><% if(task.statusName == "COMPLETE"){ %>
+						<h3><%= task.taskDesc %></h3>
+						<p><% task.statusName == "COMPLETE" %></p>
+						<p>Task Exp: <%= task.taskExp %></p>
+						<% if(task.statusName!="COMPLETE") {%> 
+							<form action="/tasks/completeTask" method="POST">
+								<input type="hidden" name="projId" value="<%= projId %>">
+								<input type="hidden" name="taskId" value="<%= task.taskId %>">
+								<button class="waterfall-task-complete-button" type="submit">Mark As Completed</button> 
+								<div class="clearfix"></div>
+							</form>
+						<% }}%>
+					</td>
+				</tr>
+			</table>
+			</div>
+		</div>
+<% }} %>
+</div>
+<br>
+<footer>
+	<div>
+	<% if(projStatus!="COMPLETE") {%> 
 		<form id="taskForm" action="/makeTask/posts" method="post">
 		  Class:<br>
 		  <select name="classTitle">
@@ -66,7 +108,9 @@
 		  <input type="text" name="taskDesc"><br>
 		  <button class="col-md-12 col-lg-12 make-project" type="submit">Make Task</button><br>
 		</form>
+	<% }%>
 	</div>
-	<% include partials/bodyScript %>
+</footer>
+<% include partials/bodyScript %>
 </body>
 </html>
