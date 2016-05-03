@@ -63,6 +63,8 @@ $(function(){
             //$("#userList").append(addedUser+"<br>");
             var userElement=document.createElement("input");
             userElement.value=addedUser;
+            userElement.readOnly = true;
+            userElement.className += "formInput";
             userElement.name="addedUsers[]";
             userElement.readonly=true;
             document.getElementById("projectForm").appendChild(userElement);
