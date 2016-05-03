@@ -21,7 +21,6 @@
 				<div class="clearfix"></div>
 			<% }%>
 		</div>
-		<div>
 		<% if(statusinfo){ 
 			var taskList = eval(statusinfo)
 			for(var i = 0; i < taskList.length; i++){ 
@@ -31,25 +30,26 @@
 				<% }else{ %>
 					<div class="proj-padding-edit waterfallItem taskInProgress">
 				<% } %>
-					<div class="waterfall-task"> <!-- replace with waterfall class -->
-						<h3><%= task.taskDesc %></h3>
-						<p><%= task.statusName %></p>
-						<p>Task Exp: <%= task.taskExp %></p>
-						<% if(task.statusName!="COMPLETE" && projStatus!="COMPLETE") {%> 
-							<form action="/tasks/completeTask" method="POST">
-								<input type="hidden" name="projId" value="<%= projId %>">
-								<input type="hidden" name="taskId" value="<%= task.taskId %>">
-								<button class="waterfall-task-complete-button" type="submit">Mark As Completed</button> 
-								<div class="clearfix"></div>
-							</form>
-						<% }%>
-					</div>
+						<div class="waterfall-task"> <!-- replace with waterfall class -->
+							<h3><%= task.taskDesc %></h3>
+							<p><%= task.statusName %></p>
+							<p>Task Exp: <%= task.taskExp %></p>
+							<% if(task.statusName!="COMPLETE" && projStatus!="COMPLETE") {%> 
+								<form action="/tasks/completeTask" method="POST">
+									<input type="hidden" name="projId" value="<%= projId %>">
+									<input type="hidden" name="taskId" value="<%= task.taskId %>">
+									<button class="waterfall-task-complete-button" type="submit">Mark As Completed</button> 
+									<div class="clearfix"></div>
+								</form>
+							<% }%>
+						</div>
 				</div>
 		<% }} %>
 		</div>
 		<br>
 		<div>
 		<% if(projStatus!="COMPLETE") {%> 
+			<div class="newTaskForm">
 			<form class="waterfallForm" id="taskForm" action="/makeTask/posts" method="post">
 			  Class:<br>
 			  <select name="classTitle">
@@ -66,6 +66,7 @@
 			  <button class="waterfall-task-create-button" type="submit">Make Task</button><br>
 			</form>
 		<% }%>
+			</div>
 		</div>
 	</div>
 <% include partials/bodyScript %>
