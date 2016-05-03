@@ -9,20 +9,22 @@
     <h1 id="logged-welcome">Making a project for: <%= user %></h1>
   </div>
     <form id="projectForm" action="/makeProject/posts" method="post">
-      Project Type:<br>
-      <select name="projType">
+      <h1>Create Quest</h1>
+      <h3>Quest Type:</h3><br>
+      <select class="classSelector"name="projType">
           <option value="Waterfall">Waterfall</option>
           <option value="Agile">Agile</option>
       </select><br>
-      Project Name:<br>
+      <h3>Quest Name:</h3><br>
       <input type="text" name="projName"><br>
-      Project Description:<br>
+      <h3>Quest Description:</h3><br>
       <input type="text" name="projDesc"><br>
       <!-- form for adding users-->
-      Add User<br>
+      <h3>Add User</h3><br>
       <input id="addUser" type="text" name="addUser"><br>
-      <select id="userSelect" name="userSelect"></select><br>
-      <button type="submit">Make Project</button>
+      <h3>Check Available Users</h3>
+      <select class="classSelector" id="userSelect" name="userSelect"></select><br>
+      <button class="col-md-12 col-lg-12 make-project" type="submit">Begin Quest</button></br></br>
       Users Added to Project:<br>
     </form>
 
