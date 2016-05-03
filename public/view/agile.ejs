@@ -31,9 +31,9 @@
 					<th>Not Started</th><th>In Progress</th><th>Finished</th>
 				</tr>
 				<tr>
-					<td><%= if(task.statusName = "NOT-STARTED"){ %>
+					<td><%= if(task.statusName == "NOT-STARTED"){ %>
 						<h3><%= task.taskDesc %></h3>
-						<p><%= task.statusName %></p>
+						<p><%= task.statusName == "NOT-STARTED" %></p>
 						<p>Task Exp: <%= task.taskExp %></p>
 						<% if(task.statusName!="COMPLETE" && projStatus!="COMPLETE") {%> 
 							<form action="/tasks/completeTask" method="POST">
@@ -44,9 +44,9 @@
 							</form>
 						<% }}%>
 					</td>
-					<td><%= if(task.statusName = "INPROGRESS"){ %>
+					<td><%= if(task.statusName == "INPROGRESS"){ %>
 						<h3><%= task.taskDesc %></h3>
-						<p><%= task.statusName %></p>
+						<p><%= task.statusName == "INPROGRESS" %></p>
 						<p>Task Exp: <%= task.taskExp %></p>
 						<% if(task.statusName!="COMPLETE" && projStatus!="COMPLETE") {%> 
 							<form action="/tasks/completeTask" method="POST">
@@ -57,9 +57,9 @@
 							</form>
 						<% }}%>
 					</td>
-					<td><%= if(task.statusName = "COMPLETE"){ %>
+					<td><%= if(task.statusName == "COMPLETE"){ %>
 						<h3><%= task.taskDesc %></h3>
-						<p><%= task.statusName %></p>
+						<p><%= task.statusName == "COMPLETE"%></p>
 						<p>Task Exp: <%= task.taskExp %></p>
 						<% if(task.statusName!="COMPLETE" && projStatus!="COMPLETE") {%> 
 							<form action="/tasks/completeTask" method="POST">
