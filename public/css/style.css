@@ -127,6 +127,14 @@ form{
 .innerIndexBody img{
 	height: 200px;
 }
+.textLeft{
+	margin-left: 50px;
+	float: left;
+}
+.textRight{
+	margin-right: 50px;
+	float: right;
+}
 /*****
 *	
 *	Body stuff
