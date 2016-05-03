@@ -50,6 +50,7 @@
 	var rogLvl = 0;
 	var tinkLvl = 0;
 	var prLvl = 0;
+	/*
 	if(100 % clStat[0].classExp >= 0){
 		pmLvl = 100 % clStat[0].classExp;
 	}
@@ -60,7 +61,7 @@
 		magLvl = 100 % clStat[2].classExp;
 	}
 	if(100 % clStat[3].classExp >= 0){
-		rogLvl = 100 % clStat[0].classExp;
+		rogLvl = 100 % clStat[3].classExp;
 	}
 	if(100 % clStat[4].classExp >= 0){
 		tinkLvl = 100 % clStat[4].classExp;
@@ -68,9 +69,11 @@
 	if(100 % clStat[5].classExp >= 0){
 		prLvl = 100 % clStat[5].classExp;
 	}
+	*/
 	//var prLvl = 100 % clStat[5].classExp; 
 	//logged in%>
 	<div class="navbar-main nav-log-true">
+	<%= 100 % clStat[0].classExp %>
 		<div class="logo-button button-check">
 			<form class="logo-piece logo-main" action="/" method="get">
 				<button type="submit"><img src="../img/playductiveLogo.png" height="45px"/></button>
