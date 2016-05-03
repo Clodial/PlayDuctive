@@ -10,20 +10,20 @@
   </div>
     <form id="projectForm" action="/makeProject/posts" method="post">
       <h1>Create Quest</h1>
-      <h3>Quest Type:</h3><br>
+      <h3>Quest Type:</h3>
       <select class="classSelector"name="projType">
           <option value="Waterfall">Waterfall</option>
           <option value="Agile">Agile</option>
       </select><br>
-      <h3>Quest Name:</h3><br>
-      <input type="text" name="projName"><br>
-      <h3>Quest Description:</h3><br>
-      <input type="text" name="projDesc"><br>
+      <h3>Quest Name:</h3>
+      <input class="formInput" type="text" name="projName"><br><br>
+      <h3>Quest Description:</h3>
+      <input class="formInput" type="text" name="projDesc"><br><br>
       <!-- form for adding users-->
-      <h3>Add User</h3><br>
-      <input id="addUser" type="text" name="addUser"><br>
+      <h3>Add User</h3>
+      <input class="formInput" id="addUser" type="text" name="addUser"><br>
       <h3>Check Available Users</h3>
-      <select class="classSelector" id="userSelect" name="userSelect"></select><br>
+      <select class="classSelector" id="userSelect" name="userSelect"></select><br><br>
       <button class="col-md-12 col-lg-12 make-project" type="submit">Begin Quest</button></br></br>
       Users Added to Project:<br>
     </form>
