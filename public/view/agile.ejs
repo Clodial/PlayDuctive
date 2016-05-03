@@ -68,18 +68,18 @@
 						<% if(projStatus!="COMPLETE") {%> 
 							<form id="taskForm" action="/makeTask/posts" method="post">
 								<h3>Make New Task</h3>
-							  <h4>Class:</h4><br>
+							  <h4>Class:</h4>
 							  <select class="classSelector" name="classTitle">
 								  <option value="Warrior">Warrior</option>
 								  <option value="Magician">Magician</option>
 								  <option value="Rogue">Rogue</option>
 								  <option value="Tinkerer">Tinkerer</option>
 								  <option value="Priest">Priest</option>
-							  </select><br>
-							  <h4>Task Reward(Min:10 Exp | Max:100 Exp):</h4><br>
-							  <input class="formInput" type="number" name="taskExp" min="10" max="100"><br>
-							  <h4>Task Description:</h4><br>
-							  <input class="formInput" type="text" name="taskDesc"><br>
+							  </select><br><br>
+							  <h4>Task Reward(Min:10 Exp | Max:100 Exp):</h4>
+							  <input class="formInput" type="number" name="taskExp" min="10" max="100"><br><br>
+							  <h4>Task Description:</h4>
+							  <input class="formInput" type="text" name="taskDesc"><br><br>
 							  <button class="col-md-12 col-lg-12 make-task" type="submit">Make Task</button><br>
 							</form>
 						<% }%>
