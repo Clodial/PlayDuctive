@@ -1,7 +1,10 @@
 <% if(!user){ //not logged in%>
 	<div class="navbar-main">
 		<div class="logo-button button-check">
-			<form action="/" method="get">
+			<form class="logo-piece logo-main" action="/" method="get">
+				<button type="submit"><img src="../img/playductiveLogo.png" height="45px"/></button>
+			</form>
+			<form class="logo-piece" action="/" method="get">
 				<button type="submit">Home</button>
 			</form>
 		</div>
@@ -9,43 +12,57 @@
 			<button class="showLog">Login</button>
 			<button class="showReg">Register</button>
 		</div>
+		<div class="clearfix"></div>
+		<div class="nav-login nav-drop">
+			<h1>Login</h1>
+			<form action="/logCheck" method="get">
+				<label>Username </label><br>
+				<input class="log-input" type="text" name="user" required/></br>
+				<label>Password </label><br>
+				<input class="log-input" type="password" name="pass" required/></br>
+				<button class="sign-button" type="submit">Login</button>
+				<div class="clearfix"></div>
+			</form>
+		</div>
+		<div class="nav-register nav-drop">
+			<h1>New Account</h1>
+			<form action="/login" method="post">
+				<input type="hidden" name="register" value="true">
+				<label>New Username</label><br>
+				<input id="reg-user" class="log-input" type="text" name="user" required></br>
+				<label>Email</label><br>
+				<input type="email" class="log-input" name="email" required></br>
+				<label>New Password</label><br>
+				<input id="reg-pass" class="log-input" type="password" name="pass" onkeyup="passCheck()" required></br>
+				<label>Repeat Password</label><br>
+				<input id="reg-pass2" class="log-input" type="password" name="pass2" onkeyup="passCheck()" required></br>
+				<span id="pass-check"></span></br>
+				<span id="user-check"></span></br>
+				<button class="sign-button" id="reg-button" type="submit" >Create Account</button>
+				<div class="clearfix"></div>
+			</form>
+		</div>
 	</div>
-	<div class="clearfix"></div>
-	<div class="nav-login nav-drop">
-		<h1>Login</h1>
-		<form action="/logCheck" method="get">
-			<label>Username </label><br>
-			<input class="log-input" type="text" name="user" required/></br>
-			<label>Password </label><br>
-			<input class="log-input" type="password" name="pass" required/></br>
-			<button class="sign-button" type="submit">Login</button>
-			<div class="clearfix"></div>
-		</form>
-	</div>
-	<div class="nav-register nav-drop">
-		<h1>New Account</h1>
-		<form action="/login" method="post">
-			<input type="hidden" name="register" value="true">
-			<label>New Username</label><br>
-			<input id="reg-user" class="log-input" type="text" name="user" required></br>
-			<label>Email</label><br>
-			<input type="email" class="log-input" name="email" required></br>
-			<label>New Password</label><br>
-			<input id="reg-pass" class="log-input" type="password" name="pass" onkeyup="passCheck()" required></br>
-			<label>Repeat Password</label><br>
-			<input id="reg-pass2" class="log-input" type="password" name="pass2" onkeyup="passCheck()" required></br>
-			<span id="pass-check"></span></br>
-			<span id="user-check"></span></br>
-			<button class="sign-button" id="reg-button" type="submit" >Create Account</button>
-			<div class="clearfix"></div>
-		</form>
-	</div>
-<% }else { //logged in%>
+<% }else { 
+
+	var pmLvl = 0;
+	var warLvl = 0;
+	var magLvl = 0;
+	var rogLvl = 0;
+	var tinkLvl = 0;
+	var prLvl = 0;
+	//var prLvl = 100 % clStat[5].classExp; 
+	//logged in%>
 	<div class="navbar-main nav-log-true">
 		<div class="logo-button button-check">
-			<form action="/" method="get">
+			<form class="logo-piece logo-main" action="/" method="get">
+				<button type="submit"><img src="../img/playductiveLogo.png" height="45px"/></button>
+			</form>
+			<h4 class="userName logo-piece">Welcome <%= user %>!</h4>
+			<form class="logo-piece" action="/" method="get">
 				<button type="submit">Home</button>
 			</form>
+			<button class="button-check logo-piece" id="statShow">User Statistics</button>
 		</div>
 		<div id="twitter-share" class="logo-button button-check">
 		<script>window.twttr = (function(d, s, id) {
@@ -80,33 +97,45 @@
 		<div class="log-buttons button-check">
 			<form action="/login/logout" method="GET"><button type="submit">Logout</button></form>
 		</div>
-	</div>
-	<div class="clearfix"></div>
-	<div class="user-stats">
-		<% var clStat = eval(stats) %>
-		<div class="col-md-2 col-lg-2 stat-spot">
-			<p>Dungeon Master</p>
-			<p>Total EXP: <%= clStat[0].classExp %></p>
-		</div>
-		<div class="col-md-2 col-lg-2 stat-spot">
-			<p>Warrior</p>
-			<p>Total EXP: <%= clStat[1].classExp %></p>
-		</div>
-		<div class="col-md-2 col-lg-2 stat-spot">
-			<p>Magician</p>
-			<p>Total EXP: <%= clStat[2].classExp %></p>
-		</div>
-		<div class="col-md-2 col-lg-2 stat-spot">
-			<p>Rogue</p>
-			<p>Total EXP: <%= clStat[3].classExp %></p>
-		</div>
-		<div class="col-md-2 col-lg-2 stat-spot">
-			<p>Tinkerer</p>
-			<p>Total EXP: <%= clStat[4].classExp %></p>
-		</div>
-		<div class="col-md-2 col-lg-2 stat-spot">
-			<p>Priest</p>
-			<p>Total EXP: <%= clStat[5].classExp %></p>
+		<div class="clearfix"></div>
+		<div class="user-stats">
+			<% var clStat = eval(stats) %>
+			<div class="col-md-2 col-lg-2 stat-spot">
+				<div class="spacingTool"></div>
+				<p>Dungeon Master</p>
+				<p>Level: <%= pmLvl %>
+				<p>Total EXP: <%= clStat[0].classExp %></p>
+			</div>
+			<div class="col-md-2 col-lg-2 stat-spot">
+				<div class="spacingTool"></div>
+				<p>Warrior</p>
+				<p>Level: <%= warLvl %>
+				<p>Total EXP: <%= clStat[1].classExp %></p>
+			</div>
+			<div class="col-md-2 col-lg-2 stat-spot">
+				<div class="spacingTool"></div>
+				<p>Magician</p>
+				<p>Level: <%= magLvl %>
+				<p>Total EXP: <%= clStat[2].classExp %></p>
+			</div>
+			<div class="col-md-2 col-lg-2 stat-spot">
+				<div class="spacingTool"></div>
+				<p>Rogue</p>
+				<p>Level: <%= rogLvl %>
+				<p>Total EXP: <%= clStat[3].classExp %></p>
+			</div>
+			<div class="col-md-2 col-lg-2 stat-spot">
+				<div class="spacingTool"></div>
+				<p>Tinkerer</p>
+				<p>Level: <%= tinkLvl %>
+				<p>Total EXP: <%= clStat[4].classExp %></p>
+			</div>
+			<div class="col-md-2 col-lg-2 stat-spot">
+				<div class="spacingTool"></div>
+				<p>Priest</p>
+				<p>Level: <%= prLvl %>
+				<p>Total EXP: <%= clStat[5].classExp %></p>
+			</div>
 		</div>
 	</div>
 <% } %>
