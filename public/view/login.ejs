@@ -18,7 +18,7 @@
 					<p><%= piece.status %></p>
 					<form action="/project" method="GET">
 						<input type="hidden" name="projectId" value="<%= piece.id %>">
-						<button class="proj-view-button" type="submit">View Project</button> 
+						<button class="proj-view-button" type="submit">View Quest</button> 
 						<div class="clearfix"></div>
 					</form>
 				</div>
@@ -28,7 +28,7 @@
 		Oh no!
 	<% } %>
 	<form action="/makeProject" method="get">
-		<button class="col-md-12 col-lg-12 make-project" type="submit">Make a Project</button>
+		<button class="col-md-12 col-lg-12 make-project" type="submit">Start a Quest</button>
 	</form>
 	<!--<form id="emailForm" action="/email/test" method="post">
       Send To:<br>
