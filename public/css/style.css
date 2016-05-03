@@ -404,6 +404,9 @@ form{
 	color: white;
 	width: 100%;
 }
+.waterfallForm{
+	padding-bottom:90px;
+}
 .formInput{
 	border: none;
 	background-color: #555;
@@ -415,4 +418,12 @@ form{
 	margin: 0 auto;
 	width: 50%;
 	margin-bottom: 10px;
+}
+#projectForm{
+	margin: 0 auto;
+	color: white;
+	padding: 20px;
+	border-radius: 10px;
+	background-color: #555;
+	width: 75%;
 }
