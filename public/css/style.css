@@ -43,6 +43,18 @@ form{
 .spacingTool{
 	height:5px;
 }
+#twitter-share{
+	position: relative;
+	top: 10px;
+}
+#facebook-share{
+	position: relative;
+	top: 10px;
+}
+#linkedin-share{
+	position: relative;
+	top: 10px;
+}
 .log-buttons{
 	position: relative;
 	float: right;
