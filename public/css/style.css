@@ -283,11 +283,11 @@ form{
 	float:right;
 	border-radius: 2px;
 	border-style: none;
-	background-color: #FF8878;
+	background-color: #814c9e;
 	color: white;
 }
 .waterfall-task-complete-button:hover{
-	background-color: #E5FF92;
+	background-color: #4C7FCC;
 	color: white;
 }
 
