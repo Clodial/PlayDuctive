@@ -113,13 +113,13 @@
 			<div class="col-md-2 col-lg-2 stat-spot">
 				<div class="spacingTool"></div>
 				<p>Warrior</p>
-				<p>Level: <%= warLvl %>
+				<p>Level: <%= Math.floor(clStat[1].classExp / 100) %>
 				<p>Total EXP: <%= clStat[1].classExp %></p>
 			</div>
 			<div class="col-md-2 col-lg-2 stat-spot">
 				<div class="spacingTool"></div>
 				<p>Magician</p>
-				<p>Level: <%= Math.floor(clStat[1].classExp / 100) %>
+				<p>Level: <%= Math.floor(clStat[2].classExp / 100) %>
 				<p>Total EXP: <%= clStat[2].classExp %></p>
 			</div>
 			<div class="col-md-2 col-lg-2 stat-spot">
